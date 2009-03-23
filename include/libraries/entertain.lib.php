@@ -5,8 +5,8 @@ require_once(PATHS_LIBRARIES . 'schedule.lib.php');
 require_once(PATHS_LIBRARIES . 'rank.lib.php');
 require_once(PATHS_LIBRARIES . 'comments.lib.php');
 
-define(ENTERTAIN_TEMP_PATH, '/storage/www/www.hamsterpaj.net/data/entertain_temp/');
-define(ENTERTAIN_TEMP_URL, '/entertain_temp/');
+define(ENTERTAIN_TEMP_PATH, '/mnt/amuse/entertain_temp/');
+define(ENTERTAIN_TEMP_URL, 'http://amuse.hamsterpaj.net/entertain_temp/');
 
 function entertain_action_get($url)
 {
@@ -1216,7 +1216,7 @@ function entertain_item_preview_draw()
 	switch($extension)
 	{
 		case 'swf':
-			$output = '<object style="width: 460px; height: 345px;" type="application/x-shockwave-flash" data="/entertain_temp/' . $hash . '.' . $extension . '" >
+			$output = '<object style="width: 460px; height: 345px;" type="application/x-shockwave-flash" data="' . ENTERTAIN_TEMP_URL . $hash . '.' . $extension . '" >
 					<param name="movie" value="' . ENTERTAIN_TEMP_URL . $hash . '.' . $extension . '" />
 					<img src="http://images.hamsterpaj.net/logo.png" alt="Hamsterpaj logo" />
 				</object>';
