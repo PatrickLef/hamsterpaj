@@ -5,8 +5,8 @@ require_once(PATHS_LIBRARIES . 'schedule.lib.php');
 require_once(PATHS_LIBRARIES . 'rank.lib.php');
 require_once(PATHS_LIBRARIES . 'comments.lib.php');
 
-define(ENTERTAIN_TEMP_PATH, '/mnt/amuse/entertain_temp/');
-define(ENTERTAIN_TEMP_URL, 'http://amuse.hamsterpaj.net/entertain_temp/');
+define(ENTERTAIN_TEMP_PATH, '/storage/www/amusemaster.hamsterpaj.net/data/entertain_temp/');
+define(ENTERTAIN_TEMP_URL, 'http://amusemaster.hamsterpaj.net/entertain_temp/');
 
 function entertain_action_get($url)
 {
@@ -1252,7 +1252,7 @@ function entertain_item_preview_draw()
 function entertain_item_distribute_new($item)
 {
 	$command = 'cp ' . ENTERTAIN_TEMP_PATH . $_SESSION['new_entertain_temp']['hash'] . '.' . $_SESSION['new_entertain_temp']['extension'] . 
-				' /storage/www/www.hamsterpaj.net/data/distribute/' . $item['entertain_type'] . '/' . $item['handle'] . '.' . $item['extension'];
+				' /storage/www/amusemaster.hamsterpaj.net/data/distribute/' . $item['entertain_type'] . '/' . $item['handle'] . '.' . $item['extension'];
 	shell_exec($command);
 	distribute_item(array('type' => $item['entertain_type'], 'handle' => $item['handle'], 'extension' => $item['extension']));
 }
