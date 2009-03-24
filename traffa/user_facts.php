@@ -6,6 +6,7 @@
 	$ui_options['stylesheets'][] = 'user_profile.css';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
 	$ui_options['stylesheets'][] = 'discussion_forum.css';
+	$ui_options['javascripts'][] = 'user_facts.js';
 
 
 	if(isset($_GET['id']) && is_numeric($_GET['id']))
@@ -140,7 +141,7 @@
 		echo rounded_corners($out_ip, $void, true);
 	}
 
-	$admincontrol_out .= is_privilegied('remove_user') ? '<a href="/admin/remove_user.php?userid=' . $params['user_id'] . '" onclick="return confirm(\'Ta bort användaren?\');">Ta bort</a> | ' . "\n" : '';
+	$admincontrol_out .= is_privilegied('remove_user') ? '<a href="/admin/remove_user.php?userid=' . $params['user_id'] . '" class="remove_user" id="' . $params['user_id'] . '">Ta bort</a> | ' . "\n" : '';
 	$admincontrol_out .= is_privilegied('warnings_admin') ? '<a href="/admin/warnings.php?username=' . $data['username'] . '">Varna!</a> | ' . "\n" : '';
 	$admincontrol_out .= is_privilegied('warnings_admin') ? '<a href="/admin/warnings.php?action=viewhistory&user_id=' . $params['user_id'] . '">Varningshistorik</a> | ' . "\n" : '';
 	$admincontrol_out .= is_privilegied('user_management_admin') ? '<a href="/admin/user_management.php?username=' . $data['username'] . '">User management</a> |' . "\n" : '';
