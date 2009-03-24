@@ -4,7 +4,6 @@
 	$result = mysql_query($query);
 	while($data = mysql_fetch_assoc($result))
 	{
-		log_admin_event('user removed', $data['username'], '2348', $data['id'], $data['id']);
-		login_remove_user($data['id']);
+		login_remove_user($data['id'], 'Automagisk borttagning av användare efter 6 månader.');
 	}
 ?>

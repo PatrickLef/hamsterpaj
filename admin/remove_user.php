@@ -2,26 +2,31 @@
 	require('../include/core/common.php');
 	$ui_options['current_menu'] = 'hamsterpaj';
 	$ui_options['title'] = 'Användare borttagen - Hamsterpaj.net';
-	ui_top($ui_options);
 	
-	if(is_privilegied('remove_user'))
+	// Check if user is privilegied
+	if(!is_privilegied('remove_user'))
 	{
-		if(isset($_GET['userid']) && is_numeric($_GET['userid']))
-		{
-			$query = 'SELECT id, session_id, username FROM login WHERE id = "' . $_GET['userid'] . '"';
-			$result = mysql_query($query) or report_sql_error($query);
-			$data = mysql_fetch_assoc($result);
-			$user_to_sess = $data['session_id'];
-			$userid = $data['id'];
-			$old_username = $data['username'];
-			unlink('/var/lib/php/session2/sess_' . $data['session_id']);
-
-			log_admin_event('user removed', $data['username'], $_SESSION['login']['id'], $_GET['userid'], $_GET['userid']);
-			login_remove_user($_GET['userid']);
-			echo '<h1>Knäppgök borttagen</h1>';
-		}
+		die('Den här sidan är endast för Hamsterpaj\'s moderatorer');
+	}
+	
+	// Check input data
+	if(!isset($_GET['userid']) && !is_numeric($_GET['userid']) && !isset($_GET['removal_message']))
+	{
+		throw New Exception('Inputdatan validerar inte');
 	}
 
+	// Remove the user
+	if(login_remove_user($_GET['userid'], $_GET['removal_message']))
+	{
+		$out = 'Användaren var successfullt borttagen.';
+	}
+	else
+	{
+		$out = 'Nu gick något fel, troligtvis är användaren redan borttagen';
+	}
+
+	ui_top($ui_options);
+	echo $out;
 	ui_bottom();
 ?>
 

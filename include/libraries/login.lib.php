@@ -268,18 +268,38 @@ function cache_update_lastaction()
 	}
 }
 
-function login_remove_user($user_id)
+function login_remove_user($user_id, $removal_message = 'Ingen borttagningsanledning funnen')
 {
-	$sql = 'SELECT username FROM login WHERE id = ' . $user_id . ' LIMIT 1';
-	$result = mysql_query($sql);
+	// Get user data
+	$query = 'SELECT id, session_id, username FROM login WHERE id = "' . $user_id . '" AND username != "Borttagen"';
+	$result = mysql_query($query) or report_sql_error($query);
 	$data = mysql_fetch_assoc($result);
 	
-	if (strtolower($data['username']) == 'borttagen')
+	// If no user was found
+	if(mysql_affected_rows() == 0)
 	{
-		throw new Exception('Inte så hastigt!<br />Det räcker med att ta bort användaren <strong>en</strong> gång :D');
+		return false;
 	}
-	$query = 'UPDATE login SET lastusernamechange = ' . time() . ', lastusername = "' . $data['username'] . '", username = "Borttagen", is_removed = 1 WHERE id = "' . $user_id . '" LIMIT 1';
+	
+	// Kill users session
+	unlink('/var/lib/php/session2/sess_' . $data['session_id']);
+	
+	// Log the action to admin log
+	log_admin_event('user removed', $_GET['removal_message'], $_SESSION['login']['id'], $user_id, $user_id);
+	
+	// Remove the user from the database
+	$query = 'UPDATE login SET lastusernamechange = ' . time() . ', lastusername = username, username = "Borttagen", is_removed = 1, removal_message = "' . $removal_message . '" WHERE id = "' . $user_id . '" AND username != "Borttagen" LIMIT 1';
 	mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+	
+	// If the user was successfully removed, return true
+	if(mysql_affected_rows() == 1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 function session_add_key($sessid, $key, $value)
