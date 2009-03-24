@@ -5,8 +5,8 @@ require_once(PATHS_LIBRARIES . 'schedule.lib.php');
 require_once(PATHS_LIBRARIES . 'rank.lib.php');
 require_once(PATHS_LIBRARIES . 'comments.lib.php');
 
-define(ENTERTAIN_TEMP_PATH, '/mnt/amuse/entertain_temp/');
-define(ENTERTAIN_TEMP_URL, 'http://amuse.hamsterpaj.net/entertain_temp/');
+define(ENTERTAIN_TEMP_PATH, '/storage/www/amusemaster.hamsterpaj.net/data/entertain_temp/');
+define(ENTERTAIN_TEMP_URL, 'http://amusemaster.hamsterpaj.net/entertain_temp/');
 
 function entertain_action_get($url)
 {
