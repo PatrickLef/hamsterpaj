@@ -173,14 +173,7 @@
 		{
 			case 4:
 				$password_input_hashed = hamsterpaj_password($password);
-				if($password_hash === $password_input_hashed)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return($password_hash === $password_input_hashed);
 			break;
 			
 			default:
