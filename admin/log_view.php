@@ -118,8 +118,8 @@
 				$output .= '	<td class="event" >' . $data['event'] . '</td>';
 				$output .= '	<td class="comment" >' . $data['value'] . '</td>';
 				$output .= '	<td>' . fix_time($data['timestamp']) . '</td>';
-				$output .= '	<td>' . ($numeric ? $data['admin_id'] : get_username_by_id($data['admin_id'])) . '</td>';
-				$output .= '	<td>' . ($numeric ? $data['user_id'] : get_username_by_id($data['user_id'])) . '</td>';
+				$output .= '	<td><a href="/traffa/user_facts.php?user_id=' . $data['admin_id'] . '">' . ($numeric ? $data['admin_id'] : get_username_by_id($data['admin_id'])) . '</a></td>';
+				$output .= '	<td><a href="/traffa/user_facts.php?user_id=' . $data['user_id'] . '">' . ($numeric ? $data['user_id'] : get_username_by_id($data['user_id'])) . '</a></td>';
 				$output .= '	<td>' . $data['item_id'] . '</td>';
 				$output .= '</tr>';
 			break;
@@ -179,12 +179,21 @@
 	function get_username_by_id($id)
 	{
 		//hämta användarid
-		$query = 'SELECT username FROM login WHERE id = "'. $id . '"';
+		$query = 'SELECT username, lastusername FROM login WHERE id = "'. $id . '"';
 		$result = mysql_query($query) or die(report_sql_error($query));
 		if($data = mysql_fetch_assoc($result))
-			$username = $data['username'];
+			if($data['username'] != 'Borttagen')
+			{
+				$username = $data['username'];
+			}
+			else
+			{
+				$username = '<span class="removed_user" style="color: red;">' . $data['lastusername'] . '</span>';
+			}
 		else
+		{
 			$username = null;
+		}
 		return $username;
 	}
 
