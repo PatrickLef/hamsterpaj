@@ -63,7 +63,7 @@
 			if(login_validate_password($data['id'], $data['password'], $options['password'], $data['password_version']))
 			{
 				// Show reason for removal
-				$removal_message = isset($data['removal_message']) ? 'Din användare har blivit borttagen med anledningen: ' . $data['removal_message'] : 'Din användare har blivit borttagen, men ingen anledning hittades.';
+				$removal_message = strlen($data['removal_message']) > 0 ? 'Din användare har blivit borttagen med anledningen: ' . $data['removal_message'] : 'Din användare har blivit borttagen, men ingen anledning hittades.';
 				throw new Exception($removal_message);
 			}
 			else
