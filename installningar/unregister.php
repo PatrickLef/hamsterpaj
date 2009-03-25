@@ -12,9 +12,7 @@
 	if($_GET['verify'] == 1)
 	{
 		if (hamsterpaj_password(utf8_decode($_POST['password'])) == $_SESSION['login']['password']) {
-			login_remove_user($_SESSION['login']['id']);
-			$_SESSION = null;
-			session_destroy();
+			login_remove_user($_SESSION['login']['id'], 'Avregistrerade sig');
 			header('Location: /index.php');
 			die();
 		}
