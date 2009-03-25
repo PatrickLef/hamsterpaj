@@ -34,7 +34,7 @@
 				{
 					$options['password'] = utf8_decode($options['password']);
 					$query = 'SELECT id, password, password_version FROM login WHERE is_removed = 0';
-					$query .= ' AND password_version = 4 AND username = "' . $options['username'] . '"';
+					$query .= ' AND username = "' . $options['username'] . '"';
 					$query .= ' LIMIT 1';
 					$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 					$data = mysql_fetch_assoc($result);
