@@ -285,7 +285,7 @@ function login_remove_user($user_id, $removal_message = 'Ingen borttagningsanled
 	unlink('/var/lib/php/session2/sess_' . $data['session_id']);
 	
 	// Log the action to admin log
-	log_admin_event('user removed', $_GET['removal_message'], $_SESSION['login']['id'], $user_id, $user_id);
+	log_admin_event('user removed', $removal_message, $_SESSION['login']['id'], $user_id, $user_id);
 	
 	// Remove the user from the database
 	$query = 'UPDATE login SET lastusernamechange = ' . time() . ', lastusername = username, username = "Borttagen", is_removed = 1, removal_message = "' . $removal_message . '" WHERE id = "' . $user_id . '" AND username != "Borttagen" LIMIT 1';
