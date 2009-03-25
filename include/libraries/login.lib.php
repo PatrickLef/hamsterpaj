@@ -78,7 +78,13 @@
 		{
 			throw new Exception('Det gick inte att logga in med de uppgifter du angav. Detta beror antingen på att du inte angivit korrekt användarnamn och lösenord, eller att användarnamnet inte finns.<br /><br />Har du glömt ditt lösenord? Då finns det inte mycket att göra :(');
 		}
-
+		
+		// If we are using old password, tell the user to change
+		if($data['password_version'] != 4)
+		{
+			throw new Exception('<h2>Du använder ett lösenord baserat på det gamla lösenordssystemet. Av säkerhetsskäl måste du byta, det gör du <a href="/installningar/renew_password.php" style="font-weight: bold">på den här sidan &raquo;</a></h2>');
+		}
+		
 		$user_id = $data['id'];
 		
 		// * Fetch neccessary data from login, userinfo, preferences and traffa-tables and unserialize...
@@ -178,14 +184,7 @@
 			
 			default:
 				$password_input_hashed = sha1($password . PASSWORD_SALT);
-				if($password_hash === $password_input_hashed)
-				{
-					throw new Exception('<h2>Du använder ett lösenord baserat på det gamla lösenordssystemet. Av säkerhetsskäl måste du byta, det gör du <a href="/installningar/renew_password.php" style="font-weight: bold">på den här sidan &raquo;</a></h2>');
-				}
-				else
-				{
-					return false;
-				}
+				return($password_hash === $password_input_hashed);
 			break;
 		}
 	}
