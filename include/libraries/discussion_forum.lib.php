@@ -961,7 +961,13 @@
 	function discussion_forum_thread_list($threads, $options)
 	{
 		$output .= '<table class="forum_thread_list">' . "\n";
-		$output .= '<tr class="headings"><th>Rubrik</th><th>Skapare</th><th>Inlägg</th><th>Olästa</th><th>Poäng</th></tr>' . "\n";
+		$output .= '<tr class="headings">' . "\n";
+		// A column for the "remove notice"-eye if it should be one.
+		if($options['notice_listing'] == true && isset($options['notice_listing']))
+		{
+			$output .= '<th></th>' . "\n";
+		}
+		$output .= '<th>Rubrik</th><th>Skapare</th><th>Inlägg</th><th>Olästa</th><th>Poäng</th></tr>' . "\n";
 		$zebra = 'odd';
 		foreach($threads AS $thread)
 		{
