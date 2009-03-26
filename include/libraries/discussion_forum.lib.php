@@ -122,10 +122,6 @@
 		if(strlen($post['content']) <= 3) {
 			die('Mer än så där får du allt skriva!');
 		}
-		if(content_check($post['content']) != 1)
-		{
-			die(content_check($post['content']));
-		}
 		
 		$post['timestamp'] = (isset($post['timestamp'])) ? $post['timestamp'] : time();
 		$post['handle'] = (isset($post['title'])) ? discussion_forum_post_handle($post['title']) : '';
@@ -260,7 +256,14 @@
 			$return .= '<div class="passepartout">' . "\n";
 			$return .= ui_avatar($data['author']);
 			$return .= '</div>' . "\n";
-			$return .= '<span class="gender">' .  str_replace(array('m', 'f', 'u'), array('P', 'F', ''), $data['gender'] ) . '</span>' . "\n";
+			if($data['gender'] == 'f')
+			{
+				$return .= '<span class="gender">F</span>' . "\n";
+			}
+			elseif($data['gender'] == 'm')
+			{
+				$return .= '<span class="gender">P</span>' . "\n";
+			}
 			if($data['birthday'] != '0000-00-00')
 			{
 				$return .= '<span class="age">' . date_get_age($data['birthday']) . '</span>' . "\n";
@@ -961,7 +964,7 @@
 	function discussion_forum_thread_list($threads, $options)
 	{
 		$output .= '<table class="forum_thread_list">' . "\n";
-		$output .= '<tr class="headings"><th></th><th>Rubrik</th><th>Skapare</th><th>Inlägg</th><th>Olästa</th><th>Poäng</th></tr>' . "\n";
+		$output .= '<tr class="headings"><th>Rubrik</th><th>Skapare</th><th>Inlägg</th><th>Olästa</th><th>Poäng</th></tr>' . "\n";
 		$zebra = 'odd';
 		foreach($threads AS $thread)
 		{
