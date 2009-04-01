@@ -327,7 +327,7 @@
 		}
 		
 		/* Block posts about "Aprils fool" on the 1st of april every year */
-		/*
+		
 		$aprils_fool_blocks = array(
 				'april', 
 				'almanacka', 
@@ -352,7 +352,7 @@
 					return 'Snälla, du kan väl låta bli att avslöja för alla att det är första april idag? Det förstör liksom hela poängen...';
 				}
 			}
-			*/
+			
 			
 			/* Block everything that has to do with cool-guy or star-mia */
 		
