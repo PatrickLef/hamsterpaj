@@ -24,7 +24,7 @@
 			
 			$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 				
-			if(mysql_num_rows($result) > 0)
+			if(mysql_num_rows($result) > 0 && !in_array($options['user_id'], array('489591', '643392')))
 			{
 				$data = mysql_fetch_assoc($result);
 				
