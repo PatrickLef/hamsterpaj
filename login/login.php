@@ -6,7 +6,7 @@
 		try
 		{
 			login_dologin(array(
-				'username' => str_replace('@', ' ', $_POST['username']),
+				'username' => $_POST['username'],
 				'password' => $_POST['password'],
 				'method' => 'username_and_password'
 			));
