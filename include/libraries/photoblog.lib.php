@@ -283,8 +283,15 @@
 				}
 			}
 		}
-				
+			
 		return $categories;
+	}
+	
+	function photoblog_categories_new($options)
+	{
+		$query = 'INSERT INTO user_photo_categories (user, name) VALUES("' . $options['user'] . '", "' . $options['name'] . '")';	
+		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		return (mysql_insert_id() > 0);
 	}
 	
 	function photoblog_comments_fetch($options = array())
