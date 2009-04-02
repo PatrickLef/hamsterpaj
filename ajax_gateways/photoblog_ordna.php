@@ -33,6 +33,25 @@ try {
 			);
 			photoblog_categories_new($options);
 		break;
+		
+		case 'album_edit':
+			if ( ! isset($_GET['id']) || ! is_numeric($_GET['id']) )
+			{
+				throw new Exception('No ID provided');
+			}
+			
+			if ( empty($_GET['name']) )
+			{
+				throw new Exception('Name cannot be empty');
+			}
+			
+			$options = array(
+				'id' => $_GET['id'],
+				'user' => $_SESSION['login']['id'],
+				'name' => $_GET['name']
+			);
+			photoblog_categories_edit($options);
+		break;
 	}
 } catch (Exception $e) {
 	echo $e->getMessage();

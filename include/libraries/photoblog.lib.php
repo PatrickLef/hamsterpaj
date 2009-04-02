@@ -294,6 +294,15 @@
 		return (mysql_insert_id() > 0);
 	}
 	
+	function photoblog_categories_edit($options)
+	{
+		$query = 'UPDATE user_photo_categories';
+		$query .= ' SET name = "' . $options['name'] . '"';
+		$query .= ' WHERE user = ' . $options['user'] . ' AND id = ' . $options['id'];
+		$query .= ' LIMIT 1';
+		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+	}
+	
 	function photoblog_comments_fetch($options = array())
 	{
 		$options['order_by_field'] = isset($options['order_by_field']) ? $options['order_by_field'] : 'c.comment_id';

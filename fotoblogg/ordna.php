@@ -30,7 +30,10 @@
     
     foreach ( $albums as $id => $album )
     {
-        $out .= '<h2>' . (! strlen($categories[$id]['name']) ? 'Inget namn' : $categories[$id]['name']) . ' <input type="text" value="Ändra namn eller nåt" /></h2>';
+    	$out .= '<form class="photoblog_album_edit" action="/ajax_gateways/photoblog_ordna.php" method="get">';
+        $out .= '<h2><span>' . (! strlen($categories[$id]['name']) ? 'Inget namn' : $categories[$id]['name']) . '</span> <input type="text" name="name" value="' . $categories[$id]['name'] . '" /> <input type="submit" value="Spara" /></h2>';
+        $out .= '<input type="hidden" name="action" value="album_edit" /><input type="hidden" name="id" value="' . $id . '" />';
+        $out .= '</form>';
         $out .= '<ul id="album_' . $id . '">';
         $out .= implode('', $album);
         $out .= '</ul>';
