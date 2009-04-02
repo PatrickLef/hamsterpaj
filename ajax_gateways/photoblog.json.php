@@ -85,7 +85,7 @@
 			break;
                     
                         case 'sort_save':
-                            photoblog_sort_save($_POST['data']);
+                            photoblog_sort_save($_OLD_POST['data']);
                         break;
 			
 			default:
