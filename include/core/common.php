@@ -24,6 +24,7 @@
 		}
 	}
 	
+	$_OLD_POST = $_POST;
 	$_POST = $new_post;
 	$_GET = $new_get;
 	unset($new_post, $new_get);
