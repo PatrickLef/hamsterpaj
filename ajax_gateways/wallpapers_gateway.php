@@ -85,13 +85,13 @@ if(!is_privilegied('backgrounds_admin'))
 			if(isset($_GET['id']))
 			{
 				$form = $_GET;
-				$query = 'UPDATE '.WALLPAPERS_TABLE.' SET title = "'.$form['title'].'", cid = '.$form['cat'].', user_id = '.$_SESSION['login']['id'].' WHERE id = '.$_GET['id'].' LIMIT 1';
+				$query = 'UPDATE '.WALLPAPERS_TABLE.' SET title = "'.$form['title'].'", cid = "'.$form['cat'].'", user_id = "'.$_SESSION['login']['id'].'" WHERE id = "'.$_GET['id'].'" LIMIT 1';
 				mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 				
 				$tags = explode(',', $form['tags']);
 				foreach($tags as $tag)
 				{
-					$query = 'INSERT INTO '.WALLPAPERS_TAGS.'(tag, pid) VALUES("'.$tag.'", '.$_GET['id'].')';
+					$query = 'INSERT INTO '.WALLPAPERS_TAGS.'(tag, pid) VALUES("'.$tag.'", "'.$_GET['id'].'")';
 					mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 				}
 			}

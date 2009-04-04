@@ -43,8 +43,8 @@ if(isset($_COOKIE["users_resolution"]))
 {
 	$screen_res = $_COOKIE["users_resolution"];
 	$screen_res = split('x', $screen_res);
-	$resolution['w'] = $screen_res[0];
-	$resolution['h'] = $screen_res[1];
+	$resolution['w'] = intval($screen_res[0]);
+	$resolution['h'] = intval($screen_res[1]);
 }
 else //means cookie is not found set it using Javascript
 {
