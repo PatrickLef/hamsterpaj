@@ -86,6 +86,19 @@ h4 {
 	
 /*
 	################################################################
+		AD WRAPPER
+		
+		Wraps the whole site to make sure float_right ad's doesn't
+		fall down.
+	################################################################
+*/
+
+#ad_wrapper {
+	width: 1180px;
+}
+	
+/*
+	################################################################
 		UI WRAPPER
 		
 		Wraps the Hamsterpaj layout

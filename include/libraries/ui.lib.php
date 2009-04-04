@@ -144,6 +144,8 @@ function ui_top($options = array())
 	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
 	$output .= '</div>' . "\n";
 	
+	//The ad-wrapper is there to make sure right side ad's doesn't fall down
+	$output .= '<div id="ad_wrapper">' . "\n";
 	$output .= '	<div id="ui_wrapper">' . "\n";
 	$custom_logo_style = (isset($options['custom_logo'])) ? 'style="background-image: url(\'' . $options['custom_logo'] . '\');"' : '';
 	$output .= '		<div id="ui_header">' . "\n";
@@ -453,7 +455,11 @@ function ui_bottom($options = array())
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
 	$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
 	$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
+	$output .= '<br style="clear: both;" />' . "\n";
 	$output .= '<script type="text/javascript" src="http://www.adtrade.net/ad/p/?id=hamsterpaj_1&size=140x350&ad=001" charset="iso-8859-1"></script>';
+	$output .= '</div>' . "\n";
+	
+	// Close id="ad_wrapper"
 	$output .= '</div>' . "\n";
 	
 	$output .= '<!-- START Nielsen//NetRatings SiteCensus V5.2 -->' . "\n";
