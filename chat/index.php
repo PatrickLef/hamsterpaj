@@ -62,13 +62,12 @@
 		<p>
 			Öppen för alla som vill hitta någon ny människa att prata med
 		</p>
-	
+		</a>
 		<ul>
 			<li>Inget tjat om webcam</li>
 			<li>Inget <em>"Skriv 123 om du vill chatta"</em></li>
 			<li>Lyd om någon med % eller @ före namnet säger till dig</li>	
 		</ul>
-	</a>
 </div>
 
 <div class="chat_channel">
@@ -78,11 +77,11 @@
 		<p>
 			Chatta med folk som lyssnar på radion, prata med DJs och annat. :)
 		</p>
-	
+		</a>
 		<ul>
-			<li>Lyd om någon med % eller @ före namnet säger till dig</li>	
+			<li>Lyd om någon med % eller @ före namnet säger till dig</li>
+			<li><a href="/radio/">Lyssna på radion här</a></li>
 		</ul>
-	</a>
 </div>
 
 <div class="chat_channel">
@@ -95,7 +94,7 @@
 			<p>Öppet för det mesta - utom sexsnack.</p>
 			<p>Inga cam-förfrågningar!</p>
 		</p>
-	</a>
+</a>
 </div>
 
 <div class="chat_channel">
@@ -116,11 +115,10 @@
 		<p>
 			Musikkanalen här på Hamsterpaj!
 		</p>
-	
+		</a>
 		<ul>
 			<li>MP3-script tillåtna</li>
 		</ul>
-	</a>
 </div>
 
 
@@ -131,13 +129,12 @@
 		<p>
 			Hjälpkanal för webbutveckling; CSS, (X)HTML, MySQL, PHP
 		</p>
-	
+	</a>
 		<ul>
 			<li>Du ska kunna grundläggade HTML för att få vara här</li>
 			<li>Länka till dina problem</li>
 			<li>Klistra inte in kod i kanalen</li>
 		</ul>
-	</a>
 </div>
 
 
@@ -149,11 +146,10 @@
 			Frågesport på chatten. Tävla mot andra och se vem som fortast kommer på rätt svar i frågor
 			om allt mellan himmel och jord.
 		</p>
-	
+	</a>
 		<ul>
 			<li>Skriv <strong>!ask</strong> för att starta en ny omgång</li>
 		</ul>
-	</a>
 </div>
 
 <br style="clear: both;" />
