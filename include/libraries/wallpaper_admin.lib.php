@@ -265,7 +265,7 @@ function url_to_form($form){
 
 function get_cats($val, $level = 0, $cat)
 { 
-	$query = 'SELECT title, id FROM '.WALLPAPERS_CATS.' WHERE pid = '.$val.' AND is_removed = 0';
+	$query = 'SELECT title, id FROM '.WALLPAPERS_CATS.' WHERE pid = "'.$val.'" AND is_removed = 0';
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE);
 
 	$out = '';
