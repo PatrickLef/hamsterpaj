@@ -38,7 +38,8 @@
 	$trivia_link = '<a href="javascript: void(0);" onclick="window.open(\'' . $url . '&amp;chan=trivia' . '\',\'' . rand() . '\',\'toolbar=no, width=640, height=478\')">';
 	$webdesign_link = '<a href="javascript: void(0);" onclick="window.open(\'' . $url . '&amp;chan=webdesign' . '\',\'' . rand() . '\',\'toolbar=no, width=640, height=478\')">';
 	$musik_link = '<a href="javascript: void(0);" onclick="window.open(\'' . $url . '&amp;chan=musik' . '\',\'' . rand() . '\',\'toolbar=no, width=640, height=478\')">';
-
+	$radio_link = '<a href="javascript: void(0);" onclick="window.open(\'' . $url . '&amp;chan=hamsterradio' . '\',\'' . rand() . '\',\'toolbar=no, width=640, height=478\')">';
+	
 	$chattare = file_get_contents('clients.txt');
 	$chattare = explode("\n", $chattare);
 ?>
@@ -65,6 +66,19 @@
 		<ul>
 			<li>Inget tjat om webcam</li>
 			<li>Inget <em>"Skriv 123 om du vill chatta"</em></li>
+			<li>Lyd om någon med % eller @ före namnet säger till dig</li>	
+		</ul>
+	</a>
+</div>
+
+<div class="chat_channel">
+	<?php echo $radio_link; ?>
+		<h3 class="channel">#Hamsterradio</h3>
+		<p>
+			Chatta med folk som lyssnar på radion, prata med DJs och annat. :)
+		</p>
+	
+		<ul>
 			<li>Lyd om någon med % eller @ före namnet säger till dig</li>	
 		</ul>
 	</a>
