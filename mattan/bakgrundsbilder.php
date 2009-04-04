@@ -102,7 +102,7 @@ if(!isset($_GET['action']) || $_GET['action'] != 'preview')
 $query = 'SELECT a.id, a.title
  FROM '.WALLPAPERS_CATS.' AS a
  LEFT JOIN '.WALLPAPERS_TABLE.' AS b ON b.cid = a.id
- WHERE a.pid = '.$cat.' AND a.is_removed = 0
+ WHERE a.pid = "'.$cat.'" AND a.is_removed = 0
  AND (
 	SELECT COUNT(*) FROM '.WALLPAPERS_TABLE.' AS c WHERE c.cid = a.id AND c.is_verified = 1
  ) > 0 
@@ -117,7 +117,7 @@ $query = 'SELECT a.id, a.title
 
 		while($data = mysql_fetch_assoc($result))
 		{
-			$query_all_img = 'SELECT NULL FROM '.WALLPAPERS_TABLE.' WHERE cid = '.$data['id'].' AND is_removed = 0 AND is_verified = 1';
+			$query_all_img = 'SELECT NULL FROM '.WALLPAPERS_TABLE.' WHERE cid = "'.$data['id'].'" AND is_removed = 0 AND is_verified = 1';
 			$result_all_img = mysql_query($query_all_img) or report_sql_error($query_all_img, __FILE__, __LINE__);
 			$num_all_img = mysql_num_rows($result_all_img);
 			
@@ -130,7 +130,7 @@ $query = 'SELECT a.id, a.title
 				LEFT JOIN '.WALLPAPERS_CATS.' AS d ON a.cid = d.id
 				WHERE c.resolution_w = '.intval($resolution['w']).'
 				AND c.resolution_h = '.intval($resolution['h']).'
-				AND d.id ='.$data['id'].'
+				AND d.id = "'.$data['id'].'"
 				 AND a.is_removed = 0
 				 AND a.is_verified = 1';
 				$result_img = mysql_query($query_img) or report_sql_error($query_img, __FILE__, __LINE__);
