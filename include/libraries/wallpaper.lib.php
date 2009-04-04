@@ -137,7 +137,7 @@ function wallpapers_action_view_cat($arg)
 	$out = '';
 
 	$cat = isset($_GET['cat']) ? $_GET['cat'] : 0;
-	$query = 'SELECT title FROM '.WALLPAPERS_CATS.' WHERE id = '.$cat.' AND is_removed = 0 LIMIT 1';
+	$query = 'SELECT title FROM '.WALLPAPERS_CATS.' WHERE id = "'.$cat.'" AND is_removed = 0 LIMIT 1';
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	
 	if(mysql_num_rows($result) > 0)
@@ -205,7 +205,7 @@ function wallpapers_action_preview($arg)
 	$query = 'SELECT a.title, a.extension
 	FROM '.WALLPAPERS_TABLE.' AS a 
 	LEFT JOIN '.WALLPAPERS_CATS.' AS d ON a.cid = d.id
-	WHERE a.id = '.$id.' 
+	WHERE a.id = "'.$id.'" 
 	AND a.is_removed = 0 
 	AND d.is_removed = 0
 	AND a.is_verified = 1
@@ -217,13 +217,13 @@ function wallpapers_action_preview($arg)
 	$data = mysql_fetch_assoc($result);
 	
 	//next wallpaper
-	$query = 'SELECT id FROM `'.WALLPAPERS_TABLE.'` WHERE id > '.$id.' AND cid = '.$cat.' AND is_removed = 0 AND is_verified = 1 LIMIT 1';
+	$query = 'SELECT id FROM `'.WALLPAPERS_TABLE.'` WHERE id > "'.$id.'" AND cid = "'.$cat.'" AND is_removed = 0 AND is_verified = 1 LIMIT 1';
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	$next = (mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result) : false);
 	$next = $next['id'];
 
 	//previous wallpaper
-	$query = 'SELECT id FROM `'.WALLPAPERS_TABLE.'` WHERE id < '.$id.' AND cid = '.$cat.' AND is_removed = 0 AND is_verified = 1 ORDER BY id DESC LIMIT 1';
+	$query = 'SELECT id FROM `'.WALLPAPERS_TABLE.'` WHERE id < "'.$id.'" AND cid = "'.$cat.'" AND is_removed = 0 AND is_verified = 1 ORDER BY id DESC LIMIT 1';
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	$previous = (mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result) : false);
 	$previous = $previous['id'];
@@ -259,7 +259,7 @@ function wallpapers_action_preview($arg)
 	LEFT JOIN '.WALLPAPERS_RES_RELATION.' AS b ON b.resolution_pid = a.id 
 	LEFT JOIN '.WALLPAPERS_TABLE.' AS c ON c.id = b.pid 
 	LEFT JOIN '.WALLPAPERS_CATS.' AS d ON c.cid = d.id
-	WHERE c.id = '.$id.' 
+	WHERE c.id = "'.$id.'" 
 	AND a.is_removed = 0
 	AND b.is_removed = 0
 	AND c.is_removed = 0
@@ -332,7 +332,7 @@ $out = '';
 			LEFT JOIN '.WALLPAPERS_CATS.' AS b ON a.cid = b.id
 			LEFT JOIN '.WALLPAPERS_RES_RELATION.' AS c ON a.id = c.pid
 			LEFT JOIN '.WALLPAPERS_RES.' AS d ON c.resolution_pid = d.id
-			WHERE a.id = '.$data['pid'].' 
+			WHERE a.id = "'.$data['pid'].'" 
 			AND d.resolution_w = '.intval($arg['resolution']['w']).'
 			AND d.resolution_h = '.intval($arg['resolution']['h']).' 
 			AND a.is_removed = 0
@@ -346,7 +346,7 @@ $out = '';
 			$query = 'SELECT a.downloads, a.extension, a.title, a.id, a.cid 
 			FROM '.WALLPAPERS_TABLE.' AS a 
 			LEFT JOIN '.WALLPAPERS_CATS.' AS b ON a.cid = b.id
-			WHERE a.id = '.$data['pid'].' 
+			WHERE a.id = "'.$data['pid'].'" 
 			AND a.is_removed = 0
 			AND b.is_removed = 0
 			AND a.is_verified = 1';
@@ -384,7 +384,7 @@ $out = '';
 
 function get_cats($val, $level = 0, $id = false)
 { 
-   $query = 'SELECT title, id FROM '.WALLPAPERS_CATS.' WHERE pid = '.$val.' AND is_removed = 0';
+   $query = 'SELECT title, id FROM '.WALLPAPERS_CATS.' WHERE pid = "'.$val.'" AND is_removed = 0';
    $result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE);
 
 	$out = '';
