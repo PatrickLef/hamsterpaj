@@ -74,6 +74,7 @@
 <div class="chat_channel">
 	<?php echo $radio_link; ?>
 		<h3 class="channel">#Hamsterradio</h3>
+		<h3 class="client_count">(150 chattare)</h3>
 		<p>
 			Chatta med folk som lyssnar på radion, prata med DJs och annat. :)
 		</p>
