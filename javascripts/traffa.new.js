@@ -24,7 +24,7 @@ error.info += '<li>Födelsedatum</li>';
 error.info += '<li>Bild</li>';
 error.info += '</ul>';
 error.info += '<br />';
-error.info += '<a href="http://igge.t67.se/installningar/generalsettings.php">Ändra inställningarna</a>';
+error.info += '<a href="/installningar/generalsettings.php">Ändra inställningarna</a>';
 
 
 function updatequestion(qid)
