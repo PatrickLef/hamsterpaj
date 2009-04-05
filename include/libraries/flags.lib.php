@@ -18,7 +18,7 @@ function user_flags_front($userflags = array())
 	//Sort the flags in the following order:
 	
 	//singel, homosexual, grown_up, ...
-	$flags_order = array(139, 95, 76);
+	$flags_order = array(140, 95, 76);
 	
 	//country, ...
 	$flags_order = array_merge($flags_order, range(55, 75), array(86), range(88, 94), range(96, 98));
