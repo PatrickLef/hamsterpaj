@@ -27,7 +27,7 @@
 	$o .= '<div class="setupquestion"></div>' . "\n";
 	$o .= '</div>' . "\n";
 	$o .= '<br style="clear: both;" />' . "\n";
-	$o .= '<input class="reloadbutton" type="button" value="Reload" />' . "\n";
+	$o .= '<input class="reloadbutton" type="button" value="Ladda om" />' . "\n";
 	$o .= '<div id="search_desc"></div>' . "\n";
 	$o .= '<ul class="userboxcontainer"></ul>' . "\n";
 	$o .= '<br style="clear: both;" />' . "\n";

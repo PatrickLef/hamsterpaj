@@ -309,7 +309,7 @@ $(document).ready(function() {
 	
 	if(userinfo.checklogin)
 	{
-		if(userinfo.gender != 'u' && userinfo.birth > 0) // && userinfo.avatar > 0
+		if(userinfo.gender != 'u' && userinfo.birth > 0 && userinfo.avatar > 0)
 		{
 			//Load all genders in update action
 			loadgender('all', 'update');
