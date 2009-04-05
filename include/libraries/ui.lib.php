@@ -143,6 +143,10 @@ function ui_top($options = array())
 	$output .= '<div>' . "\n";
 	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
 	$output .= '</div>' . "\n";
+
+	$output .= '<div>' . "\n";
+	$output .= hpads_display('bigbanner');
+	$output .= '</div>' . "\n";
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="ad_wrapper">' . "\n";
