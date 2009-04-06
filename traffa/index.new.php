@@ -14,6 +14,7 @@
 	$o .= '<input type="hidden" name="userinfo_gender" value="' . $_SESSION['userinfo']['gender'] . '" />' . "\n";
 	$o .= '<input type="hidden" name="userinfo_birth" value="' . $birthsplit[0] . '" />' . "\n";
 	$o .= '<input type="hidden" name="userinfo_avatar" value="' . $_SESSION['userinfo']['image'] . '" />' . "\n";
+	$o .= '<input type="hidden" name="userinfo_environment" value="' . ENVIRONMENT . '" />' . "\n";
 	$o .= '</form>' . "\n";
 	$o .= '<div class="setupmaskot">' . "\n";
 	$o .= '<input class="optionbutton optionbutton_hover" id="nav_back" type="button" title="Bakåt" value="&laquo; Bak" />' . "\n";

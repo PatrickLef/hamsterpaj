@@ -8,8 +8,8 @@
 	$maxboxes = 9;
 	$amount = is_numeric($_GET['amount']) ? $_GET['amount'] : 0;
 	$existingboxes = split(',', $_GET['existingboxes']);
-	$agemin = date('Y') - $_GET['agemin'];
-	$agemax = date('Y') - $_GET['agemax'];
+	$agemin = is_numeric($_GET['agemin']) ? (date('Y') - $_GET['agemin']) : 0;
+	$agemax = is_numeric($_GET['agemax']) ? (date('Y') - $_GET['agemax']) : 0;
 	$flags_list = user_flags_fetch();
 	
 	//Remove empty values
@@ -45,7 +45,7 @@
 		array_splice($limited_flags, 5);
 		
 		//Main card
-		$o .= '<li id="' . $userid . '" class="userbox ' . ($data['gender'] == 'm' ? 'male' : ($data['gender'] == 'f' ? 'female' : 'female')) . ' birth' . $birthsplit[0] . ' ' . ' newbox" style="display: none;" onClick="displayuser(' . $userid . ', \'' . $data['gender'] . '\');">' . "\n";
+		$o .= '<li id="' . $userid . '" class="userbox ' . ($data['gender'] == 'm' ? 'male' : ($data['gender'] == 'f' ? 'female' : 'undefined')) . ' birth' . $birthsplit[0] . ' ' . ' newbox" style="display: none;" onClick="displayuser(' . $userid . ', \'' . $data['gender'] . '\');">' . "\n";
 		$o .= '<p class="username">' . $data['username'] . ' ' . ($data['gender'] == 'm' ? 'P' : 'F') . date_get_age($data['birthday']) . '</p><br />' . "\n";
 		$o .= '<img src="' . IMAGE_URL . 'images/users/thumb/' . $userid . '.jpg" height="90" style="float: left; margin: 5px;" />';
 		$o .= '<div class="flagcontainer">';

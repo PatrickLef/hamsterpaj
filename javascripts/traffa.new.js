@@ -139,7 +139,7 @@ function loadgender(gender, action)
 		var class_string = $(this).attr("class");
 		var birth_match = class_string.search("birth");
 		var birth_year = parseInt(class_string.substr(birth_match + 5));
-		if(birth_year <= (this_year - setupagemin) || birth_year >= (this_year - setupagemax))
+		if(birth_year >= (this_year - setupagemin) || birth_year <= (this_year - setupagemax))
 		{
 			$(this).addClass("remove");
 		}
@@ -174,7 +174,7 @@ function loadgender(gender, action)
 	
 	//Define existing boxes
 	var existingboxes = '';
-	$(".userboxcontainer .userbox:not(.remove)").each(function(i) {
+	$(".userboxcontainer .userbox:not(.remove)").each(function() {
 		existingboxes += ',' + $(this).attr("id");
 	});
 	
@@ -276,6 +276,7 @@ function getuserinfo()
 	userinfo.avatar = parseInt($("form[@name='userinfo'] input[@name='userinfo_avatar']").val());
 	userinfo.age = this_year - userinfo.birth;
 	userinfo.checklogin = (userinfo.username != '' ? true : false);
+	userinfo.environment = $("form[@name='userinfo'] input[@name='userinfo_environment']").val();
 }
 
 
@@ -309,7 +310,7 @@ $(document).ready(function() {
 	
 	if(userinfo.checklogin)
 	{
-		if(userinfo.gender != 'u' && userinfo.birth > 0 && userinfo.avatar > 0)
+		if(userinfo.gender != 'u' && userinfo.birth > 0 && (userinfo.avatar > 0 || userinfo.environment == 'development'))
 		{
 			//Load all genders in update action
 			loadgender('all', 'update');
