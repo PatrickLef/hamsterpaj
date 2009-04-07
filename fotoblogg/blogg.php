@@ -13,70 +13,10 @@
 			$date = $highest_date;
 		}
 		
-		$user_id = $photoblog_user['id'];		
 		$options = array(
-			'user' => $user_id,
-			'month' => $date
+			'user_id' => $photoblog_user['id'],
+			'date' => $date
 		);
 		
-		define('PHOTOBLOG_CURRENT_YEAR', substr($date, 0, 4));
-		define('PHOTOBLOG_CURRENT_MONTH', substr($date, 4, 2));
-		define('PHOTOBLOG_CURRENT_USER', $photoblog_user['id']);
-		
-		$photos = photoblog_photos_fetch($options);
-		$out .= '<div id="photoblog_thumbs">';
-			$out .= '<div id="photoblog_thumbs_container">';
-				$out .= '<div id="photoblog_thumbs_inner">';
-					$out .= '<dl>';
-					$out .= '<dt id="photoblog_prevmonth"><a id="prevmonth" title="F&ouml;reg&aring;ende m&aring;nad" href="#prev-month">F&ouml;reg&aring;ende m&aring;nad</a></dt>';
-					$is_first = true;
-					$last_day = array('date' => null, 'formatted' => null);
-					if ( ! count($photos) )
-					{
-						$out .= '<dt>Här var det tomt...</dt>';
-					}
-					
-					$photos_last_index = count($photos) - 1;
-					
-					foreach ( $photos as $key => $photo )
-					{
-						if ( $last_day['date'] != $photo['date'] )
-						{
-							$last_day['date'] = $photo['date'];
-							$last_day['formatted'] = date('j/n', strtotime($photo['date']));
-							$out .= '<dt>' . $last_day['formatted'] . '</dt>';
-						}
-						$class = '';
-						if ( $key == 0 ) $class = ' class="first-image"';
-						elseif ( $key == $photos_last_index ) $class = ' class="last-image"';
-						$out .= '<dd' . $class . '><a title="' . $photo['date'] . '" ' . ($key == $photos_last_index ? 'class="photoblog_active"' : '') . ' href="#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a></dd>';
-					}
-					
-					$out .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';
-					$out .= '</dl>';
-				$out .= '</div>';
-			$out .= '</div>';
-		$out .= '</div>';
-		$out .= '<div id="photoblog_image">';
-		$last_photo = $photos[$photos_last_index];
-		$out .= '<p><img src="' . IMAGE_URL . 'photos/full/' . floor($last_photo['id'] / 5000) . '/' . $last_photo['id'] . '.jpg" alt="" /></p>';
-		$out .= '</div>';
-		$out .= '<div id="photoblog_description">';
-			$out .= '<div id="photoblog_description_text">';
-				$out .= $last_photo['description'];
-				$out .= '</div>';
-		$out .= '</div>';
-		
-		$out .= '<script type="text/javascript">';
-			$out .= 'hp.photoblog.current_user = {';
-				$out .= 'id: ' . $user_id;
-			$out .= '};';
-			$out .= 'hp.photoblog.view.current_id = ' . $last_photo['id'];
-		$out .= '</script>';
-		
-		// Some test-data
-		$comments = photoblog_comments_fetch(array('photo_id' => $last_photo['id']));
-		
-		$out .= photoblog_comments_form($options);
-		$out .= photoblog_comments_list($comments);
+		$out .= photoblog_viewer($options);
 ?>
