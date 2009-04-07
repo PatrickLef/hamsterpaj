@@ -1,7 +1,6 @@
 <?php
 	require('../include/core/common.php');
 	include_once(PATHS_LIBRARIES . 'sex_sense.lib.php');
-	include_once(PATHS_LIBRARIES . 'sex_sense_ui.lib.php');
 	include_once(PATHS_LIBRARIES . 'guestbook.lib.php');
 	include_once(PATHS_LIBRARIES . 'discussion_forum.lib.php');
 	$ui_options['stylesheets'][] = 'sex_sense.css';
