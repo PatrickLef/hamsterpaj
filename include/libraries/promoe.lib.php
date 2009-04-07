@@ -8,14 +8,14 @@ function promoe_thumbs_list($heading, $promoes)
 	{
 		$return .= '<div>' . "\n";
 		$return .= '<span class="time">' . date('Y-m-d H:i', $promoe['date']) . '</span>' . "\n";
-		$return .= '<a href="/annat/promoe.php?view=' . $promoe['id'] . '">' . "\n";
+		$return .= '<a href="/mattan/promoe.php?view=' . $promoe['id'] . '">' . "\n";
 		if(isset($promoe['imagestring']))
 		{
-			$return .= '<img src="/annat/promoe_png.php?imagestring=' . $promoe['imagestring'] . '" />' . "\n";	
+			$return .= '<img src="/mattan/promoe_png.php?imagestring=' . $promoe['imagestring'] . '" />' . "\n";	
 		}
 		else
 		{
-			$return .= '<img src="/annat/promoe_png.php?id=' . $promoe['id'] . '" />' . "\n";	
+			$return .= '<img src="/mattan/promoe_png.php?id=' . $promoe['id'] . '" />' . "\n";	
 		}
 		$return .= '</a>' . "\n";
 		$return .= '<a href="/traffa/profile.php?id=' . $promoe['author_id'] . '">' . $promoe['author_username'] . '</a>' . "\n";
