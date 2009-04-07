@@ -126,6 +126,9 @@ function dl_question_answer($question, $answer)
 
 function dl_clear_category()
 {
+	if (!preg_match('#^[a-z_]+$#', $_GET['category'])) {
+		die('FülhakkKkarrRReh!');
+	}
 	$query = 'UPDATE dl_scores SET ' . $_GET['category'] . ' = 0 WHERE user = "' . $_SESSION['login']['id'] . '"';
 	mysql_query($query);
 	
