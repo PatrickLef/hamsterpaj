@@ -89,12 +89,4 @@
 
 	$hp_path = $_SERVER['DOCUMENT_ROOT'] . '/'; // This is the server path to your application
 	$hp_url = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-
-/*
-	################################################################
-	 You probably don't care about those constants because they 
-	 aren't specific for your environment.
-	################################################################
-*/
-	define('USERS_ONLINE_TIMEOUT', 600); // How many seconds since lastaction is a user to displayed "online"? (I think this should be moved to some kind of login.conf.php)
 ?>
