@@ -36,7 +36,7 @@
 	GLOBALA VARIABLER
 	- - - - - - - - - - - - - - 
 	*/		
-	$avatar_tmp_path = $hp_path . 'tmp/avatars/'; 	// Temporär sökväg till avatars
+	$avatar_tmp_path = PATHS_SCRIPTROOT . 'tmp/avatars/'; 	// Temporär sökväg till avatars
 	$avatar_path_thumb =  PATHS_IMAGES . 'users/thumb/';		// Avatarsökvägen
 	$avatar_path_full =  PATHS_IMAGES . 'users/full/';
 	

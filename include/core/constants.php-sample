@@ -79,13 +79,4 @@
 	define('ENVIRONMENT', $environment);
 	define('PASSWORD_SALT', $password_salt);
 	define('MSNBOT_SALT', $msnbot_salt);
-	
-/*
-	################################################################
-	Those variables are still in use on some places on Hamsterpaj.
-	But we should use the constants above instead.
-	################################################################
-*/
-
-	$hp_path = $_SERVER['DOCUMENT_ROOT'] . '/'; // This is the server path to your application
 ?>

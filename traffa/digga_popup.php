@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 
 	echo '<style type="text/css">' . "\n";
-	echo '@import url(\'/stylesheets/digga_popup.css?version=' . filemtime($hp_path . 'stylesheets/digga_popup.css') . '\');' . "\n";
+	echo '@import url(\'/stylesheets/digga_popup.css\');' . "\n";
 	echo '</style>' . "\n";
 
 	function digga_view_info($artist)
