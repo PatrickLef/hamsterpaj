@@ -3,11 +3,11 @@
 	require('../include/core/common.php');
 	require_once(PATHS_LIBRARIES . 'open_search.lib.php');
 
-	if(isset($_GET['type'], $_GET['q'], $_GET['search']))
+	if(isset($_GET['type'], $_GET['q'], $_GET['search']) && is_numeric($_GET['type']))
 	{
 		open_search_execute($_GET['q'], $_GET['type']);
 	}
-	elseif(isset($_GET['type']))
+	elseif(isset($_GET['type']) && is_numeric($_GET['type']))
 	{
 		echo open_search_make_box($_GET['type']);
 	}
