@@ -45,9 +45,9 @@
 	$avatar_tmp_full_filename = $avatar_tmp_path . $_SESSION['login']['id'] . '_full.jpg';
 	$avatar_tmp_thumb_filename = $avatar_tmp_path . $_SESSION['login']['id'] . '_thumb.jpg';
 	
-	$avatar_tmp_orginal_url = $hp_url . 'tmp/avatars/' . $_SESSION['login']['id'] . '_orginal.jpg?' . rand();
-	$avatar_tmp_full_url = $hp_url . 'tmp/avatars/' . $_SESSION['login']['id'] . '_full.jpg?' . rand();
-	$avatar_tmp_thumb_url = $hp_url . 'tmp/avatars/' . $_SESSION['login']['id'] . '_thumb.jpg?' . rand();
+	$avatar_tmp_orginal_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_orginal.jpg?' . rand();
+	$avatar_tmp_full_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_full.jpg?' . rand();
+	$avatar_tmp_thumb_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_thumb.jpg?' . rand();
 	
 	$avatar_orginal_width = 442; 	// Efter en bild laddas upp så skalas dom om till en angiven width.
 	$avatar_full_width = 320; 		// Fullstorleksbildens bredd
@@ -190,7 +190,7 @@
 		}
 		else
 		{
-			jscript_location($hp_url . '/installningar/generalsettings.php');
+			jscript_location('/installningar/generalsettings.php');
 		}
 	}
 	
@@ -212,7 +212,7 @@
 			unlink($avatar_thumb_filename );
 		}
 		jscript_alert('Din bild är nu borttagen!');
-		jscript_location($hp_url . '/installningar/avatar-settings.php');
+		jscript_location('/installningar/avatar-settings.php');
 	}
 	
 	
