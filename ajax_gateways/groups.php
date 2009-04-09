@@ -83,7 +83,7 @@
 						}
 						echo '</td><td style="vertical-align: top;">';
 						echo fix_time($data['timestamp']) . ' <a href="javascript:void(0);" onclick="javascript:document.postform.group_message.value=document.postform.group_message.value + \''.$data['username'].': \';document.postform.group_message.focus();">[^]</a><br/>'; 
-						echo '<a href="' . $hp_url . '/traffa/profile.php?id=' . $data['userid'] . '">';
+						echo '<a href="/traffa/profile.php?id=' . $data['userid'] . '">';
 						echo '<b>' . (($data['userid'] == 43273) ? '<span style="color: #FF60B6">GheyAtrapp</span>' : $data['username'])  . '</b></a> ';
 						if ($owner == $_SESSION['login']['id'])
 						{

@@ -1,8 +1,6 @@
 <?php
 // Schedule library
 
-require_once(PATHS_LIBRARIES . 'contests.lib.php');
-require_once(PATHS_LIBRARIES . 'fun_images.lib.php');
 require_once(PATHS_LIBRARIES . 'poll.lib.php');
 //require_once(PATHS_LIBRARIES . 'sex_and_sense.lib.php');
 require_once(PATHS_LIBRARIES . 'sex_sense.lib.php');

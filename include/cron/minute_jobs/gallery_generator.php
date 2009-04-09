@@ -1,6 +1,4 @@
 <?php
-	$hp_url = 'http://www.hamsterpaj.net/';
-
 	$sql = 'SELECT login.id, login.username, userinfo.birthday FROM login, userinfo WHERE userinfo.userid = login.id AND userinfo.gender = "F" && (userinfo.image = "1" || userinfo.image = "2") ORDER BY login.lastlogon DESC LIMIT 21';
 	$result = mysql_query($sql) or die('Query failed: ' . mysql_error());
 

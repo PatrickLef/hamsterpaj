@@ -27,7 +27,6 @@ function validate_image($userid, $validator)
 
 function block_user($userid)
 {
-	global $hp_path;
 	mysql_query('UPDATE userinfo SET image = 0, image_ban_expire = "' . (time()+86400*7) . '" WHERE userid = "' . $userid . '" LIMIT 1') or die('<script language="javascript">alert("FATALT FEL! IGNORERA FÖLJANDE MEDDELANDE OM ATT UPPDATERINGEN LYCKADES. MYSQL FELINFORMATION: (vidarebefodra till Tritone)\n\n' . mysql_error() . '")</script>');
 	
 	/* We need to load and modify the remote users session */
@@ -55,7 +54,6 @@ function block_user($userid)
 //Listar ut 10 ovalidera avatarer
 function list_avatars()
 {
-	global $hp_url;
 	$result = mysql_query('SELECT login.id, login.username, userinfo.gender, userinfo.birthday FROM login, userinfo WHERE login.id = userinfo.userid && image = "1" LIMIT 40');
 	if(mysql_num_rows($result) == 0)
 	{
@@ -81,7 +79,7 @@ function list_avatars()
 				$bgstyle='background: #F7F7F7 url(\'/images/klotterplankbg.png\') repeat-x;';
 			}
 			echo '<td style="' . $bgstyle . ' vertical-align: top;">';
-			echo '<a href="' . $hp_url . 'traffa/profile.php?id=' . $data['id'] . '"><b>' . $data['username'] . '</b></a>';
+			echo '<a href="/traffa/profile.php?id=' . $data['id'] . '"><b>' . $data['username'] . '</b></a>';
 			if($data['gender'] != NULL) { echo ' ' . $data['gender']; }
 			if($data['birthday'] != '0000-00-00') 
 			{

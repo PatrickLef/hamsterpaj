@@ -393,7 +393,7 @@
 	      }
 	      echo '</td><td style="vertical-align: top;">';
 	      echo fix_time($data['timestamp']) . ' <a href="javascript:void(0);" onclick="javascript:document.postform.group_message.value=document.postform.group_message.value + \''.$data['username'].': \';document.postform.group_message.focus();">[^]</a><br/>'; 
-				echo '<a href="' . $hp_url . '/traffa/profile.php?id=' . $data['userid'] . '">';
+				echo '<a href="/traffa/profile.php?id=' . $data['userid'] . '">';
 	      echo '<b>' . (($data['userid'] == 43273) ? '<span style="color: #FF60B6">GheyAtrapp</span>' : $data['username'])  . '</b></a> ';
 	
 	      if ($owner == $_SESSION['login']['id'])
@@ -587,8 +587,6 @@
 	
 	function group_invite_member($groupid, $username)
 	{
-		global $hp_url;
-	
 		$query = 'SELECT id FROM login WHERE username = "' . $username . '" LIMIT 1';
 		$result = mysql_query($query) or die(report_sql_error($query));
 		if (mysql_num_rows($result) == 0)
@@ -613,7 +611,7 @@
 			$groupname = $data['name'];
 			$owner = $data['owner'];
 	
-			$url = $hp_url . 'traffa/groups.php?action=invited_member&amp;groupid=' . $groupid . '&userid=' . $userid;
+			$url = '/traffa/groups.php?action=invited_member&amp;groupid=' . $groupid . '&userid=' . $userid;
 			$title = 'Inbjudan att gå med i gruppen: ' . $groupname;
 			$message = 'Du har blivit inbjuden till gruppen: ' . $groupname . '<br />';
 			$message .= 'Om du vill gå med i min grupp trycker du bara på länken här nedanför<br />';

@@ -3,7 +3,7 @@
 	{
 		require('../include/core/common.php');
 		require(PATHS_LIBRARIES . 'radio.lib.php');
-		include_once('shoutcast/ShoutcastInfo.class.php');
+		require(PATHS_VENDORS . 'ShoutcastInfo/ShoutcastInfo.class.php');
 		require(PATHS_LIBRARIES . 'articles.lib.php');
 		$ui_options['stylesheets'][] = 'radio.css';
 		$ui_options['javascripts'][] = 'radio.js';

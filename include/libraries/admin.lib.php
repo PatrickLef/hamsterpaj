@@ -56,8 +56,7 @@ function refuse_image($userid, $validator)
 			die('Man kan inte ta bort denna bild...');
 			exit;
 		}
-
-		global $hp_path;
+		
 		$query = 'UPDATE userinfo SET image = "3", image_validator = "' . $validator . '" ';
 		$query.= ' WHERE userid = "' . $userid . '" LIMIT 1';
 		mysql_query($query) or die();

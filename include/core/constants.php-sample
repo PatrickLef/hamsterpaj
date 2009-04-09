@@ -79,24 +79,4 @@
 	define('ENVIRONMENT', $environment);
 	define('PASSWORD_SALT', $password_salt);
 	define('MSNBOT_SALT', $msnbot_salt);
-	
-/*
-	################################################################
-	Those variables are still in use on some places on Hamsterpaj.
-	But we should use the constants above instead.
-	################################################################
-*/
-
-	$hp_path = $_SERVER['DOCUMENT_ROOT'] . '/'; // This is the server path to your application
-	$hp_url = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-
-/*
-	################################################################
-	 You probably don't care about those constants because they 
-	 aren't specific for your environment.
-	################################################################
-*/
-	define('USERS_ONLINE_TIMEOUT', 600); // How many seconds since lastaction is a user to displayed "online"? (I think this should be moved to some kind of login.conf.php)
-	
-	define('TREASURE_ITEM',0); // 1 = TREASURE HUNT IS ON / 0 = TREASURE HUNT IS OFF (Maybe this should be moved to a treasure_item.conf.php?
 ?>
