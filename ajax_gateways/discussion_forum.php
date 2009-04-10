@@ -1,7 +1,7 @@
 <?php
 	require('../include/core/common.php');
 	include_once(PATHS_LIBRARIES . 'discussion_forum.lib.php');
-	require_once(PATHS_LIBRARIES . 'warnings.lib.php');
+	require_once(PATHS_LIBRARIES . 'admin.lib.php');
 
 	if($_GET['action'] == 'direct_link_fetch' && isset($_GET['post_id']) && is_numeric($_GET['post_id']))
 	{
