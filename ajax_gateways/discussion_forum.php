@@ -1,6 +1,7 @@
 <?php
 	require('../include/core/common.php');
 	include_once(PATHS_LIBRARIES . 'discussion_forum.lib.php');
+	require_once(PATHS_LIBRARIES . 'warnings.lib.php');
 
 	if($_GET['action'] == 'direct_link_fetch' && isset($_GET['post_id']) && is_numeric($_GET['post_id']))
 	{
@@ -55,7 +56,7 @@
 		
 		guestbook_insert($guestbook_message);
 		log_admin_event('post removed', $post['removal_comment'], $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
-		admin_action_count($_SESSION['login']['id'], 'posts_removed');
+		admin_action_count($_SESSION['login']['id'], 'post_removed');
 	}
 
 	if($_GET['action'] == 'unremove_post' && forum_security(array('action' => 'unremove_post', 'post_id' => $_GET['post_id'])))
