@@ -36,7 +36,7 @@
 	while($ov = mysql_fetch_assoc($result))
 	{
 		$out .= '<tr>' . "\n";
-		$out .= '<td class="username"><a href="/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
+		$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
 		$out .= '<td>' . $ov['posts_removed'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['warnings_given'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['avatars_denied'] . '</td>' . "\n";
