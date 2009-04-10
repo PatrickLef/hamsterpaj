@@ -1,7 +1,8 @@
 <?
 	require('../include/core/common.php');
-	require(PATHS_LIBRARIES . 'profile.lib.php');
-	require(PATHS_LIBRARIES . 'warnings.lib.php');
+	require_once(PATHS_LIBRARIES . 'profile.lib.php');
+	require_once(PATHS_LIBRARIES . 'warnings.lib.php');
+	require_once(PATHS_LIBRARIES . 'admin.lib.php');
 	
 	
 	//----------------------
@@ -218,6 +219,7 @@
 					$out .= '<strong>Användaren har nu tilldelats en varning!</strong>';
 					$out .= '<br /> <br /><a href="/admin/warnings.php">Gå tillbaka</a>' . "\n";
 					
+					admin_action_count($_SESSION['login']['id'], 'warnings_given');
 				}
 				else
 				{

@@ -44,6 +44,10 @@ function admin_action_count($admin_id, $event)
 			$query_insert = 'INSERT INTO admin_counts (user_id, avatars_approved) VALUES ("' . $admin_id . '", 1)';
 			$query_update = 'UPDATE admin_counts SET avatars_approved = avatars_approved + 1 WHERE user_id="' . $admin_id . '"';
 		break;
+		case 'warnings_given':
+			$query_insert = 'INSERT INTO admin_counts (user_id, warnings_given) VALUES ("' . $admin_id . '", 1)';
+			$query_update = 'UPDATE admin_counts SET warnings_given = warnings_given + 1 WHERE user_id="' . $admin_id . '"';
+		break;
 	}
 	log_to_file('admin', LOGLEVEL_DEBUG, __FILE__, __LINE__, 'admin_action_count ' . $event, $query_insert);
 	mysql_query($query_insert) or mysql_query($query_update) or die(report_sql_error($query_update, __FILE__, __LINE__));

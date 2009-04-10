@@ -12,7 +12,7 @@
 		die('inte för dig...');
 	}
 	
-	$query = 'SELECT l.id, l.username, ac.avatars_denied, ac.avatars_approved, ac.posts_removed 
+	$query = 'SELECT l.id, l.username, ac.avatars_denied, ac.avatars_approved, ac.posts_removed, ac.warnings_given
 						FROM privilegies AS p 
 						JOIN login AS l ON l.id = p.user AND l.is_removed = 0
 						LEFT JOIN admin_counts AS ac ON ac.user_id = p.user
@@ -27,6 +27,7 @@
 	$out .= '<tr>' . "\n";
 	$out .= '<th>Namn</th>' . "\n";
 	$out .= '<th>Borttagna inlägg</th>' . "\n";
+	$out .= '<th>Utdelade varningar</th>' . "\n";
 	$out .= '<th>Nekade visningsbilder</th>' . "\n";
 	$out .= '<th>Validerade visningsbilder</th>' . "\n";
 	$out .= '<th>Andel nekade visningsbilder</th>' . "\n";
@@ -37,6 +38,7 @@
 		$out .= '<tr>' . "\n";
 		$out .= '<td class="username"><a href="/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
 		$out .= '<td>' . $ov['posts_removed'] . '</td>' . "\n";
+		$out .= '<td>' . $ov['warnings_given'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['avatars_denied'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['avatars_approved'] . '</td>' . "\n";
 		$out .= '<td>' . round($ov['avatars_denied'] / ($ov['avatars_denied'] + $ov['avatars_approved']) * 100, 2).' % </td>' . "\n";
