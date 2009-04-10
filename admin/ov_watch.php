@@ -3,6 +3,7 @@
 
 	$ui_options['menu_path'] = array('admin', 'ov_watch');
 	$ui_options['stylesheets'][] = 'forms.css';
+	$ui_options['stylesheets'][] = 'ov_watch.css';
 
 	if(!is_privilegied('use_statistic_tools'))
 	{
@@ -22,7 +23,7 @@
 	$ovs = mysql_fetch_assoc($result);
 	$out .= '<fieldset>' . "\n";
 	$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
-	$out .= '<table class="form">' . "\n";
+	$out .= '<table class="form" id="ov_watch_table">' . "\n";
 	$out .= '<tr>' . "\n";
 	$out .= '<th>Namn</th>' . "\n";
 	$out .= '<th>Borttagna inlägg</th>' . "\n";
@@ -34,7 +35,7 @@
 	while($ov = mysql_fetch_assoc($result))
 	{
 		$out .= '<tr>' . "\n";
-		$out .= '<td><a href="/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
+		$out .= '<td class="username"><a href="/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
 		$out .= '<td>' . $ov['posts_removed'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['avatars_denied'] . '</td>' . "\n";
 		$out .= '<td>' . $ov['avatars_approved'] . '</td>' . "\n";
