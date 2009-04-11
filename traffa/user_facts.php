@@ -48,7 +48,7 @@
 
 	echo profile_mini_page($profile);
 
-	$query = 'SELECT l.regtimestamp, l.username, u.forum_userlabel, u.forum_posts, u.forum_spam, u.birthday AS user_birthday, t.guestbook_entries';
+	$query = 'SELECT l.regtimestamp, l.username, l.lastusername, l.is_removed, u.forum_userlabel, u.forum_posts, u.forum_spam, u.birthday AS user_birthday, t.guestbook_entries';
 	$query .= ' FROM login AS l, userinfo AS u, traffa AS t';
 	$query .= ' WHERE l.id = "' .$params['user_id'] . '" AND u.userid = l.id AND t.userid = l.id LIMIT 1';
 
@@ -140,8 +140,14 @@
 		}
 		echo rounded_corners($out_ip, $void, true);
 	}
-
-	$admincontrol_out .= is_privilegied('remove_user') ? '<a href="/admin/remove_user.php?userid=' . $params['user_id'] . '" class="remove_user" id="' . $params['user_id'] . '">Ta bort</a> | ' . "\n" : '';
+	if($data['is_removed'] == 0)
+	{	
+		$admincontrol_out .= is_privilegied('remove_user') ? '<a href="/admin/remove_user.php?userid=' . $params['user_id'] . '" class="remove_user" id="' . $params['user_id'] . '">Ta bort</a> | ' . "\n" : '';
+	}
+	else
+	{
+		$admincontrol_out .= is_privilegied('recover_user') ? '<a href="/admin/recover_user.php?userid=' . $params['user_id'] . '&username=' . $data['lastusername'] . '">Återskapa Användaren</a> | ' . "\n" : ''; 
+	}
 	$admincontrol_out .= is_privilegied('warnings_admin') ? '<a href="/admin/warnings.php?username=' . $data['username'] . '">Varna!</a> | ' . "\n" : '';
 	$admincontrol_out .= is_privilegied('warnings_admin') ? '<a href="/admin/warnings.php?action=viewhistory&user_id=' . $params['user_id'] . '">Varningshistorik</a> | ' . "\n" : '';
 	$admincontrol_out .= is_privilegied('user_management_admin') ? '<a href="/admin/user_management.php?username=' . $data['username'] . '">User management</a> |' . "\n" : '';

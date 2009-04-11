@@ -334,6 +334,33 @@ function login_remove_user($user_id, $removal_message = 'Ingen borttagningsanled
 	}
 }
 
+function login_recover_user($user_id, $username)
+{
+	// Check if a user with the username of the user we are recovering exists 
+	$query = 'SELECT username FROM login WHERE username = "' . $username . '"';
+	$result = mysql_query($query) or report_sql_error($query);
+	$data = mysql_fetch_assoc($result);
+	
+	// If A user was found
+	if(mysql_affected_rows() != 0)
+	{
+		return 'username_taken';
+	}
+	
+	// Log the action to admin log
+	log_admin_event('user recovered', '', $_SESSION['login']['id'], $user_id, $user_id);
+	
+	// Recreate the user in the database
+	$query = 'UPDATE login SET lastusernamechange = ' . time() . ', lastusername = "Borttagen", username = "' . $username . '", is_removed = 0, removal_message = "" WHERE id = "' . $user_id . '" LIMIT 1';
+	mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+	
+	// If the user was successfully removed, return true
+	if(mysql_affected_rows() == 1)
+	{
+		return 'success';
+	}
+}
+
 function session_add_key($sessid, $key, $value)
 {
 	$file_handle = fopen('/var/lib/php/session2/sess_' . $sessid, 'a');
