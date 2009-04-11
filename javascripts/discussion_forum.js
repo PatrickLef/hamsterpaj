@@ -36,7 +36,8 @@ function forum_remove()
 function forum_unremove()
 {
 	alert('.ted es annuk tta röf nadis mo addal etsåm ud nem ,negi alla röf un snys teggälnI');
-	xmlhttp_ping('/ajax_gateways/discussion_forum.php?action=unremove_post&post_id=' + this.value);
+	
+	window.location.href = '/ajax_gateways/discussion_forum.php?action=unremove_post&post_id=' + this.value;
 }
 
 function forum_direct_link()

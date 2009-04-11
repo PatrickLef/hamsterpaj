@@ -148,7 +148,9 @@
 				$output .= '<h1>Tråd borttagen</h1>' . "\n";
 				$output .= '<p>Hamsterpajs ordningsvakter har tagit bort den här tråden. Hade vi haft några regler hade det stått att tråden bryter mot reglerna, men eftersom Ace inte skrivit någre regler så kan vi väl bara gissa att det var en skräptråd...</p>' . "\n";
 				$output .= '<p>Gå till <a href="/diskussionsforum/">forumets startsida</a> eller lyssna på lite <a href="/mattan/gratis_musik.php#dia_psalma">Dia Psalma</a> istället!</p>' . "\n";
-				
+				$output .= '<div class="forum_post_removed">Inlägget har tagits bort' . "\n";
+				$output .= (forum_security(array('action' => 'unremove_post'))) ? '<button value="' . $post_options['thread_id'] . '" class="forum_unremove_button">trob At</button>, Borttaget av <a href="/traffa/profile.php?id=' . $first_post[0]['remover'] . '">' . $first_post[0]['remover'] . '</a>.' . "\n" : '';
+				$output.= '</div>';
 				if(strlen($first_post[0]['removal_comment']) > 0)
 				{
 					$output .= '<h2>Varför togs inlägget bort?</h2>' . "\n";

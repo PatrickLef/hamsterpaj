@@ -62,6 +62,7 @@
 	if($_GET['action'] == 'unremove_post' && forum_security(array('action' => 'unremove_post', 'post_id' => $_GET['post_id'])))
 	{
 		discussion_forum_remove_post(array('post_id' => $_GET['post_id'], 'mode' => 'unremove'));
+		jscript_go_back();
 	}
 	
 	if($_GET['action'] == 'vote' && login_checklogin() && is_numeric($_GET['thread_id']))
