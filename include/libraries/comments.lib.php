@@ -113,7 +113,7 @@ function comments_list($item_id, $item_type, $options)
 			$output .= '</div>' . "\n";
 			$output .= '<span class="comment_time">(' . fix_time($data['timestamp']) . ')';
 
-			if(login_checklogin() && ($_SESSION['login']['id'] == $data['user_id'] || is_privilegied('comments_admin') || $_SESSION['login']['id'] == $options['photo_owner']))
+			if(login_checklogin() && ($_SESSION['login']['id'] == $data['user_id'] || is_privilegied('comments_admin') || (is_privilegied('comments_admin','entertain') && $item_type == 'entertain') || $_SESSION['login']['id'] == $options['photo_owner']))
 			{
 				$output .= ' <strong><a href="#img_full" onclick="comment_remove('.$data['id'].')">[X]</a></strong>' . "\n";
 			}
