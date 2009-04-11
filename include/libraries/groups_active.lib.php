@@ -389,16 +389,16 @@
 	      }
 	      else
 	      {
-	        echo '<img src="' . IMAGE_URL . 'user_no_image.png" alt="Ingen visninsbild"/>';
+	        echo '<img src="' . IMAGE_URL . 'user_no_image.png" alt="Ingen visningsbild"/>';
 	      }
 	      echo '</td><td style="vertical-align: top;">';
 	      echo fix_time($data['timestamp']) . ' <a href="javascript:void(0);" onclick="javascript:document.postform.group_message.value=document.postform.group_message.value + \''.$data['username'].': \';document.postform.group_message.focus();">[^]</a><br/>'; 
 				echo '<a href="/traffa/profile.php?id=' . $data['userid'] . '">';
 	      echo '<b>' . (($data['userid'] == 43273) ? '<span style="color: #FF60B6">GheyAtrapp</span>' : $data['username'])  . '</b></a> ';
 	
-	      if ($owner == $_SESSION['login']['id'])
+	      if ($owner == $_SESSION['login']['id'] || is_privilegied('groups_superadmin'))
 	      {
-	    		echo '<a href="' . $_SERVER['PHP_SELF'] . '?action=remove_post&amp;groupid=' . $groupid . '&amp;postid=' . $data['id'] . '">[Ta bort]</a>';
+	    		echo '<a href="' . $_SERVER['PHP_SELF'] . '?action=remove_post&amp;groupid=' . $groupid . '&amp;postid=' . $data['id'] . '" onclick="return confirm(\'Vill du verkligen ta bort posten?\')">[Ta bort]</a>';
 	    	}
 	      echo ui_birthday_cake($data['birthday']) . ' ';
 	      echo '<br/>';
