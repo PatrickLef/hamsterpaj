@@ -812,7 +812,7 @@ function entertain_item_draw($item, $options)
 		}
 		$output .= '</table>' . "\n";
 	}
-	if(is_privilegied('entertain_admin'))
+	if(is_privilegied('entertain_update'))
 	{
 		$output .= '<a class="entertain_edit" href="/' . $entertain_types[$item['entertain_type']]['url_handle'] . '/admin/' . $item['handle'] . '.html">[Redigera]</a>' . "\n";
 	}
