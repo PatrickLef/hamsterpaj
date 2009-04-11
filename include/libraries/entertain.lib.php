@@ -816,9 +816,9 @@ function entertain_item_draw($item, $options)
 	{
 		$output .= '<a class="entertain_edit" href="/' . $entertain_types[$item['entertain_type']]['url_handle'] . '/admin/' . $item['handle'] . '.html">[Redigera]</a>' . "\n";
 	}
-	if($_SESSION['login']['id'] == 57100)
+	if(is_privilegied('entertain_add'))
 	{
-		$output .= 'Eftersom att du är en sån där Ace får du se vem som laddat upp objektet: <a href="/traffa/profile.php?id=' . $item['uploader'] . '">' . $item['uploader'] . '</a>';
+		$output .= 'Personen som laddat upp det här objektet är: <a href="/traffa/profile.php?id=' . $item['uploader'] . '">' . $item['uploader'] . '</a>';
 	}
 
 //todo! connect with javascript
