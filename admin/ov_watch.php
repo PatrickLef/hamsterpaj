@@ -35,7 +35,6 @@
 	$out .= '<td><label for="action">Typ av åtgärd:</label></td>' . "\n";
 	$out .= '<td>' . "\n";
 	$out .= '<select name="action">' . "\n";
-	$out .= '<option value="">Alla</option>' . "\n";
 	foreach($action_types AS  $action => $option)
 	{
 	$out .= '<option value="' . $action . '">' . $option['name'] . '</option>' . "\n";
@@ -59,7 +58,7 @@
 		$action = $action_types[$_GET['action']];
 	}
 
-	if(isset($_GET['days']) && isset($_GET['action']))
+	if(isset($days) && isset($_GET['action']))
 	{
 		$query = 'SELECT l.id, l.username, FROM_UNIXTIME(MIN(ae.timestamp)) AS first_action, COUNT(ae.event) AS count_actions, TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()) AS total_days, ROUND(COUNT(ae.event) / TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()), 0) AS average';
 		$query .= ' FROM privilegies AS p ';
@@ -69,36 +68,35 @@
 		$query .= isset($days) ? ' AND TIMESTAMPDIFF(DAY,FROM_UNIXTIME(ae.timestamp), NOW()) <= ' . $days  : '';
 		$query .= isset($action['privilegie']) ? ' WHERE p.privilegie IN ("igotgodmode","' . $action['privilegie'] . '")' : '';
 		$query .= ' GROUP BY p.user ';
-		$query .= ' ORDER BY COUNT(ae.event) DESC';
 		$query .= ' LIMIT 100';
 		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$ovs = mysql_fetch_assoc($result);
-	}
 	
-	$out .= '<fieldset>' . "\n";
-	$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
-	$out .= '<p>Här visas statistik baserat på ' . (isset($_GET['action']) ? $action['name'] : 'Allt') . ' under ' . (isset($days) ? $days : 'alla') . ' dagar</p>' . "\n";
-	$out .= '<table class="form" id="ov_watch_table">' . "\n";
-	$out .= '<tr>' . "\n";
-	$out .= '<th>Namn</th>' . "\n";
-	$out .= '<th>Första åtgärden</th>' . "\n";
-	$out .= '<th>Antal åtgärder</th>' . "\n";
-	$out .= '<th>Antal dagar</th>' . "\n";
-	$out .= '<th>Snitt</th>' . "\n";
-	$out .= '</tr>' . "\n";
-	
-	while($ov = mysql_fetch_assoc($result))
-	{
+		$out .= '<fieldset>' . "\n";
+		$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
+		$out .= '<p>Här visas statistik baserat på ' . (isset($_GET['action']) ? $action['name'] : 'Allt') . ' under ' . (isset($days) ? $days : 'alla') . ' dagar</p>' . "\n";
+		$out .= '<table class="form" id="ov_watch_table">' . "\n";
 		$out .= '<tr>' . "\n";
-		$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
-		$out .= '<td>' . $ov['first_action'] . '</td>' . "\n";
-		$out .= '<td>' . $ov['count_actions'] . '</td>' . "\n";
-		$out .= '<td>' . $ov['total_days'] . '</td>' . "\n";
-		$out .= '<td>' . $ov['average'] . '</td>' . "\n";
+		$out .= '<th>Namn</th>' . "\n";
+		$out .= '<th>Första åtgärden</th>' . "\n";
+		$out .= '<th>Antal åtgärder</th>' . "\n";
+		$out .= '<th>Antal dagar</th>' . "\n";
+		$out .= '<th>Snitt</th>' . "\n";
 		$out .= '</tr>' . "\n";
+		
+		while($ov = mysql_fetch_assoc($result))
+		{
+			$out .= '<tr>' . "\n";
+			$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $ov['id'] . '">' . $ov['username'] . '</a></td>' . "\n";
+			$out .= '<td>' . $ov['first_action'] . '</td>' . "\n";
+			$out .= '<td>' . $ov['count_actions'] . '</td>' . "\n";
+			$out .= '<td>' . $ov['total_days'] . '</td>' . "\n";
+			$out .= '<td>' . $ov['average'] . '</td>' . "\n";
+			$out .= '</tr>' . "\n";
+		}
+		$out .= '</table>' . "\n";
+		$out .= '</fieldset>' . "\n";
 	}
-	$out .= '</table>' . "\n";
-	$out .= '</fieldset>' . "\n";
 
 
 ui_top($ui_options);
