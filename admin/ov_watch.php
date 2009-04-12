@@ -73,8 +73,6 @@
 	$query .= ' GROUP BY p.user ';
 	$query .= ' ORDER BY COUNT(ae.event) DESC';
 	$query .= ' LIMIT 100';
-	echo $query;
-	
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	$ovs = mysql_fetch_assoc($result);
 	
