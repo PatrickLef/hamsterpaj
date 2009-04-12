@@ -70,7 +70,6 @@
 		$query .= ' LIMIT 100';
 		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$ovs = mysql_fetch_assoc($result);
-		echo $query;
 	
 		$out .= '<fieldset>' . "\n";
 		$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
