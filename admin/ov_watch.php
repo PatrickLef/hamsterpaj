@@ -58,7 +58,7 @@
 		$action = $action_types[$_GET['action']];
 	}
 
-	if(isset($days) && isset($_GET['action']))
+	if(isset($_GET['action']))
 	{
 		$query = 'SELECT l.id, l.username, FROM_UNIXTIME(MIN(ae.timestamp)) AS first_action, COUNT(ae.event) AS count_actions, TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()) AS total_days, ROUND(COUNT(ae.event) / TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()), 0) AS average';
 		$query .= ' FROM privilegies AS p ';
