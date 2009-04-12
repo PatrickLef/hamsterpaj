@@ -140,7 +140,7 @@
 			$hidden = array('password');
 
 			// Fields that is not possible to edit
-			$disabled = array('id','session_id','userid','password');
+			$disabled = array('id','session_id','userid');
 
 			// If some data is posted
 			if(array_key_exists($_GET['update'], $tables) && is_numeric($_GET['userid']))
@@ -183,13 +183,11 @@
 						foreach($data as $column => $column_data)
 						{
 							// If field is hidden don't show
-							if(!in_array($column, $hidden))
-							{
-								echo '<label for="' . $column . '">' . $column . '</label>: ';
-								echo '<input type="text" id="' . $column . '" name="' . $column . '" value="' . $column_data . '" ';
-								echo in_array($column, $disabled) ? 'disabled="disabled"' : '';
-								echo ' /><br />';
-							}
+							echo '<label for="' . $column . '">' . $column . '</label>: ';
+							echo '<input type="text" id="' . $column . '" name="' . $column . '"';
+							echo in_array($column, $hidden) ? '' : ' value="' . $column_data . '"';
+							echo in_array($column, $disabled) ? ' disabled="disabled"' : '';
+							echo ' /><br />';
 						}
 						echo '<input type="submit" value="save" />';
 						echo '</form>';
