@@ -58,23 +58,22 @@
 	{
 		$action = $action_types[$_GET['action']];
 	}
-	else
-	{
-		unset($action);
-	}
 
-	$query = 'SELECT l.id, l.username, FROM_UNIXTIME(MIN(ae.timestamp)) AS first_action, COUNT(ae.event) AS count_actions, TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()) AS total_days, ROUND(COUNT(ae.event) / TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()), 0) AS average';
-	$query .= ' FROM privilegies AS p ';
-	$query .= ' JOIN login AS l ON l.id = p.user AND l.is_removed = 0';
-	$query .= ' LEFT JOIN admin_event AS ae ON ae.admin_id = p.user ';
-	$query .= !empty($_GET['action']) ? ' AND ae.event = "' . $_GET['action'] . '"' : '';
-	$query .= isset($days) ? ' AND TIMESTAMPDIFF(DAY,FROM_UNIXTIME(ae.timestamp), NOW()) <= ' . $days  : '';
-	$query .= isset($action['privilegie']) ? ' WHERE p.privilegie IN ("igotgodmode","' . $action['privilegie'] . '")' : '';
-	$query .= ' GROUP BY p.user ';
-	$query .= ' ORDER BY COUNT(ae.event) DESC';
-	$query .= ' LIMIT 100';
-	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
-	$ovs = mysql_fetch_assoc($result);
+	if(isset($_GET['days']) && isset($_GET['action']))
+	{
+		$query = 'SELECT l.id, l.username, FROM_UNIXTIME(MIN(ae.timestamp)) AS first_action, COUNT(ae.event) AS count_actions, TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()) AS total_days, ROUND(COUNT(ae.event) / TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()), 0) AS average';
+		$query .= ' FROM privilegies AS p ';
+		$query .= ' JOIN login AS l ON l.id = p.user AND l.is_removed = 0';
+		$query .= ' LEFT JOIN admin_event AS ae ON ae.admin_id = p.user ';
+		$query .= !empty($_GET['action']) ? ' AND ae.event = "' . $_GET['action'] . '"' : '';
+		$query .= isset($days) ? ' AND TIMESTAMPDIFF(DAY,FROM_UNIXTIME(ae.timestamp), NOW()) <= ' . $days  : '';
+		$query .= isset($action['privilegie']) ? ' WHERE p.privilegie IN ("igotgodmode","' . $action['privilegie'] . '")' : '';
+		$query .= ' GROUP BY p.user ';
+		$query .= ' ORDER BY COUNT(ae.event) DESC';
+		$query .= ' LIMIT 100';
+		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		$ovs = mysql_fetch_assoc($result);
+	}
 	
 	$out .= '<fieldset>' . "\n";
 	$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
