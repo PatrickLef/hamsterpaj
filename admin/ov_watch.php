@@ -58,6 +58,10 @@
 	{
 		$action = $action_types[$_GET['action']];
 	}
+	else
+	{
+		unset($action);
+	}
 
 	$query = 'SELECT l.id, l.username, FROM_UNIXTIME(MIN(ae.timestamp)) AS first_action, COUNT(ae.event) AS count_actions, TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()) AS total_days, ROUND(COUNT(ae.event) / TIMESTAMPDIFF(DAY,FROM_UNIXTIME(MIN(ae.timestamp)), NOW()), 0) AS average';
 	$query .= ' FROM privilegies AS p ';
@@ -69,6 +73,7 @@
 	$query .= ' GROUP BY p.user ';
 	$query .= ' ORDER BY COUNT(ae.event) DESC';
 	$query .= ' LIMIT 100';
+	echo $query;
 	
 	$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	$ovs = mysql_fetch_assoc($result);
