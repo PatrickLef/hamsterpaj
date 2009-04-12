@@ -19,7 +19,6 @@
 										'ghost'	=> array('name' => 'Ghostade användare', 'privilegie' => 'use_ghosting_tools'),
 										'guestbook_hack'	=> array('name' => 'GB-hackade användare', 'privilegie' => 'use_ghosting_tools'),
 										'ip banned'	=> array('name' => 'IP-bannade användare', 'privilegie' => 'ip_ban_admin'),
-										'report event'	=> array('name' => 'Hanterade rapporter', 'privilegie' => 'abuse_report_handler'),
 										'user blocked image upload'	=> array('name' => 'Avataruppladdningsblockeringar', 'privilegie' => 'avatar_admin'),
 										'user kicked'	=> array('name' => 'Utloggningar av användare', 'privilegie' => 'logout_user'),
 										'user recovered'	=> array('name' => 'Återskapande av användare', 'privilegie' => 'user_recover'),
