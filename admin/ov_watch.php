@@ -24,7 +24,7 @@
 										'user kicked'	=> array('name' => 'Utloggningar av användare', 'privilegie' => 'logout_user'),
 										'user recovered'	=> array('name' => 'Återskapande av användare', 'privilegie' => 'user_recover'),
 										'user warned'	=> array('name' => 'Varnade användare', 'privilegie' => 'warnings_admin'),
-										'user removed'	=> array('name' => 'Borttagna användare', 'privilegie' => 'user_remove')
+										'user removed'	=> array('name' => 'Borttagna användare', 'privilegie' => 'remove_user')
 									);
 
 	$out .= '<fieldset>' . "\n";
@@ -71,6 +71,7 @@
 		$query .= ' LIMIT 100';
 		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$ovs = mysql_fetch_assoc($result);
+		echo $query;
 	
 		$out .= '<fieldset>' . "\n";
 		$out .= '<legend>Ordningsvakter och deras förehavanden</legend>' . "\n";
