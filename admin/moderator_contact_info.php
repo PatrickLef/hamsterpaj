@@ -4,7 +4,6 @@
 	
 	if (!login_checklogin() || !is_privilegied()) {
 		die('Tjockis :(<br /><a href="/">Hejdå</a>');
-		die('Tjockis :(<br /><a href="/">Hejdå</a>');
 	}
 	
 	switch ($_GET['action']) {
@@ -51,6 +50,14 @@
 			}
 			$out .= '</select>' . "\n";
 			$out .= '</td>' . "\n";
+			$out .= '</tr><tr>' . "\n";
+			$out .= '<th><label for="visibility_level">Visa info för</label></th>' . "\n";
+			$out .= '<td><select name="visibility_level">' . "\n";
+			$out .= '<option value="all">Alla</option>' . "\n";
+			$out .= '<option value="ovs">Ordningsvakter, Admins och Sysops</option>' . "\n";
+			$out .= '<option value="admins">Admins och Sysops</option>' . "\n";
+			$out .= '<option value="sysops">Sysops</option>' . "\n";
+			$out .= '</select></td>' . "\n";
 			$out .= '</tr>' . "\n";
 			$out .= '</table>' . "\n";
 			$out .= '<p>Fält märkta med <strong style="color: red;">*</strong> är obligatoriska.</p>' . "\n";
@@ -65,7 +72,8 @@
 			if ($result_num_rows == 0) {
 				$sql = 'INSERT INTO moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
-				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : (is_privilegied('discussion_forum_remove_posts') ? 'ov' : 'NULL'))) . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs', 'all')) ? $_POST['visibility_level'] : 'all') . '",';
+				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : (is_privilegied('discussion_forum_remove_posts') ? 'ov' : 'other'))) . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -78,6 +86,7 @@
 			} else {
 				$sql = 'UPDATE moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs', 'all')) ? $_POST['visibility_level'] : 'all') . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -99,27 +108,29 @@
 				$out .= '<p class="error">';
 				$out .= 'Du verkar inte ha lagt in din information i databasen, var vänlig gör det <a href="/admin/moderator_contact_info.php?action=edit_my_info">här</a>!';
 				$out .= '</p>';
+			} else {
+				$out .= '<a href="/admin/moderator_contact_info.php?action=edit_my_info">Ändra min info &raquo;</a>' . "\n";
 			}
-			$out .= '<a href="/admin/moderator_contact_info.php?action=edit_my_info">Ändra min info &raquo;</a>' . "\n";
 			$out .= '<h2>Moderatorkontaktinfo</h2>';
-			$out .= '<table>';
+			$out .= '<table style="width: 100%">';
 			$out .= '<tr>' . "\n";
 			$out .= '<th>Nick</th>' . "\n";
 			$out .= '<th>För- och efternamn</th>' . "\n";
-			$out .= '<th>Midjem.</th>' . "\n";
 			$out .= '<th>Address</th>' . "\n";
 			$out .= '<th>Postnr</th>' . "\n";
 			$out .= '<th>Tfnnummer</th>' . "\n";
 			$out .= '<th>E-post</th>' . "\n";
 			$out .= '<th>MSN</th>' . "\n";
+			$out .= '<th>Midjem.</th>' . "\n";
 			$out .= '<th>Kupa</th>' . "\n";
 			$out .= '</tr>' . "\n";
-			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id ORDER BY mci.moderator_class DESC, l.username ASC';
+			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id' . (is_privilegied('igotgodmode') ? NULL : (is_privilegied('ip_ban_admin') ? ' AND visibility_level != "sysops"' : (is_privilegied('discussion_forum_remove_posts') ? ' AND visibility_level != "sysops" AND visibility_level != "admins"' : ' AND visibility_level != "sysops" AND visibility_level != "admins" AND visibility_level != "ovs"'))) . ' ORDER BY mci.moderator_class DESC, l.username ASC';
 			$result = mysql_query($sql) or report_sql_error($sql, __FILE__, __LINE__);
 			$moderator_class_aliases = array(
 				'sysop' => 'Sysops',
 				'admin' => 'Administratörer',
-				'ov' => 'Ordningsvakter'
+				'ov' => 'Ordningsvakter',
+				'other' => 'Annat'
 			);
 			while ($data = mysql_fetch_assoc($result)) {
 				if ($moderator_class_current != $data['moderator_class']) {
@@ -133,12 +144,12 @@
 				$out .= '<tr>';
 				$out .= '<td style="border-right: thin solid #aaa;">' . $data['username'] . '</td>';
 				$out .= '<td style="background: rgb(253, 253, 253);">' . $data['full_name'] . '</td>';
-				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['waist_size'] . '</td>';
-				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['street_address'] . '</td>';
-				$out .= '<td style="background: rgb(247, 247, 247);">' . $data['zip_code'] . '</td>';
-				$out .= '<td style="background: rgb(245, 245, 245);">' . $data['phone_number'] . '</td>';
-				$out .= '<td style="background: rgb(243, 243, 243);">' . $data['email'] . '</td>';
-				$out .= '<td style="background: rgb(241, 241, 241);">' . $data['msn_address'] . '</td>';
+				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['street_address'] . '</td>';
+				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['zip_code'] . '</td>';
+				$out .= '<td style="background: rgb(247, 247, 247);">' . $data['phone_number'] . '</td>';
+				$out .= '<td style="background: rgb(245, 245, 245);">' . $data['email'] . '</td>';
+				$out .= '<td style="background: rgb(243, 243, 243);">' . $data['msn_address'] . '</td>';
+				$out .= '<td style="background: rgb(241, 241, 241);">' . $data['waist_size'] . '</td>';
 				$out .= '<td style="background: rgb(239, 239, 239);">' . $data['cup_size'] . '</td>';
 				$out .= '</tr>';
 			}
