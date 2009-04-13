@@ -142,6 +142,7 @@
 		$menu['admin']['children']['crew-folk'] = array('label' => 'Crew-folk', 'url' => 'javascript:void(0)', 'is_privilegied' => $admin_privilegies);
 			$menu['admin']['children']['crew-folk']['children']['admins'] = array('label' => 'Besättning', 'url' => '/admin/admins.php');
 			$menu['admin']['children']['crew-folk']['children']['ov_watch'] = array('label' => 'OV Statistik', 'url' => '/admin/ov_watch.php', 'is_privilegied' => 'ov_admin');
+			$menu['admin']['children']['crew-folk']['children']['avatar_validation_stats'] = array('label' => 'Avatarvaliderings statistik', 'url' => '/admin/avatar_validation_stats.php', 'is_privilegied' => 'ov_admin');
 			$menu['admin']['children']['crew-folk']['children']['log_view'] = array('label' => 'Administrativ logg', 'url' => '/admin/log_view.php', 'is_privilegied' => 'ov_log');
 			$menu['admin']['children']['crew-folk']['children']['mass_gb'] = array('label' => 'Mass-GB', 'url' => '/admin/mass_gb.php', 'is_privilegied' => 'mass_gb');
 			$menu['admin']['children']['crew-folk']['children']['privilegies_admin'] = array('label' => 'Privilegier', 'url' => '/admin/privilegies_admin.php', 'is_privilegied' => 'privilegies_admin');

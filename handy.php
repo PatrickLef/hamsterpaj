@@ -40,7 +40,7 @@
 		}
 	}	*/
 	
-	$valid_page_handles = array('session', 'server_vars', 'phpinfo', 'remote_session', 'userinfo_from_database',  'encoders_decoders', 'handy_information_logout');
+	$valid_page_handles = array('session', 'server_vars', 'phpinfo', 'remote_session', 'user_settings_database',  'encoders_decoders', 'handy_information_logout');
 	$page = (isset($_GET['page']) && in_array($_GET['page'], $valid_page_handles)) ? $_GET['page'] : 'default';
 
 
@@ -48,7 +48,7 @@
 	$page_descriptions['default'] = 'Start';
 	$page_descriptions['session'] = 'Session information';
 	$page_descriptions['remote_session'] = 'Remote session information';
-  $page_descriptions['userinfo_from_database'] = 'Userinfo (from database)';
+  $page_descriptions['user_settings_database'] = 'User database settings';
 	$page_descriptions['phpinfo'] = 'Phpinfo()';
 	$page_descriptions['server_vars'] = 'Server variables';
 	$page_descriptions['encoders_decoders'] = 'Encoders and decoders';
@@ -130,59 +130,79 @@
 			}
 		break;
 
-		case 'userinfo_from_database':
-			if(isset($_GET['username'], $_GET['userid']))
-			{
-				$query = 'SELECT l.*, u.*, p.*'
-							 . ' FROM login AS l, userinfo AS u, preferences AS p'
-							 . ' WHERE ' . (( empty($_GET['username']) && is_numeric($_GET['userid']) ) ? 'l.id = ' . (int)$_GET['userid'] : 'l.username LIKE "' . $_GET['username'] . '"') . ' AND u.userid = l.id AND p.userid = l.id'
-							 . ' LIMIT 1';
-				$result = mysql_query($query) or report_sql_error($query);
+		case 'user_settings_database':
+			// Tables with userdata
+			$tables['login']['id_column'] = 'id';
+			$tables['userinfo']['id_column'] = 'userid';
+			$tables['preferences']['id_column'] = 'userid';
+				
+			// Parts who should not be shown 
+			$hidden = array('password');
 
-				if(mysql_num_rows($result) == 1)
+			// Fields that is not possible to edit
+			$disabled = array('id','session_id','userid');
+
+			// If some data is posted
+			if(array_key_exists($_GET['update'], $tables) && is_numeric($_GET['userid']))
+			{
+				$first = true;
+				$query = 	'UPDATE ' . $_GET['update'] . ' SET';
+				foreach($_POST as $column => $data)
 				{
-					$data = mysql_fetch_assoc($result);
-					preint_r($data, 'Table login + userinfo + preferences [<a href="?page=userinfo_from_database&list_login_log=' . $data['userid'] . '" style="color: #000">Show logins from login_log</a>]');
-					if(isset($data['module_states']))
+					if($first == true)
 					{
-						preint_r(unserialize($data['module_states']), 'Module states');
+						$query .= ' ' . $column . ' = "' . $data . '"';
+					}
+					else
+					{
+						$query .= ', ' . $column . ' = "' . $data . '"';
+					}
+					$first = false;
+				}
+				$query .= ' WHERE ' . $tables[$_GET['update']]['id_column'] . ' = "' . $_GET['userid'] . '" LIMIT 1';
+				mysql_query($query) or report_sql_error($query);
+				echo '<strong>' . $_GET['update'] . ' is now updated</strong>';
+			}
+
+			$userid = $_GET['userid'];
+			if(is_numeric($userid) && !empty($userid))
+			{
+				foreach($tables AS $table => $table_data)
+				{
+					$query = 'SELECT *
+										FROM ' . $table . ' 
+										WHERE ' . $table_data['id_column'] . ' = ' . $userid . '
+										LIMIT 1';
+					$result = mysql_query($query) or report_sql_error($query);
+					$data = mysql_fetch_assoc($result);
+					if(mysql_num_rows($result) == 1)
+					{
+						echo '<h2>' . $table . '</h2>';
+						echo '<form method="post" action="/handy.php?page=user_settings_database&userid=' . $userid . '
+		&update=' . $table . '">'; 
+						foreach($data as $column => $column_data)
+						{
+							// If field is hidden don't show
+							echo '<label for="' . $column . '">' . $column . '</label>: ';
+							echo '<input type="text" id="' . $column . '" name="' . $column . '"';
+							echo in_array($column, $hidden) ? '' : ' value="' . $column_data . '"';
+							echo in_array($column, $disabled) ? ' disabled="disabled"' : '';
+							echo ' /><br />';
+						}
+						echo '<input type="submit" value="save" />';
+						echo '</form>';
 					}
 				}
-				else
-				{
-					echo 'Could not find any users matching your query!';
-				}
-			}
-			else if(isset($_GET['list_login_log']) && is_numeric($_GET['list_login_log']))
-			{
-				$query = 'SELECT *'
-							 . ' FROM login_log'
-							 . ' WHERE user_id = ' . $_GET['list_login_log']
-							 . ' ORDER BY logon_time DESC'
-							 . ' LIMIT 50';
-				$result = mysql_query($query) or report_sql_error($query);
-
-				echo '<h3>Listing 50 last rows in login_log</h3>';
-				echo '<table>';
-				echo '<tr>' . '<td>Logon time</td><td>Timestamp</td><td>Impressions</td><td>IP</td>' . '</tr>';
-				while($data = mysql_fetch_assoc($result))
-				{
-					echo '<tr>';
-					echo '<td>' . fix_time($data['logon_time']) . '</td><td>' . $data['logon_time'] . '</td>'
-							.'<td>' . $data['impressions'] . '</td>'
-							.'<td>' . long2ip($data['ip']) . '</td>';
-					echo '</tr>';
-				}
-				echo '</table>';
 			}
 			else
 			{
 				echo '<form method="get">' . "\n"
-						.'<input type="hidden" name="page" value="userinfo_from_database" />' . "\n"
-						.'Username: <input type="text" name="username" /> OR userid: <input type="text" name="userid" />' . "\n"
+						.'<input type="hidden" name="page" value="user_settings_database" />' . "\n"
+						.'Userid: <input type="text" name="userid" />' . "\n"
 						.'<input type="submit" value="Show userinfo" />' . "\n"
 						.'</form>' . "\n";
 			}
+
 		break;
 		
 		case 'encoders_decoders':

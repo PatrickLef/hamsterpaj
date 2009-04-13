@@ -75,9 +75,9 @@
 				{
 					$output .= '<tr>';
 					
-					$output .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?action=remove_privilegie&privilegie_id=' . $data['privilegie_id'] . '&back_to_user_id=' . $user_id . '">[X]</a></td>';
+					$output .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?action=remove_privilegie&privilegie_id=' . $data['privilegie_id'] . '&privilegie=' . $data['privilegie'] . '&back_to_user_id=' . $user_id . '">[X]</a></td>';
 					$output .= '<td>' . $data['privilegie'] . '</td>' . "\n";		
-					$output .= '<td><input type="text"  name="privilegie_value_' . $data['privilegie_id'] . '" value="' . $data['value'] . '" /></td>' . "\n";
+					$output .= '<td><input type="text"  name="' . $data['privilegie'] . '" value="' . $data['value'] . '" /></td>' . "\n";
 					
 					$output .= '</tr>' . "\n";
 				}
@@ -125,21 +125,46 @@
 		case 'change_privilegies':
 			if(isset($_POST['user_id']) && is_numeric($_POST['user_id']))
 			{
-				$privilegies_to_set = array();
+				if($_POST['user_id'] == $_SESSION['login']['id'])
+				{
+					foreach($_POST as $key => $value)
+						{
+							if(preg_match('/^privilegie_value_([0-9]+)$/', $key, $matches) && is_numeric($matches[1]))
+							{
+								$_SESSION['privilegies'][$key][0] = $value;
+							}
+						}
+				}
+				else
+				{
+					$query = 'SELECT session_id FROM login WHERE id = "' . $_POST['user_id'] . '" LIMIT 1';
+					$result = mysql_query($query) or report_sql_error($query);
+					$data = mysql_fetch_assoc($result);
+					if(mysql_num_rows($result) == 1 && strlen($data['session_id']) > 0)
+					{
+						$remote_session = session_load($data['session_id']);
+						foreach($_POST as $key => $value)
+						{
+							if(preg_match('/^privilegie_value_([0-9]+)$/', $key, $matches) && is_numeric($matches[1]))
+							{
+								$remote_session['privilegies'][$key][0] = $value;
+							}
+						}
+						session_save($data['session_id'], $remote_session);
+					}
+				}
+
 				
+				$privilegies_to_set = array();
 				foreach($_POST as $key => $value)
 				{
-					if(preg_match('/^privilegie_value_([0-9]+)$/', $key, $matches))
+					if(preg_match('/^privilegie_value_([0-9]+)$/', $key, $matches) && is_numeric($matches[1]))
 					{
-						if(is_numeric($matches[1]))
-						{
-							$query = 'UPDATE privilegies SET value = "' . $value . '" WHERE privilegie_id = ' . $matches[1];
-							mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
-						}
+						$query = 'UPDATE privilegies SET value = "' . $value . '" WHERE privilegie = ' . $matches[1];
+						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 					}
 				}
 				
-				jscript_alert('OBS! Användaren måste logga ut och in innan privilegien ändras. Du kan logga ut användaren genom Profil > Fakta > Logga ut användare om det är nödvändigt!');
 				jscript_location($_SERVER['PHP_SELF'] . '?action=load_user&user_id=' . $_POST['user_id']);
 				exit;
 			}
@@ -148,22 +173,54 @@
 		case 'add_privilegie':
 			if(isset($_POST['user_id'], $_POST['privilegie_add_privilegie'], $_POST['privilegie_add_value']) && is_numeric($_POST['user_id']) && in_array($_POST['privilegie_add_privilegie'], $available_privilegies) && $_POST['privilegie_add_value'] != '')
 			{
+				if($_POST['user_id'] == $_SESSION['login']['id'])
+				{
+					$_SESSION['privilegies'][$_POST['privilegie_add_privilegie']][0] = $_POST['privilegie_add_value'];
+				}
+				else
+				{
+					$query = 'SELECT session_id FROM login WHERE id = "' . $_POST['user_id'] . '" LIMIT 1';
+					$result = mysql_query($query) or report_sql_error($query);
+					$data = mysql_fetch_assoc($result);
+					if(mysql_num_rows($result) == 1 && strlen($data['session_id']) > 0)
+					{
+						$remote_session = session_load($data['session_id']);
+						$remote_session['privilegies'][$_POST['privilegie_add_privilegie']][0] = $_POST['privilegie_add_value'];
+						session_save($data['session_id'], $remote_session);
+					}
+				}
+				
 				$query = 'INSERT INTO privilegies (privilegie, value, user) VALUES ("' . $_POST['privilegie_add_privilegie'] . '", "' . $_POST['privilegie_add_value'] . '", ' . $_POST['user_id'] . ')';
 				mysql_query($query) or report_sql_error($query);
 				
-				jscript_alert('OBS! Användaren måste logga ut och in innan privilegien blir satt!');
 				jscript_location($_SERVER['PHP_SELF'] . '?action=load_user&user_id=' . $_POST['user_id']);
 				exit;
 			}
 		break;
 		
 		case 'remove_privilegie':
-			if(isset($_GET['privilegie_id'], $_GET['back_to_user_id']) && is_numeric($_GET['privilegie_id']) && is_numeric($_GET['back_to_user_id']))
+			if(isset($_GET['privilegie_id'], $_GET['back_to_user_id'], $_GET['privilegie']) && is_numeric($_GET['privilegie_id']) && is_numeric($_GET['back_to_user_id']))
 			{
+				if($_POST['back_to_user_id'] == $_SESSION['login']['id'])
+				{
+					empty($_SESSION['privilegies'][$_GET['privilegie']]);
+				}
+				else
+				{
+					$query = 'SELECT session_id FROM login WHERE id = "' . $_GET['back_to_user_id'] . '" LIMIT 1';
+					$result = mysql_query($query) or report_sql_error($query);
+					$data = mysql_fetch_assoc($result);
+					if(mysql_num_rows($result) == 1 && strlen($data['session_id']) > 0)
+					{
+						$remote_session = session_load($data['session_id']);
+						unset($remote_session['privilegies'][$_GET['privilegie']]);
+						session_save($data['session_id'], $remote_session);
+					}
+				}
+				
 				$query = 'DELETE FROM privilegies WHERE privilegie_id = ' . $_GET['privilegie_id'] . ' LIMIT 1';
 				mysql_query($query) or report_sql_error($query);
 				
-				jscript_alert('OBS! Användaren måste logga ut och in innan privilegien tas bort. Du kan logga ut användaren genom Profil > Fakta > Logga ut användare om det är nödvändigt!');
 				jscript_location($_SERVER['PHP_SELF'] . '?action=load_user&user_id=' . $_GET['back_to_user_id']);
 				exit;
 			}
