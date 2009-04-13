@@ -129,8 +129,8 @@
 	}
 	#photoblog_user_header a {
 		color: <?php echo $detail_color; ?>;
-		margin: 0 15px;
-		padding-top: 3px;
+		margin: 0 14px;
+		padding-top: 2px;
 		display: block;
 		float: left;
 	}
