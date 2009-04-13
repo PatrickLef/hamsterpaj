@@ -2,7 +2,7 @@
 	include '../include/core/common.php';
 	$ui_options['title'] = 'Moderatorkontaktinfo - Hamsterpaj.net';
 	
-	if (!login_checklogin() || !is_privilegied()) {
+	if (!login_checklogin() || !is_privilegied('discussion_forum_remove_posts')) {
 		die('Tjockis :(<br /><a href="/">Hejdå</a>');
 	}
 	
@@ -52,11 +52,15 @@
 			$out .= '</td>' . "\n";
 			$out .= '</tr><tr>' . "\n";
 			$out .= '<th><label for="visibility_level">Visa info för</label></th>' . "\n";
+			$visibility_levels = array(
+				'ovs' => 'Ordningsvakter, Admins och Sysops',
+				'admins' => 'Admins och Sysops',
+				'sysops' => 'Sysops'
+			);
 			$out .= '<td><select name="visibility_level">' . "\n";
-			$out .= '<option value="all">Alla</option>' . "\n";
-			$out .= '<option value="ovs">Ordningsvakter, Admins och Sysops</option>' . "\n";
-			$out .= '<option value="admins">Admins och Sysops</option>' . "\n";
-			$out .= '<option value="sysops">Sysops</option>' . "\n";
+			foreach ($visibility_levels as $db_alias => $spoken_language_alias) {
+				$out .= '<option value="' . $db_alias . '"' . ($data['visibility_level'] == $db_alias ? ' selected="selected"' : NULL) . '>' . $spoken_language_alias . '</option>' . "\n";
+			}
 			$out .= '</select></td>' . "\n";
 			$out .= '</tr>' . "\n";
 			$out .= '</table>' . "\n";
@@ -72,8 +76,8 @@
 			if ($result_num_rows == 0) {
 				$sql = 'INSERT INTO moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
-				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs', 'all')) ? $_POST['visibility_level'] : 'all') . '",';
-				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : (is_privilegied('discussion_forum_remove_posts') ? 'ov' : 'other'))) . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs')) ? $_POST['visibility_level'] : 'ovs') . '",';
+				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : 'ov')) . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -86,7 +90,7 @@
 			} else {
 				$sql = 'UPDATE moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
-				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs', 'all')) ? $_POST['visibility_level'] : 'all') . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs')) ? $_POST['visibility_level'] : 'ovs') . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -124,13 +128,12 @@
 			$out .= '<th>Midjem.</th>' . "\n";
 			$out .= '<th>Kupa</th>' . "\n";
 			$out .= '</tr>' . "\n";
-			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id' . (is_privilegied('igotgodmode') ? NULL : (is_privilegied('ip_ban_admin') ? ' AND visibility_level != "sysops"' : (is_privilegied('discussion_forum_remove_posts') ? ' AND visibility_level != "sysops" AND visibility_level != "admins"' : ' AND visibility_level != "sysops" AND visibility_level != "admins" AND visibility_level != "ovs"'))) . ' ORDER BY mci.moderator_class DESC, l.username ASC';
+			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id' . (is_privilegied('igotgodmode') ? NULL : (is_privilegied('ip_ban_admin') ? ' AND visibility_level != "sysops"' : ' AND visibility_level != "sysops" AND visibility_level != "admins"')) . ' ORDER BY mci.moderator_class DESC, l.username ASC';
 			$result = mysql_query($sql) or report_sql_error($sql, __FILE__, __LINE__);
 			$moderator_class_aliases = array(
 				'sysop' => 'Sysops',
 				'admin' => 'Administratörer',
-				'ov' => 'Ordningsvakter',
-				'other' => 'Annat'
+				'ov' => 'Ordningsvakter'
 			);
 			while ($data = mysql_fetch_assoc($result)) {
 				if ($moderator_class_current != $data['moderator_class']) {
