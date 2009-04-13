@@ -1,4 +1,5 @@
 <?php
+	die('Johan skriver fulkod och ingen orkar laga just nu.. :(');
 	require('../include/core/common.php');
 	$ui_options['stylesheets'][] = 'hpads_admin.css';
 	$ui_options['javascripts'][] = 'hpads_admin.js';
