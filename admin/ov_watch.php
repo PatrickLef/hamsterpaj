@@ -21,7 +21,7 @@
 										'ip banned'	=> array('name' => 'IP-bannade användare', 'privilegie' => 'ip_ban_admin'),
 										'user blocked image upload'	=> array('name' => 'Avataruppladdningsblockeringar', 'privilegie' => 'avatar_admin'),
 										'user kicked'	=> array('name' => 'Utloggningar av användare', 'privilegie' => 'logout_user'),
-										'user recovered'	=> array('name' => 'Återskapande av användare', 'privilegie' => 'user_recover'),
+										'user recovered'	=> array('name' => 'Återskapande av användare', 'privilegie' => 'recover_user'),
 										'user warned'	=> array('name' => 'Varnade användare', 'privilegie' => 'warnings_admin'),
 										'user removed'	=> array('name' => 'Borttagna användare', 'privilegie' => 'remove_user')
 									);
