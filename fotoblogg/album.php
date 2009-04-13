@@ -7,15 +7,25 @@
 		{
 			$albumname = $uri_parts[4];
 			global $photoblog_user;
+			
+			$options = array();
+			
 			$options['slug'] = $albumname;
 			$options['user'] = $photoblog_user['id'];
+			
 			$photoblog_album = photoblog_categories_fetch($options);
 			
-			$out .= '<h2>' . $photoblog_album[0]['name'] . '</h2>';
+			$options['category'] = $photoblog_album[0]['id'];
+			
+			unset($options['slug']);
+			
+			list($photos_sorted, $category) = photoblog_photos_fetch_sorted($options);
+		
+			$out .= '<h2>' . $category[0]['name'] . '</h2>';
 			
 			$user_id = $photoblog_user['id'];
 			$options = array(
-				'category' => $photoblog_album[0]['id'],
+				'photos' => end($photos_sorted),
 				'user_id' => $user_id,
 				'include_dates' => false
 			);

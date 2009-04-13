@@ -9,24 +9,21 @@
     	$out .= '<input type="hidden" name="action" value="album_new" /><p><label><strng>Namn:</strong> <input type="text" name="name" /> <input type="submit" value="Skapa" /></p>';
     $out .= '</form>';
     
-    $options = array('user' => $_SESSION['login']['id']);
-    $photos = photoblog_photos_fetch($options);
+    $options = array(
+    	'user' => $_SESSION['login']['id']
+    );
     
-    $options['create_if_not_found'] = false;
-    $options['id_index'] = true;
-    $categories = photoblog_categories_fetch($options);
+    list($albums_sorted, $categories) = photoblog_photos_fetch_sorted($options);
     
     $albums = array();
     
-    foreach ( $categories as $category )
-    {
-    	$albums[$category['id']] = array();
-    }
-    
-    foreach ( $photos as $photo )
-    {
-        $albums[$photo['category']][] = '<li id="photo_' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /><br /><input type="checkbox" name="foo" value="' . $photo['id'] . '" /></li>';
-    }
+   	foreach ( $albums_sorted as $album_id => $album )
+   	{
+   		foreach ( $album as $photo )
+   		{
+   			$albums[$album_id][] = '<li id="photo_' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /><br /><input type="checkbox" name="foo" value="' . $photo['id'] . '" /></li>';
+   		}
+   	}
     
     foreach ( $albums as $id => $album )
     {
