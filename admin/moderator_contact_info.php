@@ -2,7 +2,7 @@
 	include '../include/core/common.php';
 	$ui_options['title'] = 'Moderatorkontaktinfo - Hamsterpaj.net';
 	
-	if (!login_checklogin() || !is_privilegied('discussion_forum_remove_posts')) {
+	if (!(is_privilegied('discussion_forum_remove_posts') || is_privilegied('ip_ban_admin') || is_privilegied('igotgodmode')) || !login_checklogin()) {
 		die('Tjockis :(<br /><a href="/">Hejdå</a>');
 	}
 	
