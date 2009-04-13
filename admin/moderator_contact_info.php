@@ -39,7 +39,7 @@
 			$out .= '<td><input type="text" name="msn_address" value="' . $data['msn_address'] . '" /></td>' . "\n";
 			$out .= '</tr><tr>' . "\n";
 			$out .= '<th><label for="waist_size">Midjemått<strong>*</strong></label></th>' . "\n";
-			$out .= '<td><input type="text" name="waist_size" maxlength="20" value="' . $data['waist_size'] . '" /></td>' . "\n";
+			$out .= '<td><input type="text" name="waist_size" maxlength="5" value="' . $data['waist_size'] . '" /></td>' . "\n";
 			$out .= '</tr><tr>' . "\n";
 			$out .= '<th><label for="cup_size">Kupstorlek<strong>*</strong></label></th>' . "\n";
 			$out .= '<td>' . "\n";
@@ -136,7 +136,7 @@
 				if ($moderator_class_current != $data['moderator_class']) {
 					$moderator_class_current = $data['moderator_class'];
 					$out .= '<tr>';
-					$out .= '<th colspan="7" style="text-align: left;">';
+					$out .= '<th colspan="9" style="text-align: left;">';
 					$out .= $moderator_class_aliases[$data['moderator_class']];
 					$out .= '</th>';
 					$out .= '</tr>';
