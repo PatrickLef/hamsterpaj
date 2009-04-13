@@ -3,7 +3,14 @@
 	require('../include/core/common.php');
 	$ui_options['stylesheets'][] = 'hpads_admin.css';
 	$ui_options['javascripts'][] = 'hpads_admin.js';
-	$ui_options['title'] = 'Startsidan pÃ¥ Hamsterpaj';
+	$ui_options['title'] = 'Startsidan pÃƒÂ¥ Hamsterpaj';
+
+	if(!is_privilegied('hp_ad_admin'))
+	{
+		jscript_alert('En skyddad sida, du är inte välkommen');
+		jscript_location('/');
+		die('Du måste ha privilegie för att nå den här sidan');
+	}
 
 	ui_top($ui_options);
 	
