@@ -596,3 +596,19 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 	.jquery_sort_graveyard  {
 		list-style: none;
 	}
+
+.__htmlpopup {
+	border: 1px solid #999;
+	margin: 0;
+	padding: 10px;
+	background: <?php echo $main_color; ?>;
+}
+
+	.__htmlpopup * { margin: 0; padding: 0; color: <?php echo $detail_color; ?>; }
+	
+	.__htmlpopup textarea {
+		border: 0;
+		background: <?php echo $detail_color; ?>;
+		color: <?php echo $main_color; ?>;
+		padding: 5px;
+	}
