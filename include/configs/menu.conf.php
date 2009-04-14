@@ -64,6 +64,7 @@
 
 	$menu['traeffa'] = array('label' => 'Träffa', 'url' => '/traffa/');
 		$menu['traeffa']['children']['soek'] = array('label' => 'Sök', 'url' => '/traffa/search.php');
+		$menu['traeffa']['children']['koettmarknaden'] = array('label' => 'Köttmarknaden', 'url' => '/traffa/index.new.php');
 		$menu['traeffa']['children']['klotterplank'] = array('label' => 'Klotterplank', 'url' => '/traffa/klotterplanket.php');
 		$menu['traeffa']['children']['galleriet'] = array('label' => 'Galleriet', 'url' => '/traffa/gallery.php');
 		$menu['traeffa']['children']['grupper'] = array('label' => 'Grupper', 'url' => '/traffa/groups.php');
