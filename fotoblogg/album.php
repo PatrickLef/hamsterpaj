@@ -10,14 +10,14 @@
 			
 			$options = array();
 			
-			$options['slug'] = $albumname;
+			$options['handle'] = $albumname;
 			$options['user'] = $photoblog_user['id'];
 			
 			$photoblog_album = photoblog_categories_fetch($options);
 			
 			$options['category'] = $photoblog_album[0]['id'];
 			
-			unset($options['slug']);
+			unset($options['handle']);
 			
 			list($photos_sorted, $category) = photoblog_photos_fetch_sorted($options);
 		
