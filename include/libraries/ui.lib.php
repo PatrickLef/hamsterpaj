@@ -144,9 +144,12 @@ function ui_top($options = array())
 	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
 	$output .= '</div>' . "\n";
 
-	$output .= '<div>' . "\n";
-	$output .= hpads_display('bigbanner');
-	$output .= '</div>' . "\n";
+	#$output .= '<div>' . "\n";
+	if ($bigbanner = hpads_display('bigbanner')) {
+		$output .= '<div style="margin: 10px 0 0 10px;">' . "\n";
+		$output .= $bigbanner;
+		$output .= '</div>' . "\n";
+	}
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="ad_wrapper">' . "\n";
@@ -385,6 +388,7 @@ function ui_bottom($options = array())
 	else
 	{
 		$modules['google_adsense'] = 'Överlevnadsmodul';
+		$modules['ad_module'] = 'Admodul';
 		
 		$query = 'SELECT rs.id FROM radio_schedule AS rs, login AS l, radio_programs AS rp WHERE l.id = rp.user_id AND rp.id = rs.program_id AND NOW() BETWEEN rs.starttime AND rs.endtime ORDER BY rs.starttime DESC LIMIT 0, 1';
 		$ui_module_radio_sending = query_cache(array('query' => $query, 'max_delay' => 60));
@@ -457,6 +461,7 @@ function ui_bottom($options = array())
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
+	$output .= hpads_display('stortavla');
 	$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
 	$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
 	$output .= '<br style="clear: both;" />' . "\n";
