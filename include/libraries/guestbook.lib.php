@@ -119,7 +119,7 @@
 		$message = strtolower(' ' . $entry['message'] . ' ');
 		foreach($gb_autoreport_strings AS $gb_autoreport_string)
 		{
-			if(strpos($message, $gb_autoreport_string['string']) == true)
+			if(strpos($message, strtolower($gb_autoreport_string['string'])) == true)
 			{
 				$query = 'INSERT INTO gb_autoreport_posts SET string_id = ' . $gb_autoreport_string['id'] . ', gb_id = ' . $entry['id'];
 				mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
