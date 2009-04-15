@@ -117,7 +117,7 @@ function ui_top($options = array())
 	$output .= '</script>' . "\n";
 	$output .= '<script language="JavaScript" type="text/javascript" src="http://ad.adtoma.com/adam/cm8adam_1_call.js"></script>' . "\n";
 	
-	$output .= '<div style="margin: 10px 0 0 10px;"><script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_6ba.js"></script></div>' . "\n";
+	#$output .= '<div style="margin: 10px 0 0 10px;"><script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_6ba.js"></script></div>' . "\n";
 
 	if(isset($_SESSION['user_message']))
 	{
@@ -387,7 +387,7 @@ function ui_bottom($options = array())
 	}
 	else
 	{
-		$modules['google_adsense'] = 'Överlevnadsmodul';
+		#$modules['google_adsense'] = 'Överlevnadsmodul';
 		$modules['ad_module'] = 'Admodul';
 		
 		$query = 'SELECT rs.id FROM radio_schedule AS rs, login AS l, radio_programs AS rp WHERE l.id = rp.user_id AND rp.id = rs.program_id AND NOW() BETWEEN rs.starttime AND rs.endtime ORDER BY rs.starttime DESC LIMIT 0, 1';
@@ -462,8 +462,8 @@ function ui_bottom($options = array())
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
 	$output .= hpads_display('stortavla');
-	$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
-	$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
+	#$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
+	#$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
 	$output .= '<br style="clear: both;" />' . "\n";
 	$output .= '<script type="text/javascript" src="http://www.adtrade.net/ad/p/?id=hamsterpaj_1&size=140x350&ad=001" charset="iso-8859-1"></script>';
 	$output .= '</div>' . "\n";
