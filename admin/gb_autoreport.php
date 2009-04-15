@@ -138,8 +138,8 @@
 					$out .= '<td colspan="5" class="gb_autoreport_message">' . nl2br($report['message']) . '</td>' . "\n";
 					$out .= '</tr>' . "\n";
 					$out .= '<tr id="gb_autoreport_post_info_' . $report['id'] . '" class="gb_autoreport_post_info' . ($report['id']&1 ? ' gb_autoreport_post_odd' : '') . '">' . "\n";
-					$out .= '<td><a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '&id_2=' . $report['recipient'] . '">Läs diskussion</a></td>' . "\n";
-					$out .= '<td><a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '">Läs alla inlägg</a></td>' . "\n";
+					$out .= '<td>' . (is_privilegied('use_ghosting_tools') ? '<a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '&id_2=' . $report['recipient'] . '">Läs diskussion</a>' : 'Kräver gb-hack') . '</td>' . "\n";
+					$out .= '<td>' . (is_privilegied('use_ghosting_tools') ? '<a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '">Läs alla inlägg</a>' : 'Kräver gb-hack') . '</td>' . "\n";
 					$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $report['user_id'] . '">' . $report['username'] . '</a></td>' . "\n";
 					$out .= '<td><a id="' . $report['id'] . '" class="gb_autoreport_validate" href="/ajax_gateways/gb_autoreport.php?action=post_validate&id=' . $report['id'] . '&return=true" style="color: green;">Validera</a></td>' . "\n";
 					$out .= '</tr>' . "\n";
