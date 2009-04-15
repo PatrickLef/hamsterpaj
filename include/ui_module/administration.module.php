@@ -57,16 +57,14 @@
 	
 	if(is_privilegied('gb_autoreport'))
 	{
-		$query = 'SELECT COUNT(garp.id)';
+		$query = 'SELECT COUNT(*) posts';
 		$query .= ' FROM gb_autoreport_posts AS garp';
 		$query .= ' JOIN gb_autoreport_strings AS gars ON gars.id = garp.string_id ';
 		$query .= ' JOIN traffa_guestbooks AS gb ON gb.id = garp.gb_id';
 		$query .= ' JOIN login AS l ON l.id = gb.sender AND l.is_removed = 0';
 		$query .= ' WHERE garp.checked = 0';
-		$query .= ' GROUP BY garp.id ';
-		$query = 'SELECT COUNT(*) AS reports FROM gb_autoreport_posts AS garp JOIN gb_autoreport_strings AS gars ON gars.id = garp.string_id WHERE checked = 0';
 		$result = query_cache(array('query' => $query, 'max_delay' => 60));
-		$gb_autoreports = $result[0]['reports'];
+		$gb_autoreports = $result[0]['posts'];
 		
 		if($gb_autoreports == 0)
 		{
