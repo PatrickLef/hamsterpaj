@@ -235,3 +235,20 @@
 #ui_module_google_adsense .ui_module_content {
   padding: 0;
 }
+
+/*
+	################################################################
+		Ad_module
+	################################################################
+*/
+#ui_module_ad_module  .ui_module_content {
+	background-color: #F0F0F0;
+}
+
+#ui_module_ad_module .ui_module_header {
+  display: none;
+}
+
+#ui_module_ad_module .ui_module_content {
+  padding: 0;
+}

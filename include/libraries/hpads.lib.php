@@ -1,5 +1,4 @@
 <?php
-
 function hpads_display($area)
 {
 	$query = 'SELECT * FROM hp_ads WHERE area = "' . $area . '" AND credits > 0 AND expire > "' . time() . '"';
@@ -19,6 +18,20 @@ function hpads_display($area)
 	if(count($ads) == 0)
 	{
 		return false;
+		/* Testenvironment debug-ads.
+		switch ($area) {
+			case 'bigbanner':
+				return '<h1 style="background: #eee; width: 728px; height: 90px; line-height: 90px; text-align: center;">bigbanner (90x728)</h1>';
+				break;
+			case 'modulruta':
+				return '<h1 style="background: #eee; width: 200px; height: 200px; line-height: 100px; text-align: center;">modulruta (200x200)</h1>';
+				break;
+			case 'stortavla':
+				return '<h1 style="background: #eee; width: 200px; height: 600px; line-height: 300px; text-align: center;">stortavla (max 200x600)</h1>';
+				break;
+			default:
+				break;
+		}*/
 	}
 	
 	$ad = $ads[$pool[array_rand($pool, 1)]];
