@@ -136,6 +136,7 @@
 			$menu['admin']['children']['anvaendare']['children']['user_management'] = array('label' => 'User management', 'url' => '/admin/user_management.php', 'is_privilegied' => 'user_management_admin');
 			$menu['admin']['children']['anvaendare']['children']['pm_hack'] = array('label' => 'PM-hack', 'url' => '/admin/pm_hack.php', 'is_privilegied' => 'use_ghosting_tools');
 			$menu['admin']['children']['anvaendare']['children']['guestbook_hack'] = array('label' => 'GB-hack', 'url' => '/admin/guestbook_hack.php', 'is_privilegied' => 'use_ghosting_tools');
+			$menu['admin']['children']['anvaendare']['children']['gb_autoreport'] = array('label' => 'Automagisk GB-rapportering', 'url' => '/admin/gb_autoreport.php', 'is_privilegied' => 'gb_autoreport');
 			$menu['admin']['children']['anvaendare']['children']['user_ghost'] = array('label' => 'Ghosta', 'url' => '/admin/user_ghost.php', 'is_privilegied' => 'use_ghosting_tools');
 			$menu['admin']['children']['anvaendare']['children']['user_logins'] = array('label' => 'User Logins', 'url' => '/admin/user_logins.php', 'is_privilegied' => 'ip_ban_admin');
 			$menu['admin']['children']['anvaendare']['children']['newly_registered_users'] = array('label' => 'Nyregistrerade användare', 'url' => '/admin/newly_registered_users.php', 'is_privilegied' => 'remove_user');
