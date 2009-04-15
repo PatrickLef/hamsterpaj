@@ -405,7 +405,7 @@ function ui_bottom($options = array())
 		$modules['latest_posts'] = 'Inlägg i forumet';
 		$modules['site_stats'] = 'Statistik';
 		
-		foreach(array('discussion_forum_remove_posts', 'discussion_forum_edit_posts', 'discussion_forum_rename_threads', 'discussion_forum_lock_threads', 'discussion_forum_sticky_threads', 'discussion_forum_move_thread', 'discussion_forum_post_addition') as $privilegie)
+		foreach(array('discussion_forum_remove_posts', 'discussion_forum_edit_posts', 'discussion_forum_rename_threads', 'discussion_forum_lock_threads', 'discussion_forum_sticky_threads', 'discussion_forum_move_thread', 'discussion_forum_post_addition', 'gb_autoreport') as $privilegie)
 		{
 			if (is_privilegied($privilegie))
 			{
