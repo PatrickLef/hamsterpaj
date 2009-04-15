@@ -2,8 +2,7 @@
 	include '../include/core/common.php';
 	$ui_options['title'] = 'Moderatorkontaktinfo - Hamsterpaj.net';
 	
-	if (!login_checklogin() || !is_privilegied()) {
-		die('Tjockis :(<br /><a href="/">Hejdå</a>');
+	if (!(is_privilegied('discussion_forum_remove_posts') || is_privilegied('ip_ban_admin') || is_privilegied('igotgodmode')) || !login_checklogin()) {
 		die('Tjockis :(<br /><a href="/">Hejdå</a>');
 	}
 	
@@ -40,7 +39,7 @@
 			$out .= '<td><input type="text" name="msn_address" value="' . $data['msn_address'] . '" /></td>' . "\n";
 			$out .= '</tr><tr>' . "\n";
 			$out .= '<th><label for="waist_size">Midjemått<strong>*</strong></label></th>' . "\n";
-			$out .= '<td><input type="text" name="waist_size" maxlength="20" value="' . $data['waist_size'] . '" /></td>' . "\n";
+			$out .= '<td><input type="text" name="waist_size" maxlength="5" value="' . $data['waist_size'] . '" /></td>' . "\n";
 			$out .= '</tr><tr>' . "\n";
 			$out .= '<th><label for="cup_size">Kupstorlek<strong>*</strong></label></th>' . "\n";
 			$out .= '<td>' . "\n";
@@ -51,6 +50,18 @@
 			}
 			$out .= '</select>' . "\n";
 			$out .= '</td>' . "\n";
+			$out .= '</tr><tr>' . "\n";
+			$out .= '<th><label for="visibility_level">Visa info för</label></th>' . "\n";
+			$visibility_levels = array(
+				'ovs' => 'Ordningsvakter, Admins och Sysops',
+				'admins' => 'Admins och Sysops',
+				'sysops' => 'Sysops'
+			);
+			$out .= '<td><select name="visibility_level">' . "\n";
+			foreach ($visibility_levels as $db_alias => $spoken_language_alias) {
+				$out .= '<option value="' . $db_alias . '"' . ($data['visibility_level'] == $db_alias ? ' selected="selected"' : NULL) . '>' . $spoken_language_alias . '</option>' . "\n";
+			}
+			$out .= '</select></td>' . "\n";
 			$out .= '</tr>' . "\n";
 			$out .= '</table>' . "\n";
 			$out .= '<p>Fält märkta med <strong style="color: red;">*</strong> är obligatoriska.</p>' . "\n";
@@ -65,7 +76,8 @@
 			if ($result_num_rows == 0) {
 				$sql = 'INSERT INTO moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
-				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : (is_privilegied('discussion_forum_remove_posts') ? 'ov' : 'NULL'))) . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs')) ? $_POST['visibility_level'] : 'ovs') . '",';
+				$sql .= ' moderator_class = "' . (is_privilegied('igotgodmode') ? 'sysop' : (is_privilegied('ip_ban_admin') ? 'admin' : 'ov')) . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -78,6 +90,7 @@
 			} else {
 				$sql = 'UPDATE moderator_contact_info SET';
 				$sql .= ' user_id = "' . $_SESSION['login']['id'] . '",';
+				$sql .= ' visibility_level = "' . (in_array($_POST['visibility_level'], array('sysops', 'admins', 'ovs')) ? $_POST['visibility_level'] : 'ovs') . '",';
 				$sql .= ' full_name = "' . $_POST['full_name'] . '",';
 				$sql .= ' street_address = "' . $_POST['street_address'] . '",';
 				$sql .= ' zip_code = "' . $_POST['zip_code'] . '",';
@@ -99,22 +112,23 @@
 				$out .= '<p class="error">';
 				$out .= 'Du verkar inte ha lagt in din information i databasen, var vänlig gör det <a href="/admin/moderator_contact_info.php?action=edit_my_info">här</a>!';
 				$out .= '</p>';
+			} else {
+				$out .= '<a href="/admin/moderator_contact_info.php?action=edit_my_info">Ändra min info &raquo;</a>' . "\n";
 			}
-			$out .= '<a href="/admin/moderator_contact_info.php?action=edit_my_info">Ändra min info &raquo;</a>' . "\n";
 			$out .= '<h2>Moderatorkontaktinfo</h2>';
-			$out .= '<table>';
+			$out .= '<table style="width: 100%">';
 			$out .= '<tr>' . "\n";
 			$out .= '<th>Nick</th>' . "\n";
 			$out .= '<th>För- och efternamn</th>' . "\n";
-			$out .= '<th>Midjem.</th>' . "\n";
 			$out .= '<th>Address</th>' . "\n";
 			$out .= '<th>Postnr</th>' . "\n";
 			$out .= '<th>Tfnnummer</th>' . "\n";
 			$out .= '<th>E-post</th>' . "\n";
 			$out .= '<th>MSN</th>' . "\n";
+			$out .= '<th>Midjem.</th>' . "\n";
 			$out .= '<th>Kupa</th>' . "\n";
 			$out .= '</tr>' . "\n";
-			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id ORDER BY mci.moderator_class DESC, l.username ASC';
+			$sql = 'SELECT mci.*, l.username FROM moderator_contact_info mci, login l WHERE l.id = mci.user_id' . (is_privilegied('igotgodmode') ? NULL : (is_privilegied('ip_ban_admin') ? ' AND visibility_level != "sysops"' : ' AND visibility_level != "sysops" AND visibility_level != "admins"')) . ' ORDER BY mci.moderator_class DESC, l.username ASC';
 			$result = mysql_query($sql) or report_sql_error($sql, __FILE__, __LINE__);
 			$moderator_class_aliases = array(
 				'sysop' => 'Sysops',
@@ -125,7 +139,7 @@
 				if ($moderator_class_current != $data['moderator_class']) {
 					$moderator_class_current = $data['moderator_class'];
 					$out .= '<tr>';
-					$out .= '<th colspan="7" style="text-align: left;">';
+					$out .= '<th colspan="9" style="text-align: left;">';
 					$out .= $moderator_class_aliases[$data['moderator_class']];
 					$out .= '</th>';
 					$out .= '</tr>';
@@ -133,12 +147,12 @@
 				$out .= '<tr>';
 				$out .= '<td style="border-right: thin solid #aaa;">' . $data['username'] . '</td>';
 				$out .= '<td style="background: rgb(253, 253, 253);">' . $data['full_name'] . '</td>';
-				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['waist_size'] . '</td>';
-				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['street_address'] . '</td>';
-				$out .= '<td style="background: rgb(247, 247, 247);">' . $data['zip_code'] . '</td>';
-				$out .= '<td style="background: rgb(245, 245, 245);">' . $data['phone_number'] . '</td>';
-				$out .= '<td style="background: rgb(243, 243, 243);">' . $data['email'] . '</td>';
-				$out .= '<td style="background: rgb(241, 241, 241);">' . $data['msn_address'] . '</td>';
+				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['street_address'] . '</td>';
+				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['zip_code'] . '</td>';
+				$out .= '<td style="background: rgb(247, 247, 247);">' . $data['phone_number'] . '</td>';
+				$out .= '<td style="background: rgb(245, 245, 245);">' . $data['email'] . '</td>';
+				$out .= '<td style="background: rgb(243, 243, 243);">' . $data['msn_address'] . '</td>';
+				$out .= '<td style="background: rgb(241, 241, 241);">' . $data['waist_size'] . '</td>';
 				$out .= '<td style="background: rgb(239, 239, 239);">' . $data['cup_size'] . '</td>';
 				$out .= '</tr>';
 			}

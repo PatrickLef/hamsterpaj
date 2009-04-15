@@ -50,6 +50,7 @@
 		$menu['mattan']['children']['ladda_ner_program'] = array('label' => 'Ladda ner program', 'url' => '/mattan/ladda_ner_program.php');
 		$menu['mattan']['children']['pornalizer'] = array('label' => 'Pornalizer', 'url' => '/mattan/pornalizer.php');
 		$menu['mattan']['children']['promoe'] = array('label' => 'Promoe', 'url' => '/mattan/promoe.php');
+		$menu['mattan']['children']['radio'] = array('label' => 'HamsterRadio', 'url' => '/radio');
 		$menu['mattan']['children']['snyggve'] = array('label' => 'Snyggve', 'url' => '/mattan/snyggve.php');
 		$menu['mattan']['children']['collage_illusion'] = array('label' => 'Kollageapparaten', 'url' => '/mattan/collage_illusion.php');
 		$menu['mattan']['children']['fruit_vernissage'] = array('label' => 'Fruktvernissage', 'url' => 'http://www.hamsterpaj.net/artiklar/?action=show&id=95');
@@ -64,6 +65,7 @@
 
 	$menu['traeffa'] = array('label' => 'Träffa', 'url' => '/traffa/');
 		$menu['traeffa']['children']['soek'] = array('label' => 'Sök', 'url' => '/traffa/search.php');
+		$menu['traeffa']['children']['koettmarknaden'] = array('label' => 'Köttmarknaden', 'url' => '/traffa/index.new.php');
 		$menu['traeffa']['children']['klotterplank'] = array('label' => 'Klotterplank', 'url' => '/traffa/klotterplanket.php');
 		$menu['traeffa']['children']['galleriet'] = array('label' => 'Galleriet', 'url' => '/traffa/gallery.php');
 		$menu['traeffa']['children']['grupper'] = array('label' => 'Grupper', 'url' => '/traffa/groups.php');
