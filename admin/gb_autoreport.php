@@ -116,31 +116,34 @@
 				$out .= '<tr>' . "\n";
 				$out .= '<th>GB-hack diskussion</th>' . "\n";
 				$out .= '<th>GB-hack användare</th>' . "\n";
-				$out .= '<th>Användare</th>' . "\n";
+				$out .= '<th>Avsändare</th>' . "\n";
+				$out .= '<th>Mottagare</th>' . "\n";
 				$out .= '<th>Validerad</th>' . "\n";
 				$out .= '</tr>' . "\n";
 				
-				$query = 'SELECT l.username, gars.priority, gb.sender, gb.message, garp.checked, gb.recipient, l.id AS user_id, garp.id';
+				$query = 'SELECT l.username, gars.priority, gb.sender, gb.message, garp.checked, gb.recipient, l.id AS user_id, garp.id, ls.id AS recipient_id, ls.username AS recipient_username';
 				$query .= ' FROM gb_autoreport_posts AS garp';
 				$query .= ' JOIN gb_autoreport_strings AS gars ON gars.id = garp.string_id ';
 				$query .= ' JOIN traffa_guestbooks AS gb ON gb.id = garp.gb_id';
 				$query .= ' JOIN login AS l ON l.id = gb.sender AND l.is_removed = 0';
+				$query .= ' JOIN login AS ls ON ls.id = gb.recipient';
 				$query .= ' WHERE garp.checked = 0';
 				$query .= ' GROUP BY garp.id ';
 				$query .= ' ORDER BY gars.priority DESC';
 				$query .= ' LIMIT 100';
 				$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
-	
+
 				while($report = mysql_fetch_assoc($result))
 				{
 					$out .= '<tr' . ($report['id']&1 ? ' class="gb_autoreport_post_odd"' : '') . ' id="gb_autoreport_post_message_' . $report['id'] . '">' . "\n";
 					$out .= '<th>Inlägg:</th>' . "\n";
-					$out .= '<td colspan="5" class="gb_autoreport_message">' . nl2br($report['message']) . '</td>' . "\n";
+					$out .= '<td colspan="6" class="gb_autoreport_message">' . nl2br($report['message']) . '</td>' . "\n";
 					$out .= '</tr>' . "\n";
 					$out .= '<tr id="gb_autoreport_post_info_' . $report['id'] . '" class="gb_autoreport_post_info' . ($report['id']&1 ? ' gb_autoreport_post_odd' : '') . '">' . "\n";
 					$out .= '<td>' . (is_privilegied('use_ghosting_tools') ? '<a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '&id_2=' . $report['recipient'] . '">Läs diskussion</a>' : 'Kräver gb-hack') . '</td>' . "\n";
 					$out .= '<td>' . (is_privilegied('use_ghosting_tools') ? '<a href="/admin/guestbook_hack.php?id_1=' . $report['sender'] . '">Läs alla inlägg</a>' : 'Kräver gb-hack') . '</td>' . "\n";
 					$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $report['user_id'] . '">' . $report['username'] . '</a></td>' . "\n";
+					$out .= '<td class="username"><a href="/traffa/profile.php?user_id=' . $report['recipient_id'] . '">' . $report['recipient_username'] . '</a></td>' . "\n";
 					$out .= '<td><a id="' . $report['id'] . '" class="gb_autoreport_validate" href="/ajax_gateways/gb_autoreport.php?action=post_validate&id=' . $report['id'] . '&return=true" style="color: green;">Validera</a></td>' . "\n";
 					$out .= '</tr>' . "\n";
 				}
