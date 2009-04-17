@@ -1,7 +1,7 @@
 <?php
 	$menu['hamsterpaj'] = array('label' => 'Hamsterpaj', 'url' => '/', 'index_label' => 'Förstasidan');
 		$menu['hamsterpaj']['children']['nytt'] = array('label' => 'Senaste nytt', 'url' => '/hamsterpaj/nytt.php');
-		$menu['hamsterpaj']['children']['utvecklarblogg'] = array('label' => 'Utvecklarblogg', 'url' => '/hamsterpaj/utvecklarblogg.php');
+		$menu['hamsterpaj']['children']['hamsterblogg'] = array('label' => 'Hamsterblogg', 'url' => '/hamsterpaj/hamsterblogg.php');
 		$menu['hamsterpaj']['children']['om_hamsterpaj'] = array('label' => 'Om Hamsterpaj', 'url' => '/hamsterpaj/about.php');
 		$menu['hamsterpaj']['children']['annonsera'] = array('label' => 'Annonsera', 'url' => '/hamsterpaj/annonsera.php');
 		$menu['hamsterpaj']['children']['crew'] = array('label' => 'Vi som gör sidan', 'url' => '/hamsterpaj/crew.php');
