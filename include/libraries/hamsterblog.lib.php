@@ -17,17 +17,17 @@ function render_entries($entries, $options)
 							$content .= '</p>' . "\n";
 						$content .= '</div>' . "\n";
 						// ----START----
-						$content .= ($_GET['action'] != 'show') ? '<a href="/hamsterpaj/utvecklarblogg.php?action=show&id=' . $entry['id'] . '">Kommentera &raquo;</a>' : '<a href="/hamsterpaj/utvecklarblogg.php">&laquo; Tillbaka</a>';
+						$content .= ($_GET['action'] != 'show') ? '<a href="/hamsterpaj/hamsterblogg.php?action=show&id=' . $entry['id'] . '">Kommentera &raquo;</a>' : '<a href="/hamsterpaj/hamsterblogg.php">&laquo; Tillbaka</a>';
 						// ----END------
 		$content .= message_bottom();
 		if ($options['enable_comments'] == true)
 		{
 			$content .= rounded_corners_top();
 			$content .= '<label>Kommentera:</label>' . "\n";
-			$content .= comments_input_draw($entry['id'], 'developer_blog');
+			$content .= comments_input_draw($entry['id'], 'hamsterblog');
 			$content .= rounded_corners_bottom();
 			$content .= '<div style="clear: both;"></div>' . "\n";
-			$content .= comments_list($entry['id'], 'developer_blog');
+			$content .= comments_list($entry['id'], 'hamsterblog');
 		}
 	}
 	$content .= '</ul>' . "\n";

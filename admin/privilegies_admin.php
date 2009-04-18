@@ -1,5 +1,6 @@
 <?php
 	require('../include/core/common.php');
+	require_once(PATHS_LIBRARIES . 'admin.lib.php');
 	
 	if(!is_privilegied('privilegies_admin'))
 	{
@@ -193,6 +194,8 @@
 				$query = 'INSERT INTO privilegies (privilegie, value, user) VALUES ("' . $_POST['privilegie_add_privilegie'] . '", "' . $_POST['privilegie_add_value'] . '", ' . $_POST['user_id'] . ')';
 				mysql_query($query) or report_sql_error($query);
 				
+				log_admin_event('privilegie added', $_POST['privilegie_add_privilegie'] . ' med värdet: ' . $_POST['privilegie_add_value'], $_SESSION['login']['id'], $_POST['user_id'], 0);
+				
 				jscript_location($_SERVER['PHP_SELF'] . '?action=load_user&user_id=' . $_POST['user_id']);
 				exit;
 			}
@@ -220,6 +223,8 @@
 				
 				$query = 'DELETE FROM privilegies WHERE privilegie_id = ' . $_GET['privilegie_id'] . ' LIMIT 1';
 				mysql_query($query) or report_sql_error($query);
+				
+				log_admin_event('privilegie removed', $_GET['privilegie'], $_SESSION['login']['id'], $_GET['back_to_user_id'], 0);
 				
 				jscript_location($_SERVER['PHP_SELF'] . '?action=load_user&user_id=' . $_GET['back_to_user_id']);
 				exit;

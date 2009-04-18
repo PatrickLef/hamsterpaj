@@ -54,5 +54,34 @@
 			}
 		}
 	}
+	
+	if(is_privilegied('gb_autoreport'))
+	{
+		$query = 'SELECT COUNT(*) posts';
+		$query .= ' FROM gb_autoreport_posts AS garp';
+		$query .= ' JOIN gb_autoreport_strings AS gars ON gars.id = garp.string_id ';
+		$query .= ' JOIN traffa_guestbooks AS gb ON gb.id = garp.gb_id';
+		$query .= ' JOIN login AS l ON l.id = gb.sender AND l.is_removed = 0';
+		$query .= ' WHERE garp.checked = 0';
+		$result = query_cache(array('query' => $query, 'max_delay' => 60));
+		$gb_autoreports = $result[0]['posts'];
+		
+		if($gb_autoreports == 0)
+		{
+			$return .= '<br />----------------------';
+			$return .= '<br />Inga nya automatiska GB-rapporter';
+		}
+		elseif($gb_autoreports > 1)
+		{
+			$return .= '<br />----------------------';
+			$return .= '<br /><a href="/admin/gb_autoreport.php">' . $gb_autoreports . ' nya automatiska GB-rapporter &raquo;</a>';
+		}
+		else
+		{
+			$return .= '<br />----------------------';
+			$return .= '<br /><a href="/admin/gb_autoreport.php">En ny automatisk GB-rapport &raquo;</a>';
+		}
+	}
+	
 	$options['output'] = $return;
 ?>
