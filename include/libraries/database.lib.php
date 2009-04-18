@@ -1,11 +1,11 @@
 <?php
 function report_sql_error($query, $file = null, $line = null)
 {
-  echo '<div class="server_message_error"><h2>Såhär skall det ju inte bli, usch!</h2><p>Ett fel på hamsterpaj har inträffat! Utvecklingsansvariga har meddelats om detta, du behöver inte rapportera felet. Vi åtgärdar det snart (om vi kan :P)</p>';
-	echo '<h3 class="server_message_collapse_header" id="server_message_collapse_header_sqlerror">Visa felsökningsinformation</h3>' . "\n";
+  echo '<div class="server_message_error"><h2>SÃ¥hÃ¤r skall det ju inte bli, usch!</h2><p>Ett fel pÃ¥ hamsterpaj har intrÃ¤ffat! Utvecklingsansvariga har meddelats om detta, du behÃ¶ver inte rapportera felet. Vi Ã¥tgÃ¤rdar det snart (om vi kan :P)</p>';
+	echo '<h3 class="server_message_collapse_header" id="server_message_collapse_header_sqlerror">Visa felsÃ¶kningsinformation</h3>' . "\n";
   echo '<div class="server_message_collapsed_information" id="server_message_collapse_information_sqlerror">' . "\n";
-  echo '<br />Felsökningsinformation:<br />' . htmlspecialchars(mysql_error());
-  echo '<br />Frågan löd:<br /><p>' . htmlspecialchars($query) . '</p>';
+  echo '<br />FelsÃ¶kningsinformation:<br />' . htmlspecialchars(mysql_error());
+  echo '<br />FrÃ¥gan lÃ¶d:<br /><p>' . htmlspecialchars($query) . '</p>';
   echo $file . ' #' . $line;
  	echo '<h1>Backtrace</h1>' . "\n";
  	preint_r(debug_backtrace());
@@ -67,7 +67,7 @@ function database_error_create($options)
 		break;
 		
 		case 'connection_error':
-			$output .= 'Det är för trångt på Hamsterpaj just nu (eller så är databasen trasig)';
+			$output .= 'Det Ã¤r fÃ¶r trÃ¥ngt pÃ¥ Hamsterpaj just nu (eller sÃ¥ Ã¤r databasen trasig)';
 		break;
 	}
 	$output .= '</h1>' . "\n";
@@ -76,21 +76,21 @@ function database_error_create($options)
 	switch($options['type'])
 	{
 		case 'running_backup':
-			$output .= 'När vår databas tar backup så blir den tyvärr lite upptagen och hinner inte svara på frågor.<br />' . "\n";
-			$output .= 'Ursäkta dröjsmålet, ca 05:00 kommer den igång igen!' . "\n";
+			$output .= 'NÃ¤r vÃ¥r databas tar backup sÃ¥ blir den tyvÃ¤rr lite upptagen och hinner inte svara pÃ¥ frÃ¥gor.<br />' . "\n";
+			$output .= 'UrsÃ¤kta drÃ¶jsmÃ¥let, ca 05:00 kommer den igÃ¥ng igen!' . "\n";
 		break;
 		
 		case 'connection_error':
 			if(isset($options['try_again']) && $options['try_again'])
 			{
-				$output .= 'När väldigt många personer försöker komma åt Hamsterpaj samtidigt så fungerar det inte alltid så bra,' . "\n";
-				$output .= 'just nu är det lite för fullt, din förfrågan fick inte plats. Vi försöker automatiskt att hämta din' . "\n";
-				$output .= 'sida igen om några sekunder.<br />' . "\n";
-				$output .= 'Ursäkta dröjsmålet!' . "\n";
+				$output .= 'NÃ¤r vÃ¤ldigt mÃ¥nga personer fÃ¶rsÃ¶ker komma Ã¥t Hamsterpaj samtidigt sÃ¥ fungerar det inte alltid sÃ¥ bra,' . "\n";
+				$output .= 'just nu Ã¤r det lite fÃ¶r fullt, din fÃ¶rfrÃ¥gan fick inte plats. Vi fÃ¶rsÃ¶ker automatiskt att hÃ¤mta din' . "\n";
+				$output .= 'sida igen om nÃ¥gra sekunder.<br />' . "\n";
+				$output .= 'UrsÃ¤kta drÃ¶jsmÃ¥let!' . "\n";
 			}
 			else
 			{
-				$output .= 'Du kan inte komma åt Hamsterpaj nu. Trots flera försök får du inte plats på sidan, kika tillbaks om en halvtimma eller så!' . "\n";
+				$output .= 'Du kan inte komma Ã¥t Hamsterpaj nu. Trots flera fÃ¶rsÃ¶k fÃ¥r du inte plats pÃ¥ sidan, kika tillbaks om en halvtimma eller sÃ¥!' . "\n";
 			}
 		break;
 	}

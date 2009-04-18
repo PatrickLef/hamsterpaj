@@ -20,12 +20,13 @@
 		$query .= ' AND userinfo.gender != "u"';	
 		$query .= ' AND userinfo.gender != ""';	
 		
+		$query .= ' AND sqrt(pow((z.x_rt90-' . $_SESSION['userinfo']['x_rt90'] . '),2) + pow((z.y_rt90-' . $_SESSION['userinfo']['y_rt90'] . '),2)) < 30000';	
+		
 		$query .= ' AND (userinfo.image = 1 OR userinfo.image = 2)';				
 		
 		$query .= ' ORDER BY login.lastaction DESC LIMIT 0, 16';
 
 		$result = mysql_query($query) or die(report_sql_error($query));
-	
 
 	// Let's show the result to the user 
 		$out .=  '<h2>Resultat</h2>';
