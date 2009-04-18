@@ -72,6 +72,23 @@
 	            photoblog_comments_add($options);
 			break;
 			
+			case 'comments_reply':
+				if (!isset($_GET['id']) || ! is_numeric($_GET['id']))
+				{
+					throw new Exception('No input');	
+				}
+				
+				if (!login_checklogin())
+				{
+					throw new Exception('Only users can reply to comments.');	
+				}
+				
+				$options['comment_id'] = $_GET['id'];
+				$options['reply'] = $_POST['reply'];
+				$options['author'] = $_SESSION['login']['id'];
+				photoblog_comments_reply($options);
+			break;
+			
 			case 'calendar_render':
 				if (!isset($_GET['user_id'], $_GET['month'], $_GET['year']))
 			    {
