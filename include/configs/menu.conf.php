@@ -158,7 +158,7 @@
 		$menu['site_admin']['children']['statistik'] = array('label' => 'Statistik', 'url' => '/admin/event_log.php', 'is_privilegied' => 'use_statistic_tools');
 		$menu['site_admin']['children']['pageviews'] = array('label' => 'Sidvisningar', 'url' => '/admin/pageviews.php', 'is_privilegied' => 'use_statistic_tools');
 		$menu['site_admin']['children']['registrering'] = array('label' => 'Stäng av registreringen', 'url' => '/admin/register_suspend.php', 'is_privilegied' => 'register_suspend_admin');
-		$menu['site_admin']['children']['flash_update'] = array('label' => 'Flashupdate', 'url' => '/admin/flash_update.php', 'is_privilegied' => 'entertain_add');
+		$menu['site_admin']['children']['flash_update'] = array('label' => 'Flashupdate', 'url' => '/site_admin/flash_update.php', 'is_privilegied' => 'entertain_add');
 		$menu['site_admin']['children']['wallpapers'] = array('label' => 'Bakgrundsbilder (nya)', 'url'  =>'/site_admin/wallpapers_admin.php', 'is_privilegied' => 'backgrounds_admin');
 		$menu['site_admin']['children']['music_guess'] = array('label' => 'Gissa låten', 'url' => '/site_admin/music_guess.php', 'is_privilegied' => 'music_guess_admin');
 		$menu['site_admin']['children']['open_search'] = array('label' => 'Open search', 'url' => '/site_admin/open_search.php', 'is_privilegied' => 'open_search');
