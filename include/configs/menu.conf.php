@@ -155,7 +155,7 @@
 	$menu['site_admin'] = array('label' => 'SA', 'url' => 'javascript:void(0)', 'is_privilegied' => $site_admin_privilegies);
 		$menu['site_admin']['children']['fp_admin'] = array('label' => 'Ordna startsidan', 'url' => '/admin/fp_module_list.php', 'is_privilegied' => 'fp_module_rearrange');
 		$menu['site_admin']['children']['schemalagt'] = array('label' => 'Schemalagt', 'url' => '/admin/schemalagt.php', 'is_privilegied' => 'schedule_admin');
-		$menu['site_admin']['children']['statistik'] = array('label' => 'Statistik', 'url' => '/admin/event_log.php', 'is_privilegied' => 'use_statistic_tools');
+		$menu['site_admin']['children']['statistik'] = array('label' => 'Statistik', 'url' => '/site_admin/event_log.php', 'is_privilegied' => 'use_statistic_tools');
 		$menu['site_admin']['children']['pageviews'] = array('label' => 'Sidvisningar', 'url' => '/site_admin/pageviews.php', 'is_privilegied' => 'use_statistic_tools');
 		$menu['site_admin']['children']['registrering'] = array('label' => 'Stäng av registreringen', 'url' => '/site_admin/register_suspend.php', 'is_privilegied' => 'register_suspend_admin');
 		$menu['site_admin']['children']['flash_update'] = array('label' => 'Flashupdate', 'url' => '/site_admin/flash_update.php', 'is_privilegied' => 'entertain_add');
