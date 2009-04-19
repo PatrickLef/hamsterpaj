@@ -145,7 +145,7 @@ function schedule_event_list($options)
 		echo '<td>';
 		if($options['editable'])
 		{
-			echo '<form action="/admin/schemalagt.php">' . "\n";
+			echo '<form action="/site_admin/schemalagt.php">' . "\n";
 			echo '<input type="hidden" name="id" value="' . $event['id'] . '"/>' . "\n";
 			echo '<input type="text" name="release" value="';
 		}
