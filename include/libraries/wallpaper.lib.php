@@ -282,7 +282,7 @@ function wallpapers_action_preview($arg)
 			
 			if(login_checklogin() && $_SESSION['login']['userlevel'] >= 5)
 			{
-				$out .= ' [<a href="/admin/wallpapers_admin.php?action=wallpapers&sub_action=delete_res&id='.$id.'&w='.$data['width'].'&h='.$data['height'].'" onclick="return confirm(\'Sure?'.($num_res == 1 ? '\n\n***** OBS! LÄS DETTA *****\n\nEftersom den här upplösningen är den sista kommer även bilden tas bort.\n\nStill sure?' : '').'\')" title="Radera upplösningen">X</a>]';
+				$out .= ' [<a href="/site_admin/wallpapers_admin.php?action=wallpapers&sub_action=delete_res&id='.$id.'&w='.$data['width'].'&h='.$data['height'].'" onclick="return confirm(\'Sure?'.($num_res == 1 ? '\n\n***** OBS! LÄS DETTA *****\n\nEftersom den här upplösningen är den sista kommer även bilden tas bort.\n\nStill sure?' : '').'\')" title="Radera upplösningen">X</a>]';
 			}
 			
 			$out .= '</li>'."\n";
