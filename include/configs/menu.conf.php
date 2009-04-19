@@ -161,7 +161,7 @@
 		$menu['site_admin']['children']['flash_update'] = array('label' => 'Flashupdate', 'url' => '/admin/flash_update.php', 'is_privilegied' => 'entertain_add');
 		$menu['site_admin']['children']['wallpapers'] = array('label' => 'Bakgrundsbilder (nya)', 'url'  =>'/admin/wallpapers_admin.php', 'is_privilegied' => 'backgrounds_admin');
 		$menu['site_admin']['children']['music_guess'] = array('label' => 'Gissa låten', 'url' => '/admin/music_guess.php', 'is_privilegied' => 'music_guess_admin');
-		$menu['site_admin']['children']['open_search'] = array('label' => 'Open search', 'url' => '/admin/open_search.php', 'is_privilegied' => 'open_search');
+		$menu['site_admin']['children']['open_search'] = array('label' => 'Open search', 'url' => '/site_admin/open_search.php', 'is_privilegied' => 'open_search');
 		$menu['site_admin']['children']['dev'] = array('label' => 'Utveckling', 'url' => 'javascript:void(0)', 'is_privilegied' => array('use_debug_tools'));
 			$menu['site_admin']['children']['dev']['children']['handy'] = array('label' => 'Handy <i>(riktig)</i>', 'url' => '/site_admin/handy.php', 'is_privilegied' => 'use_debug_tools');
 			$menu['site_admin']['children']['dev']['children']['visa_sessionsdata'] = array('label' => 'Visa sessionsdata', 'url' => '/site_admin/view_session.php', 'is_privilegied' => 'use_debug_tools');
