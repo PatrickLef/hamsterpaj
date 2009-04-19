@@ -34,7 +34,7 @@
 
 	$o .= '<h1>Arrangera förstasidesmoduler</h1>' . "\n";
 	$o .= '<p>Du kan endast ändra i en lista i taget, ändringar som gjorts i andra listor än den du sparar kommer gå förlorade.</p>' . "\n";
-	$o .= '<p>Skapa nya moduler på sidan <a href="/admin/fp_module.php">skapa ny startsidemodul</a></p>' . "\n";
+	$o .= '<p>Skapa nya moduler på sidan <a href="/site_admin/fp_module.php">skapa ny startsidemodul</a></p>' . "\n";
 
 	$o .= '<div style="width: 320px; float: left;">' . "\n";
 	$modules = fp_modules_fetch(array('removal_min' => time(), 'launch_max' => time()));
