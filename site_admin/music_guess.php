@@ -117,7 +117,7 @@
 			
 			rename('/mnt/amuse/music_guess/' . $_POST['original_filename'], '/mnt/amuse/music_guess/_KLAR_' . $_POST['original_filename']);
 
-			echo '<h1>Sparat! <a href="/admin/music_guess.php">Lägg in en ny låt</a></h1>' . "\n";
+			echo '<h1>Sparat! <a href="/site_admin/music_guess.php">Lägg in en ny låt</a></h1>' . "\n";
 		}
 		else
 		{
