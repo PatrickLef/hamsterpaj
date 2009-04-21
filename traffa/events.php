@@ -32,9 +32,6 @@
 		{
 			echo '<italic>Du har inga oläsa fotokommentarer.</italic>';
 		}
-		
-		echo '<h2>Gamla PM-systemet är borttaget.</h2>' . "\n";
-		echo '<italic>Vi har tagit bort gamla PM-systemet. Mer info lär komma inom kort.</italic>';
 	}
 	else
 	{
