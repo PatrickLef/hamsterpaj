@@ -6,6 +6,7 @@
 	
 	$main_color = '#' . ((strlen($uri_parts[1]) > 2) ? $uri_parts[1] : '333');
 	$detail_color = '#' . ((strlen($uri_parts[2]) > 2) ? $uri_parts[2] : 'FF8040');
+	$contrast_color = '#' . ((hexdec($uri_parts[1]) > 8388607) ? '333' : 'eee');
 ?>
 
 #photoblog_upload_wrapper {
@@ -169,6 +170,7 @@
         #photoblog_thumbs dd {
             float: left;
             margin-right: 10px;
+            color: <?php echo $contrast_color; ?>;
         }
 	
 		#photoblog_thumbs dd a {
@@ -431,6 +433,7 @@
 	#ui_module_photoblog_user h3 {
 	  margin:	0;
 	  margin-left: 50px;
+	  color: <?php echo $contrast_color; ?>
 	}
 	#ui_module_photoblog_user a {
 	  margin: 30px 0 0 50px;
@@ -460,6 +463,11 @@
 	  -moz-border-radius: 5px;
 	  padding: 0;
 	}
+	
+		#photoblog_calendar_month span {
+			color: <?php echo $contrast_color; ?>	
+		}
+	
 		#photoblog_calendar_month {
 			padding: 8px 12px 16px 12px;
 			height: 11px;
@@ -478,10 +486,10 @@
 			  text-align: center;
 			}
 			#ui_module_photoblog_calendar td {
-			  color: white;
 			  text-align: center;
 			  height: 19px;
 			  padding: 2px;
+			  color: <?php echo $contrast_color; ?>;
 			}
 			#ui_module_photoblog_calendar td a {
 			  color: <?php echo $detail_color; ?>;
@@ -602,13 +610,14 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 	margin: 0;
 	padding: 10px;
 	background: <?php echo $main_color; ?>;
+	color: <?php echo $contrast_color; ?>;
 }
 
-	.__htmlpopup * { margin: 0; padding: 0; color: <?php echo $detail_color; ?>; }
+	.__htmlpopup * { margin: 0; padding: 0; }
 	
 	.__htmlpopup textarea {
 		border: 0;
-		background: <?php echo $detail_color; ?>;
-		color: <?php echo $main_color; ?>;
+		background: #fff;
+		color: #000;
 		padding: 5px;
 	}

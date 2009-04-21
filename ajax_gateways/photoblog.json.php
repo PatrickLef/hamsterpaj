@@ -52,6 +52,7 @@
 				$options['photo_id'] = $_GET['id'];
 	            $comments = photoblog_comments_fetch($options);
 	            $options['use_container'] = false;
+	            $options['my_blog'] = login_checklogin() && $_SESSION['login']['id'] === @$_GET['blog_id'];
 	            echo photoblog_comments_list($comments, $options);
 			break;
 			
@@ -69,6 +70,23 @@
 				$options['comment'] = $_POST['comment'];
 				$options['author'] = $_SESSION['login']['id'];
 	            photoblog_comments_add($options);
+			break;
+			
+			case 'comments_reply':
+				if (!isset($_GET['id']) || ! is_numeric($_GET['id']))
+				{
+					throw new Exception('No input');	
+				}
+				
+				if (!login_checklogin())
+				{
+					throw new Exception('Only users can reply to comments.');	
+				}
+				
+				$options['comment_id'] = $_GET['id'];
+				$options['reply'] = $_POST['reply'];
+				$options['author'] = $_SESSION['login']['id'];
+				photoblog_comments_reply($options);
 			break;
 			
 			case 'calendar_render':

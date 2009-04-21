@@ -39,7 +39,7 @@
 	{
 		$output .= '<li id="' . $filename . '">' . "\n";
 		$output .= '<h3>' . $filename . '</h3>' . "\n";
-		$output .= '<a href="/admin/fp_module_customize.php?filename=' . $filename . '">Redigera</a>' . "\n";
+		$output .= '<a href="/site_admin/fp_module_customize.php?filename=' . $filename . '">Redigera</a>' . "\n";
 		$output .= '</li>' . "\n";
 	}
 	$output .= '</ul>';

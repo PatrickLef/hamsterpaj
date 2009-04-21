@@ -8,7 +8,7 @@
 	$ui_options['stylesheets'][] = 'comments.css';
 	$ui_options['stylesheets'][] = 'groups.css';
 	$ui_options['title'] = 'Hamsterpajs ledning skriver för brinnande livet! - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('hamsterpaj', 'utvecklarblogg');
+	$ui_options['menu_path'] = array('hamsterpaj', 'hamsterblogg');
 	
 	switch($_GET['action'])
 	{
@@ -19,7 +19,7 @@
 			jscript_location('/');
 			die('Den här sidan kräver privilegiet: hamsterblog_admin');
 		}
-			$out .= '<h2>Skriv nytt inlägg i hHmsterbloggen :)</h2>';
+			$out .= '<h2>Skriv nytt inlägg i Hamsterbloggen :)</h2>';
 			$out .= rounded_corners_top();
 			$out .= '<form action="' . $_SERVER['PHP_SELF'] . '?action=insert" method="post">' . "\n";
 			$out .= '<label for="header">Rubrik</label><br />' . "\n";

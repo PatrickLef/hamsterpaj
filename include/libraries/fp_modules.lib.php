@@ -10,7 +10,7 @@
 			$module_ids[] = $module['id'];
 			$o .= '<li>' . "\n";
 			$o .= '<p>' . $module['score'] . 'p / ' . cute_number($module['clicks']) . ' klick</p>' . "\n";
-			$o .= '<h3><a href="/admin/fp_module.php?action=edit&id=' . $module['id'] . '">' . $module['name'] . '</a></h3>' . "\n";
+			$o .= '<h3><a href="/site_admin/fp_module.php?action=edit&id=' . $module['id'] . '">' . $module['name'] . '</a></h3>' . "\n";
 			$o .= '<br style="clear: both;" />' . "\n";
 			$o .= '<label>Release</label><label>Removal</label><label>Prio</label>' . "\n";
 			$o .= '<input type="text" name="' . $module['id'] .'_launch" value="' . date('Y-m-d H:i', $module['launch']) . '" />' . "\n";
@@ -128,7 +128,7 @@
 		$o .= '<input type="submit" name="preview" value="Förhandsgranska" />' . "\n";
 		$o .= '</form>' . "\n";
 
-		$o .= '<a href="/admin/fp_module_list.php">Sortera moduler</a>' . "\n";
+		$o .= '<a href="/site_admin/fp_module_list.php">Sortera moduler</a>' . "\n";
 		
 		return $o;
 	}

@@ -43,7 +43,7 @@
 			
 			file_put_contents(PATHS_DYNAMIC_CONTENT . 'fp_modules/' . $_GET['filename'], $code);
 			
-			$output .= '<h1>Sparat! - <a href="/admin/fp_module_rearrange.php">sortera moduler</a></h1>';
+			$output .= '<h1>Sparat! - <a href="/site_admin/fp_module_rearrange.php">sortera moduler</a></h1>';
 		}
 		
 		$module = cache_load('fp_module_' . $_GET['filename']);
@@ -65,7 +65,7 @@
 		$output .= '<input type="submit" value="Spara" />' . "\n";
 		$output .= '</form>' . "\n";
 		
-		$output .= '<a href="/admin/fp_module_preview.php?filename=' . $_GET['filename'] . '">Förhandsgranska</a>' . "\n";
+		$output .= '<a href="/site_admin/fp_module_preview.php?filename=' . $_GET['filename'] . '">Förhandsgranska</a>' . "\n";
 	}
 
 	echo $output;
