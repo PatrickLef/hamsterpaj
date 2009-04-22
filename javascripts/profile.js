@@ -191,7 +191,6 @@ hp.profile.presentation.change = {
 			
 			for(var onclick_handler = 0; onclick_handler < json_data.onclick_handlers.length; onclick_handler++)
 			{
-				alert(json_data.onclick_handlers[onclick_handler].call);
 				document.getElementById(json_data.onclick_handlers[onclick_handler].id).onclick = new Function(json_data.onclick_handlers[onclick_handler].call);
 			}
 			
