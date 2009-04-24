@@ -119,9 +119,7 @@
 			$out .= '<table style="width: 100%">';
 			$out .= '<tr>' . "\n";
 			$out .= '<th>Nick</th>' . "\n";
-			$out .= '<th>För- och efternamn</th>' . "\n";
-			$out .= '<th>Address</th>' . "\n";
-			$out .= '<th>Postnr</th>' . "\n";
+			$out .= '<th>IRLnamn & adress</th>' . "\n";
 			$out .= '<th>Tfnnummer</th>' . "\n";
 			$out .= '<th>E-post</th>' . "\n";
 			$out .= '<th>MSN</th>' . "\n";
@@ -139,21 +137,19 @@
 				if ($moderator_class_current != $data['moderator_class']) {
 					$moderator_class_current = $data['moderator_class'];
 					$out .= '<tr>';
-					$out .= '<th colspan="9" style="text-align: left;">';
+					$out .= '<th colspan="7" style="text-align: left;">';
 					$out .= $moderator_class_aliases[$data['moderator_class']];
 					$out .= '</th>';
 					$out .= '</tr>';
 				}
 				$out .= '<tr>';
 				$out .= '<td style="border-right: thin solid #aaa;">' . $data['username'] . '</td>';
-				$out .= '<td style="background: rgb(253, 253, 253);">' . $data['full_name'] . '</td>';
-				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['street_address'] . '</td>';
-				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['zip_code'] . '</td>';
-				$out .= '<td style="background: rgb(247, 247, 247);">' . $data['phone_number'] . '</td>';
-				$out .= '<td style="background: rgb(245, 245, 245);">' . $data['email'] . '</td>';
-				$out .= '<td style="background: rgb(243, 243, 243);">' . $data['msn_address'] . '</td>';
-				$out .= '<td style="background: rgb(241, 241, 241);">' . $data['waist_size'] . '</td>';
-				$out .= '<td style="background: rgb(239, 239, 239);">' . $data['cup_size'] . '</td>';
+				$out .= '<td style="background: rgb(254, 254, 254);">' . $data['full_name'] . '<br />' . $data['street_address'] . '<br />' . $data['zip_code'] . '</td>';
+				$out .= '<td style="background: rgb(253, 253, 253);">' . $data['phone_number'] . '</td>';
+				$out .= '<td style="background: rgb(252, 252, 252);">' . $data['email'] . '</td>';
+				$out .= '<td style="background: rgb(251, 251, 251);">' . $data['msn_address'] . '</td>';
+				$out .= '<td style="background: rgb(250, 250, 250);">' . $data['waist_size'] . '</td>';
+				$out .= '<td style="background: rgb(249, 249, 249);">' . $data['cup_size'] . '</td>';
 				$out .= '</tr>';
 			}
 			$out .= '</table>';

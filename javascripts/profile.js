@@ -186,7 +186,12 @@ hp.profile.presentation.change = {
 			
 			for(var onchange_handler = 0; onchange_handler < json_data.onchange_handlers.length; onchange_handler++)
 			{
-				document.getElementById(json_data.onchange_handlers[onchange_handler].id).onchange = eval('function(){ eval(json_data.onchange_handlers[' + onchange_handler + '].call); }');
+				document.getElementById(json_data.onchange_handlers[onchange_handler].id).onchange = new Function(json_data.onchange_handlers[onchange_handler].call);
+			}
+			
+			for(var onclick_handler = 0; onclick_handler < json_data.onclick_handlers.length; onclick_handler++)
+			{
+				document.getElementById(json_data.onclick_handlers[onclick_handler].id).onclick = new Function(json_data.onclick_handlers[onclick_handler].call);
 			}
 			
 			this.save = function(params)
