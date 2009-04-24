@@ -240,7 +240,7 @@
 			break;
 				
 			default:
-				if (5 == date('N') && 20 == date('H')) // Weekday: Mon-Sat = 1-7 (N) | Hour: 00-23 (H)
+				if (5 == date('N') && 20 == date('H') && false) // Weekday: Mon-Sat = 1-7 (N) | Hour: 00-23 (H)
 				{
 					$choose_player_moved = true;
 					if ($radioinfo['status'] == 1) // If the server is broadcasting we will show a list of players to listen in
