@@ -179,7 +179,7 @@
 		$profile_modules['my_visitors']['label'] = 'Besökare';
 		$profile_modules['my_visitors']['url'] = '/traffa/my_visitors.php?user_id=%USERID%';
 		
-		$profile_modules['photoblog']['label'] = 'Fotoblogg (beta)';
+		$profile_modules['photoblog']['label'] = 'Fotoblogg';
 		$profile_modules['photoblog']['url'] = '/fotoblogg/%USERNAME%';
 			
 		$out .= '<div class="navigation">' . "\n";

@@ -7,7 +7,7 @@
 	require('../include/core/common.php');
 	
 	require(PATHS_LIBRARIES . 'profile.lib.php');
-	require(PATHS_LIBRARIES . 'photos.lib.php');
+	require(PATHS_LIBRARIES . 'photoblog.lib.php');
 	require(PATHS_LIBRARIES . 'userblock.lib.php');
 
 	$ui_options['javascripts'][] = 'user_flags.js';
@@ -98,14 +98,17 @@
 	}
 	
 	/* Photos */
-	$photos = photos_fetch(array('user' => $user_id, 'order-by' => 'up.id', 'order-direction' => 'DESC', 'limit' => 11));
-	if(count($photos) > 4)
+	$photos = photoblog_photos_fetch(array('user' => $user_id, 'order-by' => 'up.id', 'order-direction' => 'DESC', 'limit' => 11));
+	if(count($photos) > 0)
 	{
-		$output .= photos_list_mini($photos);
-	}
-	elseif(count($photos) > 0)
-	{
-		$output .= photos_list_mini($photos);
+		$output .= '<ul class="photos_list_mini">' . "\n";
+		foreach($photos AS $photo)
+		{
+			$output .= '<li>' . "\n";
+			$output .= '<a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '" id="'.$photo['id'].'"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" /></a>';
+			$output .= '</li>' . "\n";
+		}
+		$output .= '</ul>' . "\n";
 	}
 	
 	
