@@ -621,3 +621,13 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 		color: #000;
 		padding: 5px;
 	}
+
+a.report_abuse {
+	display: block;
+	float: right;
+	width: 11px;
+	height: 20px;
+	background: url(http://images.hamsterpaj.net/abuse.png) no-repeat;
+	text-indent: -10000px;
+	overflow: hidden;
+}
