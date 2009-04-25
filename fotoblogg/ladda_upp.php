@@ -6,7 +6,12 @@
 	switch(isset($uri_parts[3]) ? $uri_parts[3] : '')
 	{
 		default:
-		$ui_options['stylesheets'][] = 'datepicker.css';
+			if(mktime($_SESSION['photoblog_preferences']['upload_forbidden']) > time())
+			{
+				$out .= '<h1>Du är avstängd från att ladda upp bilder fram tills: ' . $_SESSION['photoblog_preferences']['upload_forbidden']. '</h1>' . "\n";
+				break;
+			}
+			$ui_options['stylesheets'][] = 'datepicker.css';
 			/*
 				########################################################
 					Page title

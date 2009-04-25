@@ -92,7 +92,8 @@
 			'login' => array('id', 'lastlogon', 'username', 'password', 'userlevel', 'regtimestamp', 'lastusernamechange', 'session_id', 'lastaction', 'lastip', 'regip', 'quality_level', 'quality_level_expire'),
 			'userinfo' => array('contact1', 'contact2', 'gender', 'birthday', 'image', 'image_ban_expire', 'forum_signature', 'zip_code', 'forum_quality_rank', 'parlino_activated', 'cell_phone', 'firstname', 'surname', 'email', 'streetaddress', 'msn', 'visible_level', 'phone_ov', 'user_status', 'gbrss'),
 			'preferences' => array('bubblemessage_visitors', 'allow_hotmessages', 'activate_current_action', 'enable_hetluft', 'randomizer', 'left_login_module', 'enable_shoutbox', 'module_states', 'module_order', 'forum_enable_smilies', 'forum_subscribe_on_create', 'forum_subscribe_on_post','gb_anti_p12'),
-			'traffa' => array('firstname', 'profile_modules')
+			'traffa' => array('firstname', 'profile_modules'),
+			'photoblog_preferences' => array('upload_forbidden')
 		), __FILE__, __LINE__));
 		$_SESSION['module_states'] = unserialize($_SESSION['preferences']['module_states']);
 		$_SESSION['module_order'] = unserialize($_SESSION['preferences']['module_order']);
