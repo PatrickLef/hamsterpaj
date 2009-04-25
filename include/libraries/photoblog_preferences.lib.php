@@ -14,7 +14,7 @@
 				throw new Exception('You must be logged in to load your photoblog preferences');
 			}
 			
-			$photoblog_preferences_fetch_sql = 'SELECT * FROM photoblog_preferences WHERE user_id = ' . $_SESSION['login']['id'] . ' LIMIT 1';
+			$photoblog_preferences_fetch_sql = 'SELECT * FROM photoblog_preferences WHERE userid = ' . $_SESSION['login']['id'] . ' LIMIT 1';
 			$photoblog_preferences_fetch_result = mysql_query($photoblog_preferences_fetch_sql);
 			if (mysql_num_rows($photoblog_preferences_fetch_result) == 0)
 			{
@@ -63,7 +63,7 @@
 					$sql .= ',';
 				}
 			}
-			$sql .= ' WHERE user_id = ' . $_SESSION['login']['id'] . '';
+			$sql .= ' WHERE userid = ' . $_SESSION['login']['id'] . '';
 
 			if (mysql_query($sql))
 			{
