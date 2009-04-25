@@ -14,10 +14,14 @@
 
 	$abuse_headers['photo'] = 'Anmäl en bild i fotoalbumet';
 	$abuse_info['photo'] = '<p>Bilder som är pornografiska, rasistiska eller på något annat sätt upplevs som stötande plockas bort.</p>';
+	
+	$abuse_headers['photo_comment'] = 'Anmäl en kommentar till en bild i fotobloggen';
+	$abuse_info['photo_comment'] = '<p>Du kan själv ta bort kommentarer, men om du tycker att det som skrivits bryter mot några regler så är det bra att rapportera, så kanske vi tom slänger ut användaren.</p>';
 
 	$abuse_alternatives_by_type['forum_post'] = array('hmf', 'off_topic', 'hot', 'kedjebrev', 'spam', 'posthunt');
 	$abuse_alternatives_by_type['guestbook_entry'] = array('hmf', 'hot', 'kedjebrev','cammsn');
 	$abuse_alternatives_by_type['photo'] = array('offensive', 'nudity');
+	$abuse_alternatives_by_type['photo_comment'] = array('hmf', 'hot', 'kedjebrev', 'spam', 'posthunt');
 	
 	$abuse_types['hmf']['label'] = 'Hets mot folkgrupp';
 	$abuse_types['hmf']['description'] = 'Brottsbalken, 16 kapitlet, Om brott mot allmän ordning, paragraf 8:<br />Den som i uttalande eller i annat meddelande som sprids hotar eller uttrycker missaktning för folkgrupp eller annan sådan grupp av personer med anspelning på ras, hudfärg, nationellt eller etniskt ursprung, trosbekännelse eller sexuell läggning, döms för hets mot folkgrupp';

@@ -54,7 +54,15 @@
 					$photo_poster = mysql_fetch_assoc($photo_poster_result);
 					$out .= '<strong>Bild uppladdad av <a href="/traffa/user_facts.php?user_id=' . $photo['user'] . '">' . $photo_poster['username'] . '</a> - Rapporterat av <a href="/traffa/guestbook.php?view=' . $data['reporter'] . '">' . $data['report_username'] . '</a> <a href="/admin/user_management.php?username=' . $data['report_username'] . '">[UA]</a> ' . fix_time($data['timestamp']) . '</strong>: ' . $abuse_types[$data['abuse_type']]['label'] . '<br />' . "\n";
 					$out .= '<p style="font-style: italic">' . $data['freetext'] . '</p>' . "\n";
-					$out .= '<a href="http://www.hamsterpaj.net/traffa/photos.php?ajax&user_id=' . $photo['user'] . '&image_id=' . $data['reference_id'] . '#photo"><img src="http://images.hamsterpaj.net/photos/thumb/' . floor($data['reference_id'] / 5000) . '/' . $data['reference_id'] . '.jpg" />';
+					$out .= '<a href="/traffa/photos.php?ajax&user_id=' . $photo['user'] . '&image_id=' . $data['reference_id'] . '#photo"><img src="http://images.hamsterpaj.net/photos/thumb/' . floor($data['reference_id'] / 5000) . '/' . $data['reference_id'] . '.jpg" />';
+				break;
+				case 'photo_comment':
+					$photo_comment_query = 'SELECT pc.author, l.username, pc.photo_id FROM photoblog_comments AS pc, login AS l WHERE pc.comment_id = ' . $data['reference_id'] . ' AND pc.author = l.id LIMIT 1';
+					$photo_comment_result = mysql_query($photo_comment_query) or report_sql_error($entry_query, __FILE__, __LINE__);
+					$photo_comment = mysql_fetch_assoc($photo_comment_result);
+					$out .= '<strong>Kommentaren är skriven av <a href="/traffa/user_facts.php?user_id=' . $photo_comment['author'] . '">' . $photo_comment['username'] . '</a> - Rapporterat av <a href="/traffa/guestbook.php?view=' . $data['reporter'] . '">' . $data['report_username'] . '</a> <a href="/admin/user_management.php?username=' . $data['report_username'] . '">[UA]</a> ' . fix_time($data['timestamp']) . '</strong>: ' . $abuse_types[$data['abuse_type']]['label'] . '<br />' . "\n";
+					$out .= '<p style="font-style: italic">' . $data['freetext'] . '</p>' . "\n";
+					$out .= '<a href="/fotoblogg/' . $photo_comment['username'] . '/#image-' . $photo_comment['photo_id'] . '">Gå till bilden med kommentaren</a>';
 				break;
 			}
 			$out .= '<p style="margin-bottom: 0px;"><a style="cursor:pointer" onclick="handleReport(' . $data['id'] . ')">Hantera denna rapport</a></p>' . "\n";
