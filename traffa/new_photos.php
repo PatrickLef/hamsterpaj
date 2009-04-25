@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	require(PATHS_LIBRARIES . 'photos.lib.php');
+	require_once(PATHS_LIBRARIES . 'photoblog.lib.php');
 
 	$ui_options['stylesheets'][] = 'photos.css';
 	$ui_options['menu_path'] = array('traeffa', 'new_photos');
@@ -21,8 +21,19 @@
 
 	$offset = (($page - 1) * 32);
 	
-	$photos = photos_fetch(array('order-direction' => 'DESC', 'offset' => $offset, 'limit' => 32));
-	$out .= photos_list($photos);
+	$photos = photoblog_photos_fetch(array('order-direction' => 'DESC', 'offset' => $offset, 'limit' => 32));
+	$out .= '<ul class="photos_list">' . "\n";
+		foreach($photos AS $photo)
+		{
+			$photo['description'] = (mb_strlen($photo['description'], 'UTF8') > 19) ? mb_substr($photo['description'], 0, 17, 'UTF8') . '...' : $photo['description'];
+			$out .= '<li>' . "\n";
+			$out .= '<a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
+			$out .= '<p><a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '">' . $photo['description'] . '</a>';
+			$out .= ($photo['user'] == $_SESSION['login']['id'] && $photo['unread_comments'] > 0) ? '<strong>(' . $photo['unread_comments'] . ')</strong>' : '';
+			$out .= '</p>' . "\n";
+			$out .= '</li>' . "\n";
+		}
+		$out .= '</ul>' . "\n";
 
 	//Create Pagination links
 	if(isset($_GET['page']) && is_numeric($_GET['page']))
