@@ -365,8 +365,7 @@
 				$output .= rounded_corners_bottom();
 				// KOMMENTERING FÖR ÄGAREN
 				$output .= rounded_corners_top(array('color' => 'blue_deluxe'));
-				$output .= 'Kommentera: ';
-				$output .= comments_input_draw($photo['id'], 'photos');
+				$output .= 'Du kan inte längre kommentera i det här fotoalbumet. Det beror på att vi håller på att byta ut det mot fotobloggen.';
 				$output .= rounded_corners_bottom();
 				
 				// BILDTÄVLINGEN
@@ -375,10 +374,10 @@
 				//$output .= rounded_corners_bottom(array('color' => 'blue_deluxe'), true);
 				// END
 				
-			
+			/*
 				$query = 'UPDATE user_photos SET unread_comments = 0 WHERE id = "' . $photo['id'] . '" LIMIT 1';
 				mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
-				
+				*/
 				cache_update_photo_comments();
 				
 			}
@@ -401,8 +400,7 @@
 				
 				
 				$output .= rounded_corners_top(array('color' => 'blue_deluxe'));
-				$output .= 'Kommentera: ';
-				$output .= comments_input_draw($photo['id'], 'photos');
+				$output .= 'Du kan inte längre kommentera i det här fotoalbumet. Det beror på att vi håller på att byta ut det mot fotobloggen.';
 				$output .= rounded_corners_bottom();
 			}
 			
