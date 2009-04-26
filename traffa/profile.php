@@ -8,6 +8,7 @@
 	
 	require(PATHS_LIBRARIES . 'profile.lib.php');
 	require(PATHS_LIBRARIES . 'photoblog.lib.php');
+	require(PATHS_LIBRARIES . 'photos.lib.php');
 	require(PATHS_LIBRARIES . 'userblock.lib.php');
 
 	$ui_options['javascripts'][] = 'user_flags.js';
