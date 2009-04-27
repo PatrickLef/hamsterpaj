@@ -43,6 +43,41 @@
 			    echo json_encode($photo);
 			break;
 			
+			case 'photos_remove':
+				if ( ! isset($_GET['photos']) )
+				{
+					throw new Exception('No input');	
+				}
+				
+				$photos = explode('|', trim($_GET['photos'], '|'));
+				
+				foreach ( $photos as $photo )
+				{
+					if ( ! is_numeric($photo) )
+					{
+						throw new Exception('Bad input');	
+					}
+					
+					$photo_options = array('id' => $photo);
+					$photo_info = photoblog_photos_fetch($photo_options);
+					
+					if ( ! count($photo_info) )
+					{
+						throw new Exception('One of removed photos did not exist.');	
+					}
+					
+					$photo_info = $photo_info[0];
+					
+					if ( $photo_info['user'] != $_SESSION['login']['id'] && !is_privilegied('photoblog_photo_remove') )
+					{
+						throw new Exception('Removing photo without the right rights.');	
+					}					
+					
+					$data = array('deleted' => 1, 'id' => $photo);
+					photoblog_photos_update($data);
+				}
+			break;
+			
 			case 'comments_fetch':
 				if(!isset($_GET['id']) || !is_numeric($_GET['id']))
 			    {
@@ -87,6 +122,25 @@
 				$options['reply'] = $_POST['reply'];
 				$options['author'] = $_SESSION['login']['id'];
 				photoblog_comments_reply($options);
+			break;
+			
+			case 'comments_remove':
+				if ( ! isset($_GET['id']) || ! is_numeric($_GET['id']) )
+				{
+					throw new Exception('No input');	
+				}
+				
+				$photo_options['id'] = $_GET['id'];
+				$photo = photoblog_comments_fetch($photo_options);
+				
+				if ( ! count($photo) )
+				{
+					throw new Exception('No comment');
+				}
+				
+				$options['image_owner_id'] = $photo[0]['user'];
+				$options['comment_id'] = $_GET['id'];
+				photoblog_comments_remove($options);
 			break;
 			
 			case 'calendar_render':

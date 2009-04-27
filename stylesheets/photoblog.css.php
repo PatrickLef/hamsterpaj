@@ -375,6 +375,16 @@
 						margin-bottom: 8px;
 						display: block;
 					}
+		
+		#photoblog_comments_list .photoblog_comment_actions {
+			text-align: right;
+			padding: 0 10px;
+			clear: both;
+		}
+		
+		.photoblog_comment_actions li {
+			display: inline;	
+		}
 	
 	#photoblog_comments h3 { display: none; }
 	
