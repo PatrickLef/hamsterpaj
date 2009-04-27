@@ -89,6 +89,25 @@
 				photoblog_comments_reply($options);
 			break;
 			
+			case 'comments_remove':
+				if ( ! isset($_GET['id']) || ! is_numeric($_GET['id']) )
+				{
+					throw new Exception('No input');	
+				}
+				
+				$photo_options['id'] = $_GET['id'];
+				$photo = photoblog_comments_fetch($photo_options);
+				
+				if ( ! count($photo) )
+				{
+					throw new Exception('No comment');
+				}
+				
+				$options['image_owner_id'] = $photo[0]['user'];
+				$options['comment_id'] = $_GET['id'];
+				photoblog_comments_remove($options);
+			break;
+			
 			case 'calendar_render':
 				if (!isset($_GET['user_id'], $_GET['month'], $_GET['year']))
 			    {
