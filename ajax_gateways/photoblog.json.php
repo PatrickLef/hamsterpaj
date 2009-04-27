@@ -43,6 +43,41 @@
 			    echo json_encode($photo);
 			break;
 			
+			case 'photos_remove':
+				if ( ! isset($_GET['photos']) )
+				{
+					throw new Exception('No input');	
+				}
+				
+				$photos = explode('|', trim($_GET['photos'], '|'));
+				
+				foreach ( $photos as $photo )
+				{
+					if ( ! is_numeric($photo) )
+					{
+						throw new Exception('Bad input');	
+					}
+					
+					$photo_options = array('id' => $photo);
+					$photo_info = photoblog_photos_fetch($photo_options);
+					
+					if ( ! count($photo_info) )
+					{
+						throw new Exception('One of removed photos did not exist.');	
+					}
+					
+					$photo_info = $photo_info[0];
+					
+					if ( $photo_info['user'] != $_SESSION['login']['id'] && !is_privilegied('photoblog_photo_remove') )
+					{
+						throw new Exception('Removing photo without the right rights.');	
+					}					
+					
+					$data = array('deleted' => 1, 'id' => $photo);
+					photoblog_photos_update($data);
+				}
+			break;
+			
 			case 'comments_fetch':
 				if(!isset($_GET['id']) || !is_numeric($_GET['id']))
 			    {
