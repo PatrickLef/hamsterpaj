@@ -2,6 +2,11 @@
 	$ui_options['ui_modules']['photoblog_user'] = 'User';
 	$ui_options['ui_modules']['photoblog_calendar'] = 'Kalender';
 	$ui_options['ui_modules']['photoblog_albums'] = 'Album';
+		
+	if(!login_checklogin())
+	{
+		throw new Exception('Du måste vara inloggad för att kunna ladda upp bilder.');
+	}
 	
 	switch(isset($uri_parts[3]) ? $uri_parts[3] : '')
 	{
