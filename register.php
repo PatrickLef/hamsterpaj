@@ -53,22 +53,24 @@
 			$query = 'INSERT INTO preferences (userid) VALUES ("' . $user_id . '")';
 			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 			
+			$query = 'INSERT INTO photoblog_preferences (userid) VALUES ("' . $user_id . '")';
+			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
+			
 			/* Rows created, log on the user */
 			try
 			{
-				login_dologin(array(
+				$debug = login_dologin(array(
 					'username' => $_POST['username'],
 					'password' => $_POST['password'],
 					'method' => 'username_and_password'
 				));
-					
 				/* Redirect to welcome page asking the user for more information */
 				jscript_alert('Du kan numera känna dig som en riktig Hamsterpajare!\nVi loggar in dig på ditt konto nu.');
 				jscript_location('/registered.php');
 			}
 			catch(Exception $error)
 			{
-				jscript_alert('Något gick ganska snett under registreringen. Felet har loggats.');
+				jscript_alert('Något gick ganska snett under registreringen. Felet har loggats.\n' . $error->getMessage());
 				echo $error->getMessage();
 				trace('registration_login_failed', $error);
 			}
