@@ -34,17 +34,6 @@
 					$out .= ' value="1" />' . "\n";
 				$out .= '</td>' . "\n";
 			$out .= '</tr>' . "\n";
-			/* Friends Only */
-			$out .= '<tr>' . "\n";
-				$out .= '<th>' . "\n";
-					$out .= '<label for="photoblog_friends_only">Visa endast för vänner</label>' . "\n";
-				$out .= '</th>' . "\n";
-				$out .= '<td>' . "\n";
-					$out .= '<input type="checkbox" name="photoblog_preferences_friends_only" id="photoblog_preferences_friends_only"';
-					$out .= ($my_photoblog_preferences['friends_only'] == 1) ? ' checked="checked"' : '';
-					$out .= ' value="1" />' . "\n";
-				$out .= '</td>' . "\n";
-			$out .= '</tr>' . "\n";
 			/* Copy-protection */
 			$out .= '<tr>' . "\n";
 				$out .= '<th>' . "\n";
