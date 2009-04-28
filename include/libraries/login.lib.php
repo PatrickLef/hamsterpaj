@@ -87,8 +87,8 @@
 		
 		// Create photoblog_preferences table if not exists
 		$query = 'SELECT userid FROM photoblog_preferences WHERE userid = ' . $data['id'] . ' LIMIT 1';
-		mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
-		if(mysql_num_rows() == 0)
+		$result = mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
+		if(mysql_num_rows($result) != 1)
 		{
 			$query = 'INSERT INTO photoblog_preferences (userid) VALUES ("' . $data['id'] . '")';
 			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
