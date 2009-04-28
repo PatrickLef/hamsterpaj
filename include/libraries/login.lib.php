@@ -85,6 +85,15 @@
 			throw new Exception('<h2>Du använder ett lösenord baserat på det gamla lösenordssystemet. Av säkerhetsskäl måste du byta, det gör du <a href="/installningar/renew_password.php" style="font-weight: bold">på den här sidan &raquo;</a></h2>');
 		}
 		
+		// Create photoblog_preferences table if not exists
+		$query = 'SELECT userid FROM photoblog_preferences WHERE userid = ' . $data['id'] . ' LIMIT 1';
+		mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
+		if(mysql_num_rows() == 0)
+		{
+			$query = 'INSERT INTO photoblog_preferences (userid) VALUES ("' . $data['id'] . '")';
+			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
+		}
+		
 		$user_id = $data['id'];
 		
 		// * Fetch neccessary data from login, userinfo, preferences and traffa-tables and unserialize...
