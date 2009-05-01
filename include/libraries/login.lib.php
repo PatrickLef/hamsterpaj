@@ -222,6 +222,11 @@
 	
 	function userblock_check($owner, $blocked)
 	{
+		if(!is_numeric($owner) || !is_numeric($blocked))
+		{
+			return 1;
+		}
+		
 		if(is_privilegied('use_ghosting_tools'))
 		{
 			return 0;

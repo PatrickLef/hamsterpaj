@@ -201,7 +201,7 @@
 
 		$id_where = $options['direction'] == 'left' ? '<' : '>';
 		$sort = $options['direction'] == 'left' ? 'DESC' : 'ASC';
-		$query = 'SELECT id FROM user_photos AS up WHERE id '.$id_where.' '.$options['id'].' AND user = '.$photos['user'].' AND category = '.$photos['category'].' AND deleted = 0 ORDER BY id '.$sort.' LIMIT 1';
+		$query = 'SELECT id FROM user_photos AS up WHERE id '.$id_where.' "'.$options['id'].'" AND user = '.$photos['user'].' AND category = '.$photos['category'].' AND deleted = 0 ORDER BY id '.$sort.' LIMIT 1';
 		//echo $query;
 		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$data = mysql_fetch_assoc($result);
