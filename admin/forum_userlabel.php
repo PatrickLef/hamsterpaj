@@ -77,6 +77,10 @@
 		$query = 'UPDATE userinfo SET forum_userlabel = "' . $forum_userlabel . '" WHERE userid = ' . $user_id . ' LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$out .= 'Ändrat';
+		
+		log_admin_event('userlabel changed', $_POST['forum_userlabel'], $_SESSION['login']['id'], $_POST['user_id'], '');
+		jscript_alert('Användarens forumstatus är ändrad');
+		jscript_location('/admin/forum_userlabel.php');
 	}
 	
 	$out .= rounded_corners_bottom();
