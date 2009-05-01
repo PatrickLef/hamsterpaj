@@ -178,7 +178,7 @@
 					if(mysql_num_rows($result) == 1)
 					{
 						echo '<h2>' . $table . '</h2>';
-						echo '<form method="post" action="/handy.php?page=user_settings_database&userid=' . $userid . '
+						echo '<form method="post" action="/site_admin/handy.php?page=user_settings_database&userid=' . $userid . '
 		&update=' . $table . '">'; 
 						foreach($data as $column => $column_data)
 						{
