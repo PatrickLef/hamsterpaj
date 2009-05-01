@@ -57,6 +57,32 @@
 			
 			$query .= ' WHERE id = "' . $_POST['post_id'] . '" LIMIT 1';
 			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+			
+			if($post['author'] != $_SESSION['login']['id'] && isset($_POST['content']))
+			{	
+				$message  = 'Hej, ditt inlägg i forumet med titeln "%TITLE%" har blivit ändrat.' . "\n";
+				$message .= 'Ordningsvakten som ändrade ditt inlägg heter %EDITERS_USERNAME% och ändrade inlägget till:' . "\n\n";
+				$message .= '-----' . "\n";
+				$message .= '%CONTENT_NEW%' . "\n";
+				$message .= '-----' . "\n\n";
+				$message .= 'Här är ditt ursprungliga inlägg:' . "\n";
+				$message .= '-----' . "\n";
+				$message .= '%CONTENT_OLD%' . "\n";
+				$message .= '-----' . "\n\n";
+				$message .= 'Har du några frågor så ta det med någon ordningsvakt, du hittar sådana i modulen "Inloggade Ordningsvakter" till höger.' . "\n";
+				$message .= '/Webmaster';
+				$guestbook_message = array(
+					'sender' => 2348,
+					'recipient' => intval($post['author']),
+					'message' => mysql_real_escape_string(str_replace(
+						array('%TITLE%',      '%CONTENT_NEW%',      '%CONTENT_OLD%',      '%EDITERS_USERNAME%'),
+						array($post['title'], $_POST['content'], $post['content'], $_SESSION['login']['username']),
+						$message
+					))
+				);
+				guestbook_insert($guestbook_message);
+				log_admin_event('forumpost changed', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
+			}
 		}
 		echo '<h1>Ändring och tillägg sparat!</h1>' . "\n";
 	}
