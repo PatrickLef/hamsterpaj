@@ -105,6 +105,13 @@
 			$post_options['thread_handle'] = $request['thread_handle'];
 			$post_options['mode'] = 'thread';
 			$first_post = discussion_forum_post_fetch($post_options);
+			
+			// if the request doesn't end with .php (has no set page)
+			if(substr($_SERVER['REQUEST_URI'], -4) != '.php' && login_checklogin())
+			{
+				discussion_forum_goto_latest_read($_SERVER['REQUEST_URI'], $first_post[0]['id']);
+			}
+
 
 			$forum_security = forum_security(array('action' => 'view_thread', 'forum_id' => $first_post[0]['forum_id'], 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0)));
 			if($forum_security !== true)

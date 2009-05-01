@@ -65,7 +65,7 @@
 				$category_path = discussion_forum_path_to_category(array('id' => $data['forum_id']));
 				$category = array_pop($category_path);
 				$data['title'] = (strlen(trim($data['title'])) == 0) ? 'Rubrik saknas' : $data['title'];
-				$data['url'] = $category['url'] . $data['handle'] . '/sida_1.php#post_' . $data['id'];
+				$data['url'] = $category['url'] . $data['handle'] . '/';
 				$data['last_post_url'] = $category['url'] . $data['handle'] . '/sida_' . (floor($data['child_count'] / FORUM_POSTS_PER_PAGE)+1) . '.php#post_' . $data['last_post'];
 				$data['category_url'] = $category['url'];
 				$data['category_title'] = $category['title'];
@@ -907,6 +907,27 @@
 		return $o;
 	}
 	
+	function discussion_forum_goto_latest_read($url, $thread)
+	{
+		$query = 'SELECT posts FROM forum_read_posts AS frp WHERE user_id = ' . $_SESSION['login']['id'] . ' AND thread_id = ' . $thread . ' LIMIT 1';
+		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		$data = mysql_fetch_assoc($result);
+		if(mysql_num_rows($result) == 1)
+		{
+			$query = 'SELECT fp.id
+								FROM forum_posts AS fp 
+								WHERE parent_post = ' . $thread . '
+								LIMIT 1 OFFSET ' . ($data['posts'] - 1);
+			$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+			$data = mysql_fetch_assoc($result);
+			header('Location: /diskussionsforum/gaa_till_post.php?post_id=' . $data['id']);
+		}
+		else
+		{
+			header('Location: ' . $_SERVER['REQUEST_URI'] . 'sida_1.php#post_' . $thread);
+		}
+	}
+	
 	function forum_thread_cache_latest_threads()
 	{
 		$threads = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'min_quality_level' => 2, 'max_userlevel_read' => 1));
@@ -973,7 +994,7 @@
 		{
 			$flags = ($thread['sticky'] == 1) ? ' <img src="' . IMAGE_URL . 'discussion_forum/thread_sticky_icon.png" alt="Klistrad" />' : '';
 			$flags .= ($thread['locked'] == 1) ? ' L' : '';
-			$href = (isset($thread['url'])) ? $thread['url'] : $thread['handle'] . '/sida_1.php';
+			$href = (isset($thread['url'])) ? $thread['url'] : $thread['handle'] . '/';
 			$thread['unread_posts'] = ($thread['unread_posts'] > 0) ? '<strong>' . $thread['unread_posts'] . '</strong>' : '';
 			
 			$output .= '<tr class="' . $zebra . '" id="' . $thread['id'] . '">' . "\n";
@@ -1094,7 +1115,7 @@
 				$output .= '<tr class="' . $zebra . '">' . "\n";
 				$output .= '	<td class="name"><a href="' . $category['url'] . '" class="category_name">' . $category['title'] . '</a><br />' . "\n";
 				$category['last_thread_title'] = (strlen($category['last_thread_title']) > 45) ? substr($category['last_thread_title'], 0, 35) . '...' : $category['last_thread_title'];
-				$output .= '	Senaste tråden <a href="' . $category['url'] . $category['last_thread_handle'] . '/sida_1.php">' . $category['last_thread_title'] . '</a> av <a href="/traffa/profile.php?id=' . $category['last_thread_author'] . '">' . $category['last_thread_username'] . '</a><br />' . "\n";
+				$output .= '	Senaste tråden <a href="' . $category['url'] . $category['last_thread_handle'] . '">' . $category['last_thread_title'] . '</a> av <a href="/traffa/profile.php?id=' . $category['last_thread_author'] . '">' . $category['last_thread_username'] . '</a><br />' . "\n";
 				// Listing moderators in forum category
 				if(isset($category['ovs']))
 				{
@@ -1172,7 +1193,7 @@
 		}
 		if(isset($options['thread_handle']))
 		{
-			$output .= ' &raquo; <a href="' . $options['category_url'] . $options['thread_handle'] . '/sida_1.php">' . str_replace(' ', '&nbsp;', $options['thread_title']) . '</a>';
+			$output .= ' &raquo; <a href="' . $options['category_url'] . $options['thread_handle'] . '/">' . str_replace(' ', '&nbsp;', $options['thread_title']) . '</a>';
 		}		
 
 		if(isset($options['post_count']))
@@ -1433,23 +1454,25 @@
 				
 			$handle = array_pop($explosion);
 			
-			if($handle == url_secure_string($handle))
-			{
-				$viewers_userlevel = login_checklogin() ? $_SESSION['login']['userlevel'] : 0;
-				$request['category'] = array_pop(discussion_forum_categories_fetch(array(
-					'handle' => $handle,
-					'viewers_userlevel' => $viewers_userlevel,
-					'disable_query_caching' => true // Forum_not_found-thing is killing our query_cache...
-					)));
-				$request['category_handle'] = $handle;
-				if(count($request['category']) < 1)
-				{
-					$request['action'] = 'forum_not_found';
-				}
-			}
-			else
+			if($handle != url_secure_string($handle))
 			{
 				$request['action'] = 'forum_not_found';
+				return $request;
+			}
+				
+			$viewers_userlevel = login_checklogin() ? $_SESSION['login']['userlevel'] : 0;
+			$request['category'] = array_pop(discussion_forum_categories_fetch(array(
+				'handle' => $handle,
+				'viewers_userlevel' => $viewers_userlevel,
+				'disable_query_caching' => true // Forum_not_found-thing is killing our query_cache...
+				)));
+			$request['category_handle'] = $handle;
+			
+			if(count($request['category']) < 1)
+			{
+				// if that category doesn't exist, check if it can be a thread.
+				$request['action'] = 'view_thread';
+				$request['thread_handle'] = $handle;
 			}
 		}
 		return $request;
