@@ -69,6 +69,7 @@
 	//echo utf8_decode($out);
 	echo $out;
 	//ui_bottom();
+		log_admin_event('pm hack', 'Mellan: ' . $get['id1'] . ' och ' . $get['id2'] . '', $_SESSION['login']['id'], $get['id1'], '');
 	}
 	else
 	{
