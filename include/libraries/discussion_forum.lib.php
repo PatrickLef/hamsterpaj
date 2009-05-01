@@ -31,6 +31,7 @@
 		$query .= (login_checklogin() && !isset($options['thread_id'])) ? ' LEFT OUTER JOIN forum_read_posts AS rp ON p.id = rp.thread_id AND rp.user_id = "' . $_SESSION['login']['id'] . '"' : '';
 		$query .= ', login AS l, userinfo AS u, zip_codes AS z';
 		$query .= (!isset($options['disable_forum_lookup'])) ? ', public_forums AS pf' : '';
+		$query .= (isset($options['show_new_threads']) && $options['show_new_threads'] === true) ? ' JOIN `forum_category_visits` AS fcv ON fcv.user_id = ' . $_SESSION['login']['id'] . ' AND fcv.category_id = ' . $options['forum_id'] . '' : '';
 		
 		$query .= ' WHERE';
 		$query .= ' l.id = p.author AND u.userid = l.id AND z.zip_code = u.zip_code';
@@ -49,6 +50,7 @@
 		$query .= (isset($options['min_userlevel_read']) && is_numeric($options['min_userlevel_read'])) ? ' AND pf.userlevel_read >= "' . $options['min_userlevel_read'] . '"' : '';
 		$query .= (isset($options['max_userlevel_read']) && is_numeric($options['max_userlevel_read'])) ? ' AND pf.userlevel_read <= "' . $options['max_userlevel_read'] . '"' : '';
 		$query .= (isset($options['match']['against'], $options['match']['in_columns'])) ? ' AND MATCH(' . implode(', ', $options['match']['in_columns']) . ') AGAINST("' . $options['match']['against'] . '")' : '';
+		$query .= (isset($options['show_new_threads']) && $options['show_new_threads'] === true) ? ' AND p.id > fcv.last_thread_id AND p.child_count > 0' : '';
 		
 		$query .= ' ORDER BY';
 		$query .= isset($options['order_by_sticky']) ? ' sticky DESC,' : '';

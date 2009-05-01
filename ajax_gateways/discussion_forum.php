@@ -148,4 +148,19 @@
 		$query = 'DELETE FROM forum_notices WHERE post_id = ' . $_GET['post_id'] . ' AND user = "' . $_SESSION['login']['id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 	}
+	
+	/* Category read */
+	if($_GET['action'] == 'set_category_read')
+	{
+		$category = discussion_forum_categories_fetch(array('id' => $_GET['category']));
+		$options['show_new_threads'] = true;
+		$options['forum_id'] = $_GET['category'];
+		$threads = discussion_forum_post_fetch($options);
+		forum_update_category_session(array('category' => $category[0], 'threads' => $threads));
+		discussion_forum_reload_category_subscriptions();
+		if(!empty($_GET['return']))
+		{
+			header('Location: ' . $_GET['return'] . '');
+		}
+	}
 ?>

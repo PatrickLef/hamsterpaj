@@ -399,7 +399,25 @@
 				$viewers_userlevel = login_checklogin() ? $_SESSION['login']['userlevel'] : 0;
 				$categories = discussion_forum_categories_fetch(array('id' => $subscribing_categories, 'max_levels' => 0, 'viewers_userlevel' => $viewers_userlevel));
 				
-				$output .= discussion_forum_categories_list($categories);
+				foreach($categories as $category)
+				{
+					$options['show_new_threads'] = true;
+					$options['forum_id'] = $category['id'];
+					$threads = discussion_forum_post_fetch($options);
+					
+					$output .= '<h2><a href="' . $category['url'] . '">' . $category['title'] . '</a></h2>' . "\n";
+					if(count($threads) > 0)
+					{
+						// next row gave lef a lot of spokenotices, so that has to be checked before release!
+						// $output .= '<a href="/ajax_gateways/discussion_forum.php?action=set_category_read&category=' . $category['id'] . '&return=' . $_SERVER['REQUEST_URI'] . '">Markera kategori som läst</a>' . "\n";
+						$options['notice_listing'] = false;
+						$output .= discussion_forum_thread_list($threads, $options);
+					}
+					else
+					{
+						$output .= '<p>Inga nya trådar i kategorin :(</p>' . "\n";
+					}
+				}
 			}
 			break;
 			
