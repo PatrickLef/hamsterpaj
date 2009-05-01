@@ -61,7 +61,27 @@
 
 	if($_GET['action'] == 'unremove_post' && forum_security(array('action' => 'unremove_post', 'post_id' => $_GET['post_id'])))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din post i forumet med titeln "%TITLE%" har blivit återskapad. <-- OMGZOR?!' . "\n" . '
+								Ordningsvakten som återskapade din post var: %UNREMOVERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%UNREMOVERS_USERNAME%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		discussion_forum_remove_post(array('post_id' => $_GET['post_id'], 'mode' => 'unremove'));
+		log_admin_event('post unremoved', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 		jscript_go_back();
 	}
 	
@@ -114,32 +134,132 @@
 	/* Sticky or unsticky */
 	if($_GET['action'] == 'setsticky' && is_privilegied('discussion_forum_sticky_threads') && is_numeric($_GET['post_id']))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din tråd i forumet med titeln "%TITLE%" har blivit klistrad. <-- Coolt vah?!
+								Ordningsvakten som klistra din tråd var: %STICKIERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%STICKIERS_USERNAME%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		$query = 'UPDATE forum_posts SET sticky = 1 WHERE id = "' . $_GET['post_id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		log_admin_event('forum set sticky', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 	}
 	if($_GET['action'] == 'unsticky' && is_privilegied('discussion_forum_sticky_threads') && is_numeric($_GET['post_id']))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din tråd i forumet med titeln "%TITLE%" har blivit avklistrad. :(
+								Ordningsvakten som  tog bort ditt klister var: %UNSTICKIERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%UNSTICKIERS_USERNAME%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		$query = 'UPDATE forum_posts SET sticky = 0 WHERE id = "' . $_GET['post_id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		log_admin_event('forum remove sticky', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 	}
 	
 	/* Locking or unlocking threads... */
 	if($_GET['action'] == 'lock_thread' && is_privilegied('discussion_forum_lock_threads') && is_numeric($_GET['post_id']))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din tråd i forumet med titeln "%TITLE%" har blivit låst.' . "\n" . '
+								Ordningsvakten som låste din tråd var: %LOCKERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%LOCKERS_USERNAME%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		$query = 'UPDATE forum_posts SET locked = 1 WHERE id = "' . $_GET['post_id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		log_admin_event('forum lock thread', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 	}
 	if($_GET['action'] == 'unlock_thread' && is_privilegied('discussion_forum_lock_threads') && is_numeric($_GET['post_id']))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din tråd i forumet med titeln "%TITLE%" har blivit upplåst. <-- Coolt vah?!' . "\n" . '
+								Ordningsvakten som låste upp din tråd var: %UNLOCKERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%UNLOCKERS_USERNAME%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		$query = 'UPDATE forum_posts SET locked = 0 WHERE id = "' . $_GET['post_id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		log_admin_event('forum unlock thread', '', $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 	}
 	
 	/* Renaming posts (threads). Fix a function for this later on... */
 	if($_GET['action'] == 'rename_post' && is_privilegied('discussion_forum_rename_threads') && is_numeric($_GET['post_id']))
 	{
+		$posts = discussion_forum_post_fetch(array('post_id' => $_GET['post_id']));
+		$post = array_pop($posts);
+		
+		$message = 'Hej, din tråd i forumet med titeln "%TITLE%" har blivit omdöpt till %NEW_TITLE%
+								Ordningsvakten som döpte om din tråd var: %RENAMERS_USERNAME%.' . "\n" . '
+								Har du frågor så är du välkommen att fråga honom/henne, annars, may the force be with you!
+							 ';
+		$guestbook_message = array(
+			'sender' => 2348,
+			'recipient' => intval($post['author']),
+			'message' => mysql_real_escape_string(str_replace(
+				array('%TITLE%',      '%CONTENT%',     '%RENAMERS_USERNAME%',		'%NEW_TITLE%'),
+				array($post['title'], $post['content'], $_SESSION['login']['username'], $_GET['new_title']),
+				$message
+			))
+		);
+		
+		guestbook_insert($guestbook_message);
+		
 		$query = 'UPDATE forum_posts SET title = "' . $_GET['new_title'] . '" WHERE id = "' . $_GET['post_id'] . '" LIMIT 1';
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		log_admin_event('forum rename post', $post['title'] . ' -> ' . $_GET['new_title'], $_SESSION['login']['id'], $post['author'], $_GET['post_id']);
 	}
 	
 	/* Remove answer to notice */
