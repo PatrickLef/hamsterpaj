@@ -82,12 +82,22 @@
 			$query = 'INSERT INTO user_flags (user , flag) VALUES (' . $userid . ',' . $user_flag . ')';
 			$result = mysql_query($query) or die(report_sql_error($query));
 			$output .= 'Flaggan är inlagd!';
+			
+			$query = 'SELECT title FROM user_flags_list WHERE id = ' . $user_flag . ' LIMIT 1';
+			$result = mysql_query($query) or die(report_sql_error($query));
+			$data = mysql_fetch_assoc($result);
+			log_admin_event('user flag added', $data['title'], $_SESSION['login']['id'], $userid, '');
 		}
 		elseif(isset($_POST['remove']) && is_numeric($user_flag) && is_numeric($userid))
 		{
 			$query = 'DELETE FROM user_flags WHERE user =' . $userid . ' AND flag =' . $user_flag . ' LIMIT 1';
 			$result = mysql_query($query) or die(report_sql_error($query));
 			$output .= 'Flaggan är borttagen!';
+			
+			$query = 'SELECT title FROM user_flags_list WHERE id = ' . $user_flag . ' LIMIT 1';
+			$result = mysql_query($query) or die(report_sql_error($query));
+			$data = mysql_fetch_assoc($result);
+			log_admin_event('user flag removed', $data['title'], $_SESSION['login']['id'], $userid, '');
 		}		
 		else
 		{
