@@ -21,7 +21,7 @@
 		$options['order-by'] = (isset($options['order-by'])) ? $options['order-by'] : 'p.id';
 		$options['order-direction'] = (isset($options['order-direction'])) ? $options['order-direction'] : 'ASC';
 		
-		$query = 'SELECT p.*, l.username, l.lastaction, l.userlevel, l.regtimestamp, u.last_warning, u.gender, u.user_status, u.forum_userlabel, u.forum_posts AS author_post_count, u.forum_spam AS author_spam_count, u.birthday, u.image AS author_image, z.spot';
+		$query = 'SELECT p.*, l.username, l.lastaction, l.userlevel, l.regtimestamp, u.last_warning, u.gender, u.user_status, u.forum_userlabel, u.forum_posts AS author_post_count, u.forum_spam AS author_spam_count, u.birthday, u.image AS author_image, z.spot, pf.create_thread, pf.create_post, pf.read_threads';
 		$query .= (!isset($options['disable_forum_lookup'])) ? ', pf.quality_level' : '';
 		if(login_checklogin() && !isset($options['thread_id']))
 		{
