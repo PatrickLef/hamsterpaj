@@ -430,7 +430,14 @@
 			break;
 			
 			case 'joshua':
-				return (is_privilegied('ov_forum') || $_SESSION['login']['id'] <= 60000);
+				if(login_checklogin())
+				{
+					return (is_privilegied('ov_forum') || $_SESSION['login']['id'] <= 60000);
+				}
+				else
+				{
+					return false;
+				}
 			break;
 			
 			case 'logged_in':
