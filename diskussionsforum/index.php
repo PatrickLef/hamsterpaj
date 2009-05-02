@@ -17,10 +17,10 @@
 	switch($request['action'])
 	{
 		case 'view_category':
-			$all_categories_list = discussion_forum_categories_fetch(array('handle' => $request['category_handle'], 'viewers_userlevel' => (login_checklogin() ? $_SESSION['login']['id'] : 0)));
+			$all_categories_list = discussion_forum_categories_fetch(array('handle' => $request['category_handle']));
 			$category = array_pop($all_categories_list);
 
-			$forum_security = forum_security(array('action' => 'view_category', 'category' => $category, 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0)));
+			$forum_security = forum_security(array('action' => 'view_category', 'category' => $category, 'forum_id' => $category['id']));
 			if($forum_security !== true)
 			{
 				$output .= $forum_security;
@@ -49,7 +49,7 @@
 			$path_to_trailing_category = array_pop($path_to_category);
 			$output .= '<a href="' . $path_to_trailing_category['url'] . 'traadsida_' . ($request['page_offset'] + 2) . '.php">Nästa sida &raquo;</a>';
 			
-			if(forum_security(array('action' => 'discussion_create', 'forum_id' => $category['id'], 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0))) === true)
+			if(forum_security(array('action' => 'discussion_create', 'forum_id' => $category['id'])) === true)
 			{
 				$form_options['forum_id'] = $request['category']['id'];
 				$form_options['mode'] = 'create_thread';
@@ -113,7 +113,7 @@
 			}
 
 
-			$forum_security = forum_security(array('action' => 'view_thread', 'forum_id' => $first_post[0]['forum_id'], 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0)));
+			$forum_security = forum_security(array('action' => 'view_thread', 'forum_id' => $first_post[0]['forum_id']));
 			if($forum_security !== true)
 			{
 				$output .= $forum_security;
@@ -245,7 +245,7 @@
 			}
 			if($_POST['mode'] == 'create_thread')
 			{
-				$forum_security = forum_security(array('action' => 'discussion_create', 'forum_id' => $_POST['forum_id'], 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0), 'content' => $_POST['content']));
+				$forum_security = forum_security(array('action' => 'discussion_create', 'forum_id' => $_POST['forum_id'], 'content' => $_POST['content']));
 	
 				if($forum_security !== true)
 				{
@@ -278,7 +278,7 @@
 			}
 			else
 			{			
-				$forum_security = forum_security(array('action' => 'new_post', 'forum_id' => $_POST['forum_id'], 'parent_post' => $_POST['parent'], 'userlevel' => (login_checklogin() ? $_SESSION['login']['userlevel'] : 0), 'content' => $_POST['content']));
+				$forum_security = forum_security(array('action' => 'new_post', 'forum_id' => $_POST['forum_id'], 'parent_post' => $_POST['parent'], 'content' => $_POST['content']));
 	
 				if($forum_security !== true)
 				{

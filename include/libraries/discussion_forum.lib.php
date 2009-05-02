@@ -421,6 +421,32 @@
 		mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));	
 	}
 	
+	function forum_category_access($value)
+	{
+		switch($value)
+		{
+			case 'ov':
+				return is_privilegied('ov_forum');
+			break;
+			
+			case 'joshua':
+				return (is_privilegied('ov_forum') || $_SESSION['login']['id'] <= 60000);
+			break;
+			
+			case 'logged_in':
+				return login_checklogin();
+			break;
+			
+			case 'no_one':
+				return false;
+			break;
+			
+			default:
+				return true;
+			break;
+		}
+	}
+	
 	function forum_security($options)
 	{
 		switch($options['action'])
@@ -509,7 +535,7 @@
 				
 				$category = array_pop($category_tree);
 				
-				if($category['userlevel_create'] > $options['userlevel'] && !is_privilegied('ov_forum'))
+				if(!forum_category_access($category['create_thread']))
 				{
 					$return .= '<h2>Aja baja, så får man inte göra!</h2>' . "\n";
 					$return .= '<p>Nu försökte du starta en diskussion i en kategori du inte får posta i. Kanske var det någon som lekte hacker?</p>' . "\n";
@@ -563,7 +589,7 @@
 				
 				$category = array_pop($category_tree);
 				
-				if($category['userlevel_post'] > $options['userlevel'] && !is_privilegied('ov_forum'))
+				if(!forum_category_access($category['create_post']))
 				{
 					$return .= '<h2>Här får du inte skriva</h2>' . "\n";
 					$return .= '<p>Du får inte posta i den här forumdelen. Ditt inlägg sparades inte. Här är ditt inlägg:</p>' . "\n";
@@ -584,7 +610,7 @@
 				break;
 				
 			case 'view_category':
-				if($options['category']['userlevel_read'] > $options['userlevel'] && !is_privilegied('ov_forum'))
+				if(!forum_category_access($options['category']['read_threads']))
 				{
 					$return .= '<h2>För låg användarnivå för kategori</h2>' . "\n";
 					$return .= '<p>Nae, den kategorin får inte du titta i.</p>' . "\n";
@@ -607,7 +633,7 @@
 				
 				$category = array_pop($category_tree);
 				
-				if($category['userlevel_read'] > $options['userlevel'] && !is_privilegied('ov_forum'))
+				if(!forum_category_access($category['read_threads']))
 				{
 					$return .= '<h2>Den här diskussionen får du inte läsa!</h2>' . "\n";
 					$return .= '<p>Hemligt, hemligt...</p>' . "\n";
