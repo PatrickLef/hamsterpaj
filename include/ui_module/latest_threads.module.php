@@ -7,7 +7,7 @@
 		{
 			$thread['title'] = (mb_strlen($thread['title'], 'UTF8') > 22) ? htmlspecialchars(mb_substr(htmlspecialchars_decode($thread['title']), 0, 19, 'UTF8')) . '...' : $thread['title'];
 			$info = 'I ' . $thread['category_title'] . ' av ' . $thread['username'] . ': ' . $thread['title'];
-			$options['output'] .= '<li>' . date('H:i', $thread['timestamp']) . ' <a title="' . $info . '" href="' . $thread['url'] . '">' . $thread['title'] . '</a></li>' . "\n";
+			$options['output'] .= '<li>' . date('H:i', $thread['timestamp']) . ' <a title="' . $info . '" href="' . $thread['url'] . '"' . ($thread['read_threads'] == 'joshua' ? 'style="color: orange;"' : '') . '>' . $thread['title'] . '</a></li>' . "\n";
 		}
 	}
 	$options['return'] .= '</ul>' . "\n";
