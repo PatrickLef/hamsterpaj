@@ -13,7 +13,7 @@ function render_entries($entries, $options)
 								$content .= $entry['gender'];
 								$content .= date_get_age($entry['birthday']);
 								$content .= '<p>' . "\n";
-								$content .= nl2br($entry['content']) . "\n";
+								$content .= nl2br(html_entity_decode($entry['content'])) . "\n";
 							$content .= '</p>' . "\n";
 						$content .= '</div>' . "\n";
 						// ----START----
