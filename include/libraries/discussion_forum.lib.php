@@ -432,7 +432,7 @@
 			case 'joshua':
 				if(login_checklogin())
 				{
-					return (is_privilegied('ov_forum') || $_SESSION['login']['id'] <= 60000);
+					return (is_privilegied('ov_forum') || $_SESSION['login']['id'] <= 60000 || is_privilegied('joshua_forum'));
 				}
 				else
 				{
