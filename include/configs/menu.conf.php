@@ -161,6 +161,7 @@
 		$menu['site_admin']['children']['flash_update'] = array('label' => 'Flashupdate', 'url' => '/site_admin/flash_update.php', 'is_privilegied' => 'entertain_add');
 		$menu['site_admin']['children']['wallpapers'] = array('label' => 'Bakgrundsbilder (nya)', 'url'  =>'/site_admin/wallpapers_admin.php', 'is_privilegied' => 'backgrounds_admin');
 		$menu['site_admin']['children']['music_guess'] = array('label' => 'Gissa låten', 'url' => '/site_admin/music_guess.php', 'is_privilegied' => 'music_guess_admin');
+		$menu['site_admin']['children']['forum_admin'] = array('label' => 'Forum admin', 'url' => '/site_admin/discussion_forum_admin.php', 'is_privilegied' => 'forum_admin');
 		$menu['site_admin']['children']['dev'] = array('label' => 'Utveckling', 'url' => 'javascript:void(0)', 'is_privilegied' => array('use_debug_tools'));
 			$menu['site_admin']['children']['dev']['children']['handy'] = array('label' => 'Handy <i>(riktig)</i>', 'url' => '/site_admin/handy.php', 'is_privilegied' => 'use_debug_tools');
 			$menu['site_admin']['children']['dev']['children']['visa_sessionsdata'] = array('label' => 'Visa sessionsdata', 'url' => '/site_admin/view_session.php', 'is_privilegied' => 'use_debug_tools');
