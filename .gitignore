@@ -21,9 +21,13 @@ tmp/*
 kvitton/*
 static/*
 dynamic_content/*
+css/*
+scripts/*
 
 # Files to exclude
 .backupignore
+gateway.php
+.htaccess
 
 # Configuration files
 # NOTE: Keep BOTH constants.php! Even if one of them doesn't exist!
