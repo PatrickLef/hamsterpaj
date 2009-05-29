@@ -474,7 +474,7 @@
 	}
 	
 		#photoblog_calendar_month span {
-			color: <?php echo $contrast_color; ?>	
+			color: <?php echo $contrast_color; ?>
 		}
 	
 		#photoblog_calendar_month {
@@ -505,7 +505,8 @@
 			  color: <?php echo $contrast_color; ?>;
 			}
 			#ui_module_photoblog_calendar td a {
-			  color: <?php echo $detail_color; ?>;
+			    font-weight: bold;
+			    color: <?php echo $detail_color; ?>;
 			}
 			#photoblog_calendar_year {
 				color: <?php echo $detail_color; ?>;
