@@ -25,16 +25,18 @@
 			
 			$user_id = $photoblog_user['id'];
 			$options = array(
-				'photos' => end($photos_sorted),
+				'photos' => reset($photos_sorted),
 				'user_id' => $user_id,
-				'include_dates' => false
+				'include_dates' => false,
+				'load_first' => true,
+				'album_view' => true
 			);
 			
 			$out .= photoblog_viewer($options);
 		}
 		else
 		{		
-				$out .= 'Listar ' . $photoblog_user['username'] . 's album.';
+				$out .= '<h2>' . $photoblog_user['username'] . 's album</h2>';
 				global $photoblog_user;
 				$options['user'] = $photoblog_user['id'];
 				$photoblog_albums = photoblog_categories_fetch($options);
@@ -43,9 +45,9 @@
 				{
 					if(count($photoblog_album['photos']) >= 1)
 					{
-						$out .= '<a href="/fotoblogg/' . $photoblog_user['username'] . '/album/' . $photoblog_album['name'] . '" />' . "\n";
-						$out .= '<img src="' . IMAGE_URL . 'photos/full/' . floor($photoblog_album['photos']['id'][0]/5000) . '/' . $photoblog_album['photos']['id'][0] . '.jpg" />' . "\n";
+						$out .= '<a href="/fotoblogg/' . $photoblog_user['username'] . '/album/' . $photoblog_album['handle'] . '" />' . "\n";
 						$out .= '<h3>' . $photoblog_album['name'] . '</h3>' . "\n";
+						$out .= '<img src="' . IMAGE_URL . 'photos/full/' . floor($photoblog_album['photos'][0]/5000) . '/' . $photoblog_album['photos'][0] . '.jpg" />' . "\n";
 						$out .= '</a>' . "\n";
 					}
 				}
