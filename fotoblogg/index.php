@@ -94,8 +94,12 @@
 		$out .= '</div>';
 		$out .= '<a href="#" id="photoblog_select_today"><img src="' . IMAGE_URL . 'famfamfam_icons/house.png" alt="Idag" title="Till dagens datum" /></a>' . "\n";
 		$out .= '</div>';
+		
 			$out .= '<div id="photoblog_user_header">';
-				$out .= '<a href="/fotoblogg/">Min fotoblogg</a><a href="/fotoblogg/ladda_upp">Ladda upp</a><a href="/fotoblogg/ordna">Sortera mina foton</a><a href="/fotoblogg/instaellningar">Inställningar</a>' . "\n";
+					if ( login_checklogin() )
+						$out .= '<a href="/fotoblogg/">Min fotoblogg</a><a href="/fotoblogg/ladda_upp">Ladda upp</a><a href="/fotoblogg/ordna">Sortera mina foton</a><a href="/fotoblogg/instaellningar">Inställningar</a>' . "\n";
+					else
+						$out .= '<a href="/register.php">Klicka här för att bli medlem så du kan ladda upp egna bilder!</a>';
 			$out .= '</div>';
 		$out .= '</div>';
 		

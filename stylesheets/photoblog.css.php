@@ -94,10 +94,11 @@
 			height: 130px;
 			border: 1px solid #cfe2f1;
 		}
-        
+
 #photoblog_header {
 	width: 638px;
 }
+    
 	#photoblog_select {
 		background: <?php echo $main_color; ?> repeat-x;
 		border-radius: 5px;
