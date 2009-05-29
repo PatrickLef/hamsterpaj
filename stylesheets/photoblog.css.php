@@ -386,6 +386,9 @@
 		.photoblog_comment_actions li {
 			display: inline;	
 		}
+		
+		.photoblog_comment_actions li:after { content: " | "; }
+		.photoblog_comment_actions li:last-child:after { content: ""; }
 	
 	#photoblog_comments h3 { display: none; }
 	
