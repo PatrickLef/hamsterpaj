@@ -467,8 +467,7 @@
   display: none;
 }
 	#ui_module_photoblog_calendar .ui_module_content {
-	  height: 190px;
-	  background: <?php echo $main_color; ?> url(http://images.hamsterpaj.net/photoblog/calendar_fade.png);
+	  background: <?php echo $main_color; ?>;
 	  color: #fff;
 	  -moz-border-radius: 5px;
 	  padding: 0;
@@ -490,6 +489,10 @@
 		#ui_module_photoblog_calendar table {
 		  margin: 0 11px;
 		  width: 180px;
+		  border: 1px inset #e1e1e1;
+		  -moz-border-radius: 10px;
+		  -webkit-border-radius: 10px;
+		  border-radius: 10px;
 		}
 			#ui_module_photoblog_calendar th {
 			  color: <?php echo $detail_color; ?>;
@@ -507,12 +510,27 @@
 			#photoblog_calendar_year {
 				color: <?php echo $detail_color; ?>;
 				padding: 10px 15px 0 15px;
+				height: 25px;
 			}
+			    
+			    #photoblog_calendar_year:after {
+				clear: both;
+				display: block;
+				visibility: hidden;
+				content: ".";
+				height: 0;
+			    }
+			
 				.photoblog_calendar_year_after {
 					float: right;
+					display: block;
+					width: 40%;
+					text-align: right;
 				}
 				.photoblog_calendar_year_pre {
 					float: left;
+					display: block;
+					width: 40%;
 				}
 
 body #ui_module_photoblog_calendar td.photoblog_calendar_active {
