@@ -43,6 +43,38 @@
 			    echo json_encode($photo);
 			break;
 			
+			case 'photo_edit':
+				if ( ! ctype_digit($_POST['edit_id']) )
+				{
+				    throw new Exception('Felaktig edit_id');
+				}
+				
+				$options = array('id' => $_POST['edit_id']);
+				$photo_info = photoblog_photos_fetch($options);
+				$photo_info = end($photo_info);
+				
+				if ( $photo_info['user'] != $_SESSION['login']['id'] )
+				{
+				    throw new Exception('Endast medlemmar har rättighet att ändra bilder');
+				}
+				
+				if ( isset($_POST['edit_submit']) )
+				{
+				    $data = array();
+				    $data['id'] = $photo_info['id'];
+				    $data['description'] = $_POST['edit_description'];
+				    $data['date'] = $_POST['edit_date'];
+				    photoblog_photos_update($data);
+				}
+				elseif ( isset($_POST['edit_delete']) && is_privilegied('photoblog_photo_remove') )
+				{
+				    $data = array('deleted' => 1, 'id' => $photo_info['id']);
+				    photoblog_photos_update($data);
+				}
+				
+				echo 'Du har sedermera uppdaterat ditt photo.';
+			break;
+			
 			case 'photos_remove':
 				if ( ! isset($_GET['photos']) )
 				{

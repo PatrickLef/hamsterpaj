@@ -1,4 +1,5 @@
-hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_data)			{				json_data = eval('(' + raw_json_data + ')');				if(parseInt(json_data.server_id, 10) > 0)				{					hp.photoblog.upload.photo_properties.photo_create({						photo_id: json_data.server_id,						photo_filename: json_data.filename					});				}				else				{					alert('Något gick snett :/ Fotot ' + json_data.filename + ' kunde inte laddas upp (Debug: Ogiltigt ServerID returnerat från Flash).');				}			}		},				photo_properties:		{			photos: new Array(),			photo_create: function(params)			{				hp.photoblog.upload.photo_properties.photos.push(params);								var properties_div = $(document.createElement('div')).appendTo('#photoblog_photo_properties_container');				$(properties_div)					.attr('id', 'photoblog_photo_properties_' + params.photo_id)					.attr('className', 'photoblog_photo_properties')					.html(''						+ '<div class="properties">'							+ '<input class="photoblog_photo_properties_date" type="text" name="photoblog_photo_properties_' + params.photo_id + '_date" id="photoblog_photo_properties_' + params.photo_id + '_date" value="Idag" />'							+ '<textarea class="photoblog_photo_properties_description" name="photoblog_photo_properties_' + params.photo_id + '_description"></textarea>'						+ '</div>'												+ '<div class="float">'							+ '<div class="thumbnail_wrapper">'								+ '<img src="' + hp.photoblog.make_thumbname(params.photo_id) + '" class="thumbnail" />'							+ '</div>'														+ '<div class="rotate">'								+ '<img src="http://images.hamsterpaj.net/photoblog/rotate_left.png" class="rotate_left" />'								+ '<img src="http://images.hamsterpaj.net/photoblog/rotate_right.png" class="rotate_right" />'							+ '</div>'						+ '</div>'					);								$('#photoblog_photo_properties_' + params.photo_id + '_date').datepicker({					showWeeks: true,					dateFormat: 'yy-mm-dd'				});									$('#photoblog_upload_rules').hide();				$('#photoblog_photo_properties_save').show();			}		}	},		mousepos: {x: 0, y: 0},		view: {	/*		.photoblog_active is always fetched dynamically, because it changes constantly 		do indent of hp.photoblog.view when we are done, I'm fed up of having to scroll sideways	*/	init: function() {		hp.photoblog.year_month.init();		hp.photoblog.calendar.init();				if ( hp.photoblog.current_user.date ) {			hp.photoblog.year_month.set_date(hp.photoblog.current_user.date);		}				this.thumbsContainer = $('#photoblog_thumbs_container');		this.thumbs = $('#photoblog_thumbs');		this.thumbsList = $('dl', this.thumbsContainer);				this.imageContainer = $('#photoblog_image');		this.image = $('img', this.imageContainer);				this.prev_month = $('#photoblog_prevmonth a');		this.next_month = $('#photoblog_nextmonth a');		this.prevnext_month = $('#photoblog_nextmonth a, #photoblog_prevmonth a');
+hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_data)			{				json_data = eval('(' + raw_json_data + ')');				if(parseInt(json_data.server_id, 10) > 0)				{					hp.photoblog.upload.photo_properties.photo_create({						photo_id: json_data.server_id,						photo_filename: json_data.filename					});				}				else				{					alert('Något gick snett :/ Fotot ' + json_data.filename + ' kunde inte laddas upp (Debug: Ogiltigt ServerID returnerat från Flash).');				}			}		},				photo_properties:		{			photos: new Array(),			photo_create: function(params)			{				hp.photoblog.upload.photo_properties.photos.push(params);								var properties_div = $(document.createElement('div')).appendTo('#photoblog_photo_properties_container');				$(properties_div)					.attr('id', 'photoblog_photo_properties_' + params.photo_id)					.attr('className', 'photoblog_photo_properties')					.html(''						+ '<div class="properties">'							+ '<input class="photoblog_photo_properties_date" type="text" name="photoblog_photo_properties_' + params.photo_id + '_date" id="photoblog_photo_properties_' + params.photo_id + '_date" value="Idag" />'							+ '<textarea class="photoblog_photo_properties_description" name="photoblog_photo_properties_' + params.photo_id + '_description"></textarea>'						+ '</div>'												+ '<div class="float">'							+ '<div class="thumbnail_wrapper">'								+ '<img src="' + hp.photoblog.make_thumbname(params.photo_id) + '" class="thumbnail" />'							+ '</div>'														+ '<div class="rotate">'								+ '<img src="http://images.hamsterpaj.net/photoblog/rotate_left.png" class="rotate_left" />'								+ '<img src="http://images.hamsterpaj.net/photoblog/rotate_right.png" class="rotate_right" />'							+ '</div>'						+ '</div>'					);								$('#photoblog_photo_properties_' + params.photo_id + '_date').datepicker({					showWeeks: true,					dateFormat: 'yy-mm-dd'				});									$('#photoblog_upload_rules').hide();				$('#photoblog_photo_properties_save').show();			}		}	},		mousepos: {x: 0, y: 0},		view: {	/*		.photoblog_active is always fetched dynamically, because it changes constantly 		do indent of hp.photoblog.view when we are done, I'm fed up of having to scroll sideways	*/	init: function() {		hp.photoblog.year_month.init();		hp.photoblog.calendar.init();
+		hp.photoblog.edit.init();				if ( hp.photoblog.current_user.date ) {			hp.photoblog.year_month.set_date(hp.photoblog.current_user.date);		}				this.thumbsContainer = $('#photoblog_thumbs_container');		this.thumbs = $('#photoblog_thumbs');		this.thumbsList = $('dl', this.thumbsContainer);				this.imageContainer = $('#photoblog_image');		this.image = $('img', this.imageContainer);				this.prev_month = $('#photoblog_prevmonth a');		this.next_month = $('#photoblog_nextmonth a');		this.prevnext_month = $('#photoblog_nextmonth a, #photoblog_prevmonth a');
 		
 		this.can_keyboard_nav = true;				this.make_scroller();		this.make_nextprev();		this.make_ajax();		this.make_keyboard();		this.make_comments();		this.make_global_click();				// we have to select the latest month		if ( ! this.load_from_hash() ) {			if ( hp.photoblog.year_month.current_month_select[0].options.length > 1 ) {				var latest;				do {					latest = hp.photoblog.year_month.get_next_date();				} while (latest === false);				hp.photoblog.year_month.select_month(latest.substr(4));			}		}				var active_id = hp.photoblog.view.get_active();		if ( active_id.length ) {			active_id = hp.photoblog.image_id(active_id);			this.set_prevnext(active_id);		}				this.make_month();
 		
@@ -22,7 +23,9 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			this.scroller.slide_slider(0);			return;		}
 		var position = ((active.position().left + (active.width() / 2) - (thumbsContainer.real_width / 2)) / thumbsContainer.sWidth) * 100;		this.scroller.slide_slider(position);	},		set_data: function(options) {		var description = $('#photoblog_description');		var text = $('#photoblog_description_text');		
 		$('#photoblog_description_report a').attr('href', '/hamsterpaj/abuse.php?report_type=photo&reference_id=' + options.id);
-		text.html(options.description);		if ( options.description == 'Ingen beskrivning' || options.description == '' ) {			text.css('display', 'none');		} else {			text.css('display', 'block');		}	},		set_image: function(id) {		var src = hp.photoblog.make_name(id);		var self = this;		var img = $('<img />');
+		text.html(options.description);		if ( options.description == 'Ingen beskrivning' || options.description == '' ) {			text.css('display', 'none');		} else {			text.css('display', 'block');		}
+		
+		hp.photoblog.edit.uptoDate(options);	},		set_image: function(id) {		var src = hp.photoblog.make_name(id);		var self = this;		var img = $('<img />');
 		var imgs = $('#photoblog_image p img');		self.centralize_active();
 		if ( imgs.length > 1 ) {
 			var l = imgs.length - 1;
@@ -37,7 +40,11 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			});		}).error(function() {
 			self.remove_load();
 			alert('Den här dumma bilden finns inte. Den är en dumdum sillsill!');
-		}).attr('src', src);	},		set_prevnext: function(id) {		var cimg = 'a[href=#image-' + id + ']';		var prevnext = this.get_prevnext_a(cimg);				if ( ! prevnext ) {			return false;		}				var prev_image = prevnext[0];		var next_image = prevnext[1];				var url = prev_image.attr('href'),			can_prev = true;
+		}).attr('src', src);	},	
+	reload: function() {
+		this.load_image(this.current_id);
+	},
+		set_prevnext: function(id) {		var cimg = 'a[href=#image-' + id + ']';		var prevnext = this.get_prevnext_a(cimg);				if ( ! prevnext ) {			return false;		}				var prev_image = prevnext[0];		var next_image = prevnext[1];				var url = prev_image.attr('href'),			can_prev = true;
 		if ( hp.photoblog.current_user.album_view && prevnext[2] ) {
 			can_prev = false;
 		} else if ( prevnext[2] ) {			var prev_date = hp.photoblog.year_month.get_prev_date();			if ( ! prev_date || hp.photoblog.album_view ) can_prev = false;			url = '#month-' + prev_date;		}		if ( can_prev ) {			this.prev.css('visibility', 'visible');			this.prev.attr('href', url);		} else {			this.prev.css('visibility', 'hidden');		}				var url = next_image.attr('href'),			can_next = true;
@@ -81,7 +88,82 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				var ids = '';				$('#photoblog_sort input:checked').each(function() {
 					ids += $(this).parents('li').attr('id').replace('photo_', '') + '|';
 				}).parent().slideUp();
-				$.get('/ajax_gateways/photoblog.json.php?action=photos_remove&photos=' + ids);				return false;			});		},				album_names: function() {			$('.photoblog_album_edit h2 input').hide();			$('.photoblog_album_edit h2 span').click(function() {				var inputs = $(this).parent().children('input');				if ( inputs.css('display') == 'none' ) inputs.fadeIn();				else inputs.fadeOut();				return false;			});						$('.photoblog_album_edit').submit(function() {				var self = $(this);				$('span', this).text($('input[name=name]', this).val());				$.get(self.attr('action'), $('input', this));				$('input', this).fadeOut();				return false;			});		}	},		format_date: function(date) {		var pieces = date.split('-');		return pieces[0] + pieces[1];	},		make_name: function(id) {		return 'http://images.hamsterpaj.net/photos/full/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		make_thumbname: function(id) {		return 'http://images.hamsterpaj.net/photos/mini/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		image_id: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('image-', ''), 10);	},		get_month: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('month-', ''), 10);	}};jQuery.fn.extend({	slide_slider: function(to) {		var slider = $(this).slider('moveTo', to);	},		container_width: function() {		var width1 = 0;		$(this).children().each(function() {			width1 += $(this).width();		});	 	var thumbsContainer = $(this);		var lastChild = $('#photoblog_nextmonth');		var width = lastChild.position().left + lastChild.width() - thumbsContainer.width();
+				$.get('/ajax_gateways/photoblog.json.php?action=photos_remove&photos=' + ids);				return false;			});		},				album_names: function() {			$('.photoblog_album_edit h2 input').hide();			$('.photoblog_album_edit h2 span').click(function() {				var inputs = $(this).parent().children('input');				if ( inputs.css('display') == 'none' ) inputs.fadeIn();				else inputs.fadeOut();				return false;			});						$('.photoblog_album_edit').submit(function() {				var self = $(this);				$('span', this).text($('input[name=name]', this).val());				$.get(self.attr('action'), $('input', this));				$('input', this).fadeOut();				return false;			});		}	},
+	
+	edit: {
+		init: function() {
+			if ( $('#photoblog_edit').length == 0 ) return;
+			this.create();
+		},
+		
+		create: function() {
+			var self = this;
+			
+			this.activation_link = $('#photoblog_edit a[href=#photoblog_edit_actions]');
+			this.container = $('#photoblog_edit_do');
+			
+			this.form = $('#photoblog_edit form');
+			this.current_id = $('input[name=edit_id]');
+			this.current_desc = $('#photoblog_edit_description textarea');
+			this.current_date = $('input[name=edit_date]');
+			this.current_delete = $('input[name=edit_delete]');
+			
+			this.activation_link.click(function() {
+				self.container.toggle();
+				return false;
+			});
+			
+			this.current_desc.focus(function() {
+				hp.photoblog.view.can_keyboard_nav = false;
+			}).blur(function() {
+				hp.photoblog.view.can_keyboard_nav = true;
+			});
+			
+			this.current_date.focus(function() {
+				hp.photoblog.view.can_keyboard_nav = false;
+			}).blur(function() {
+				hp.photoblog.view.can_keyboard_nav = true;
+			});
+			
+			this.form.submit(function() {
+				// validate date
+				var date = self.current_date.val();
+				if ( ! /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date) ) {
+					alert('Datumet måste vara i formatet YYYY-MM-DD');
+					return false;
+				}
+				
+				self.save();
+				return false;
+			});
+			
+			this.current_delete.click(function() {
+				if ( confirm('Är du säker på att du vill ta bort bilden?') ) {
+					$.post(self.form.attr('action'), self.form.serialize() + '&edit_delete=1', function() {
+						// remove thumb from thumblist
+						$('a[href="#image-' + hp.photoblog.view.current_id + '"]').parent().remove();
+						// this should redirect to the next image
+						hp.photoblog.view.next.click();
+					});
+				}
+				return false;
+			});
+		},
+		
+		uptoDate: function(options) {
+			this.current_id.val(options.id);
+			this.current_desc.val(options.description);
+			this.current_date.val(options.date);
+		},
+		
+		save: function() {
+			var self = this;
+			$.post(this.form.attr('action'), this.form.serialize() + '&edit_submit=1', function(data) {
+				hp.photoblog.view.reload();
+				self.container.hide();
+			});
+		}
+	},		format_date: function(date) {		var pieces = date.split('-');		return pieces[0] + pieces[1];	},		make_name: function(id) {		return 'http://images.hamsterpaj.net/photos/full/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		make_thumbname: function(id) {		return 'http://images.hamsterpaj.net/photos/mini/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		image_id: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('image-', ''), 10);	},		get_month: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('month-', ''), 10);	}};jQuery.fn.extend({	slide_slider: function(to) {		var slider = $(this).slider('moveTo', to);	},		container_width: function() {		var width1 = 0;		$(this).children().each(function() {			width1 += $(this).width();		});	 	var thumbsContainer = $(this);		var lastChild = $('#photoblog_nextmonth');		var width = lastChild.position().left + lastChild.width() - thumbsContainer.width();
 		return width;	},		fadeInOnAnother: function(theOld, callback) {
 		// Effects are laggy for many people, so let's wait another 5 years before using them.
 		theOld.replaceWith(this);

@@ -578,7 +578,61 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 	#ui_module_photoblog_albums a {
 		color: <?php echo $detail_color; ?>;
 	}
+
+/*
+    Editing
+*/
+
+#photoblog_edit {
+    text-align: left;
+}
+
+    #photoblog_edit_do {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: <?php echo $main_color; ?>;
+	padding: 10px;
+	margin-top: 10px;
+	color: <?php echo $detail_color; ?>;
+    }
+    
+	#photoblog_edit h3, #photoblog_edit h4 {
+	    margin: 0;
+	    padding: 0;
+	}
 	
+	#photoblog_edit h3 a {
+	    font-weight: normal;
+	    color: <?php echo $detail_color; ?>;
+	}
+    
+    #photoblog_edit_description {
+	float: left;
+	margin-right: 10px;
+    }
+    
+    #photoblog_edit_date {
+	float: left;
+    }
+    
+    #photoblog_edit_save {
+	float: left;
+	margin: 0;
+    }
+    
+	#photoblog_edit_save input {
+	    display: block;
+	    margin-bottom: 4px;
+	}
+    
+    #photoblog_edit_do:after {
+	clear: both;
+	content: ".";
+	visibility: hidden;
+	height: 0;
+	display: block;
+    }
 
 #photoblog_sort {
 	background: <?php echo $main_color; ?>;
