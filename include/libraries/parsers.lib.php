@@ -248,7 +248,8 @@
 			'EXgirl007.myhotpicss.com',
 			'EXgirl',
 			'myhotpicss',
-			'ihate'
+			'ihate',
+			'Deflower' // Marie get's deflowered.
 			);
 		foreach($banned_strings AS $banned)
 		{
