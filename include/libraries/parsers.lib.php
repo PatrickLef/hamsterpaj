@@ -255,7 +255,7 @@
 		{
 			if(strpos($text, $banned) == true)
 			{
-				return 'En förbjuden webbadress hittades i ditt meddelande. Var snäll och spamma inte här på hamsterpaj.net';
+				return 'En förbjuden webbadress hittades i ditt meddelande. Var snäll och spamma inte här på hamsterpaj.net. <b>REF-länkar (reklamlänkar du själv tjänar på) leder till permanent ban ifrån hela siten!</b>';
 			}
 		}
 		$kedjebrev_strings = array(
