@@ -249,7 +249,7 @@
 			'EXgirl',
 			'myhotpicss',
 			'ihate',
-			'Deflower' // Marie get's deflowered.
+			'deflower' // Marie get's deflowered.
 			);
 		foreach($banned_strings AS $banned)
 		{
