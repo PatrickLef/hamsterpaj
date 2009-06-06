@@ -47,6 +47,8 @@
 				default: continue 2;
 			}
 			
+			if ( ! $data || empty($data) ) $data = '""';
+			
 			$return[] = '{"' . $object_to_fetch . '": ' . $data . '}';
 		}
 		

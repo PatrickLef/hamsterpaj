@@ -116,10 +116,6 @@
 			case 'ordna':
 				require('ordna.php');
 			break;
-			
-			case 'aendra':
-				require('aendra.php');
-			break;
 				
 			default:
 				switch ($uri_parts[3])
