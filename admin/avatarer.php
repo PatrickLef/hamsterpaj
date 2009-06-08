@@ -54,7 +54,7 @@ function block_user($userid)
 //Listar ut 10 ovalidera avatarer
 function list_avatars()
 {
-	$result = mysql_query('SELECT login.id, login.username, userinfo.gender, userinfo.birthday FROM login, userinfo WHERE login.id = userinfo.userid && image = "1" LIMIT 40');
+	$result = mysql_query('SELECT login.id, login.username, userinfo.gender, userinfo.birthday FROM login, userinfo WHERE login.id = userinfo.userid && image = "1" LIMIT 500');
 	if(mysql_num_rows($result) == 0)
 	{
 		echo '<br /><br />Hittade inga avatarer som inte validerats.';
