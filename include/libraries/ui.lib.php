@@ -512,6 +512,7 @@ function ui_bottom($options = array())
 			pageTracker._trackPageview();
 			} catch(err) {}
 		</script>';
+		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
 	}
 	
 	$output .= '</body>' . "\n";
