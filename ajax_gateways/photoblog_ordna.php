@@ -22,6 +22,8 @@ try {
 	switch ( $action )
 	{
 		case 'album_new':
+			header('location: /fotoblogg/ordna');
+			
 			if ( empty($_GET['name']) )
 			{
 				throw new Exception('Name cannot be empty');
@@ -51,6 +53,19 @@ try {
 				'name' => $_GET['name']
 			);
 			photoblog_categories_edit($options);
+		break;
+		
+		case 'album_remove':
+			if ( ! isset($_GET['id']) || ! is_numeric($_GET['id']) )
+			{
+				throw new Exception('No ID provided');
+			}
+			
+			$options = array(
+				'id' => $_GET['id'],
+				'user' => $_SESSION['login']['id']
+			);
+			photoblog_categories_remove($options);
 		break;
 	}
 } catch (Exception $e) {

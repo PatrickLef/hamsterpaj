@@ -1,5 +1,6 @@
 <?php
 	$ui_options['javascripts'][] = 'sorter.js';
+	$ui_options['ui_modules_hide'] = false;
 	
 	$out .= '<div id="photoblog_sort">';
 	$out .= '<h1>Sortera dina bilder genom att dra och släppa bilderna dit du vill ha dem</h1>';
@@ -32,7 +33,7 @@
 		if ( $id != 0 )
 		{
 			$out .= '<form class="photoblog_album_edit" action="/ajax_gateways/photoblog_ordna.php" method="get">';
-			$out .= '<h2><span>' . $name . '</span> <input type="text" name="name" value="' . $categories[$id]['name'] . '" /> <input type="submit" value="Spara" /></h2>';
+			$out .= '<h2><span>' . $name . '</span> <a class="photoblog_album_remove" href="/ajax_gateways/photoblog_ordna.php?action=album_remove&id=' . $id . '"><small>Ta bort</small></a> <input type="text" name="name" value="' . $categories[$id]['name'] . '" /> <input type="submit" value="Spara" /></h2>';
 			$out .= '<input type="hidden" name="action" value="album_edit" /><input type="hidden" name="id" value="' . $id . '" />';
 			$out .= '</form>';
 		}

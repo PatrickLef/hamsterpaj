@@ -86,11 +86,28 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 					+ '&month='
 					+ month
 				);		}	},		sort: {		init: function() {			this.make_sortable();						$('.photoblog_sort_save').click(function() {				hp.photoblog.sort.save(function() {					alert('Sparat! :)');				});				return false;			});		},				make_sortable: function() {			this.sorter = new Sorter('#photoblog_sort li', '#photoblog_sort > ul', {				ignore: 'input'			});		},				serialize: function() {			var result = {};			$('#photoblog_sort > ul').each(function() {				// category_id				var id = $(this).attr('id').replace('album_', '');				result[id] = [];				$(this).children('li').each(function(i) {					result[id][i] = $(this).attr('id').replace('photo_', '');				});			});			return result;		},				serialize_to_url: function() {			var result = this.serialize();			return this.to_query(result, 'data');		},		/*			Based on Mootools Hash.toQueryString		*/					to_query: function(obj, base) {			var queryString = [];			for ( var key in obj ) if ( obj.hasOwnProperty(key) ) {				var value = obj[key];				if ( base ) key = base + '[' + key + ']';				var result, type = typeof value;				if ( type == 'string' || type == 'number' ) {					result = key + '=' + encodeURIComponent(value);				} else if ( type == 'object' ) {					result = this.to_query(value, key);				}				queryString[queryString.length] = result;			}			return queryString.join('&');		},				save: function(callback) {			// serialize and send to server			$.post('/ajax_gateways/photoblog.json.php?action=sort_save', this.serialize_to_url(), callback);		}	},		ordna: {		init: function() {			this.album_names();
+			this.remove_albums();
 						$('.photoblog_sort_remove').click(function() {
 				var ids = '';				$('#photoblog_sort input:checked').each(function() {
 					ids += $(this).parents('li').attr('id').replace('photo_', '') + '|';
 				}).parent().slideUp();
-				$.get('/ajax_gateways/photoblog.json.php?action=photos_remove&photos=' + ids);				return false;			});		},				album_names: function() {			$('.photoblog_album_edit h2 input').hide();			$('.photoblog_album_edit h2 span').click(function() {				var inputs = $(this).parent().children('input');				if ( inputs.css('display') == 'none' ) inputs.fadeIn();				else inputs.fadeOut();				return false;			});						$('.photoblog_album_edit').submit(function() {				var self = $(this);				$('span', this).text($('input[name=name]', this).val());				$.get(self.attr('action'), $('input', this));				$('input', this).fadeOut();				return false;			});		}	},
+				$.get('/ajax_gateways/photoblog.json.php?action=photos_remove&photos=' + ids);				return false;			});		},				album_names: function() {			$('.photoblog_album_edit h2 input').hide();			$('.photoblog_album_edit h2 span').click(function() {				var inputs = $(this).parent().children('input');				if ( inputs.css('display') == 'none' ) inputs.fadeIn();				else inputs.fadeOut();				return false;			});						$('.photoblog_album_edit').submit(function() {				var self = $(this);				$('span', this).text($('input[name=name]', this).val());				$.get(self.attr('action'), $('input', this));				$('input', this).fadeOut();				return false;			});		},
+		
+		remove_albums: function() {
+			var self = this;
+			$('.photoblog_album_remove').click(function() {
+				var t = $(this);
+			
+				var form = t.parents('form');
+				var ul = form.next();
+				form.remove();
+				ul.remove();
+				
+				$.get(t.attr('href'));
+				
+				return false;
+			});
+		}	},
 	
 	edit: {
 		init: function() {
