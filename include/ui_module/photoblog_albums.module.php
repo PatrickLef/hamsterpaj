@@ -2,6 +2,9 @@
 	global $photoblog_user;
 	$photo_options = array('user' => $photoblog_user['id']);
 	$photoblog_albums = photoblog_categories_fetch($photo_options);
+	$username = $photoblog_user['username'];
+	$possessive = (substr($username, -1, 1) == 's') ? $username : $username . 's';
+	$options['output'] .= sprintf('<h2><a href="/fotoblogg/%s/album">%s album</a></h2>', $username, $possessive);
 	foreach($photoblog_albums as $photoblog_album)
 	{
 		if(strlen($photoblog_album['photos']) >= 1)
