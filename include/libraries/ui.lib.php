@@ -461,28 +461,12 @@ function ui_bottom($options = array())
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
-	$output .= hpads_display('stortavla');
-	#$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
-	#$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
+	$output .= '<script type="text/javascript"><!-- google_ad_client = "pub-3110640362329253"; /* hamsterpaj 160x600, skapad 2009-06-08 */ google_ad_slot = "0695149486"; google_ad_width = 160; google_ad_height = 600; //--></script><script type="text/javascript"src=" http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>' . "\n";
 	$output .= '<br style="clear: both;" />' . "\n";
-	$output .= '<script type="text/javascript" src="http://www.adtrade.net/ad/p/?id=hamsterpaj_1&size=140x350&ad=001" charset="iso-8859-1"></script>';
 	$output .= '</div>' . "\n";
 	
 	// Close id="ad_wrapper"
 	$output .= '</div>' . "\n";
-	
-	$output .= '<!-- START Nielsen//NetRatings SiteCensus V5.2 -->' . "\n";
-	$output .= '<!-- COPYRIGHT 2006 Nielsen//NetRatings -->' . "\n";
-	$output .= '<script type="text/javascript">' . "\n";
-	$output .= '	var _rsCI="hamsterpaj-se";	 /* client ID */' . "\n";
-	$output .= '	var _rsCG="0";	 /* content group */' . "\n";
-	$output .= '	var _rsDN="//secure-dk.imrworldwide.com/";	 /* data node */' . "\n";
-	$output .= '</script>' . "\n";
-	$output .= '<script type="text/javascript" src="//secure-dk.imrworldwide.com/v52.js"></script>' . "\n";
-	$output .= '<noscript>' . "\n";
-	$output .= '	<img src="//secure-dk.imrworldwide.com/cgi-bin/m?ci=hamsterpaj-se&amp;cg=0&amp;cc=1" alt=""/>' . "\n";
-	$output .= '</noscript>' . "\n";
-	$output .= '<!-- END Nielsen//NetRatings SiteCensus V5.2 -->' . "\n";
 	
 	if(!login_checklogin())
 	{
