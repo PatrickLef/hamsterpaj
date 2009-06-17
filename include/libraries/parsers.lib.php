@@ -248,13 +248,14 @@
 			'EXgirl007.myhotpicss.com',
 			'EXgirl',
 			'myhotpicss',
-			'ihate'
+			'ihate',
+			'deflower' // Marie get's deflowered.
 			);
 		foreach($banned_strings AS $banned)
 		{
 			if(strpos($text, $banned) == true)
 			{
-				return 'En förbjuden webbadress hittades i ditt meddelande. Var snäll och spamma inte här på hamsterpaj.net';
+				return 'En förbjuden webbadress hittades i ditt meddelande. Var snäll och spamma inte här på hamsterpaj.net. <b>REF-länkar (reklamlänkar du själv tjänar på) leder till permanent ban ifrån hela siten!</b>';
 			}
 		}
 		$kedjebrev_strings = array(

@@ -54,7 +54,7 @@
 					Uploaded photos setting
 				########################################################
 			*/
-		$out .= '<form action="/fotoblogg/ladda_upp/sortering" method="post">' . "\n";
+		$out .= '<form action="/fotoblogg/ladda_upp/beskrivningar" method="post">' . "\n";
 			$out .= '<div id="photoblog_photo_properties_container">&nbsp;</div>' . "\n";
 			$out .= '<input type="submit" value="Vidare &raquo;" class="button_80" id="photoblog_photo_properties_save" />' . "\n";
 		$out .= '</form>' . "\n";
@@ -76,7 +76,7 @@
 			$options['message'] .= '<p>8 § Den som i uttalande eller i annat meddelande som sprids hotar eller uttrycker missaktning för folkgrupp eller annan sådan grupp av personer med anspelning på ras, hudfärg, nationellt eller etniskt ursprung, trosbekännelse eller sexuell läggning, döms för hets mot folkgrupp till fängelse i högst två år eller om brottet är ringa, till böter.</p>' . "\n";
 			$out .= ui_server_message($options);
 		break;
-		case 'sortering':
+		case 'beskrivningar':
 			$photo_ids = array();
 			foreach($_POST as $key => $value)
 			{
@@ -100,9 +100,9 @@
 						throw new Exception('Invalid date!');
 					}
 					
-					if(isset($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id']) && is_numeric($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id']))
+					if( is_numeric($matches['photo_id']) )
 					{
-						$data['id'] = $_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id'];
+						$data['id'] = $matches['photo_id'];
 					}
 					else
 					{
@@ -117,17 +117,17 @@
 				}
 			}
 			
-			if(empty($photo_ids))
+			if(false && empty($photo_ids))
 			{
 				$out .= 'Något gick lite snett, vi hittade inga av dina foton du just laddade upp.';
 				throw new Exception('No photos found when counting uploaded ids before fetching them.');
 			}
 			else
 			{
-				$out .= '<h2>Här kan du sortera dina foton</h2>';
-				$out .= 'Att sortera sina foton är självklart frivilligt, men kan vara bra så att man kan hålla koll på dem. Klicka och dra fotona dit du vill ha dem eller spara. Annars kan du <a href="/fotoalbum">gå direkt till ditt album och se bilderna du laddade upp</a>.';
-				$photos = photoblog_photos_fetch(array('id' => $photo_ids), array('save_path' => '/fotoblogg/ladda_upp/spara_sortering'));
-				$out .= photoblog_sort_module($photos);
+				$out .= '<h2>Nu har dina foton laddats upp!</h2>';
+				$out .= '<p><a href="/fotoblogg/ordna">Ordna dina foton</a>, <a href="/fotoblogg/ladda_upp">Ladda upp fler</a> eller <a href="/fotoblogg/">Spana in dina skönheterna</a>.</p>';
+				/*$photos = photoblog_photos_fetch(array('id' => $photo_ids), array('save_path' => '/fotoblogg/ladda_upp/spara_sortering'));
+				$out .= photoblog_sort_module($photos);*/
 			}
 		break;
 	}

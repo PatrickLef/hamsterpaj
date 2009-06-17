@@ -174,6 +174,10 @@
             color: <?php echo $contrast_color; ?>;
         }
 	
+		#photoblog_thumbs dt a {
+		    color: <?php echo $detail_color; ?>;
+		}
+	
 		#photoblog_thumbs dd a {
 			display: block;
 		}
@@ -449,7 +453,10 @@
 	  margin-left: 50px;
 	  color: <?php echo $contrast_color; ?>
 	}
-	#ui_module_photoblog_user a {
+	    #ui_module_photoblog_user h3 a {
+		color: <?php echo $contrast_color; ?>;
+	    }
+	#ui_module_photoblog_user span a {
 	  margin: 30px 0 0 50px;
 	  text-decoration: underline;
 	  color: <?php echo $detail_color; ?>;	
@@ -558,13 +565,26 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
   display: none;
 }
 	#ui_module_photoblog_albums .ui_module_content {
-		padding: 10px;
-	  background: <?php echo $main_color; ?>;
-	  color: #fff;
-	  -moz-border-radius: 5px;
+	    padding: 10px;
+	    background: <?php echo $main_color; ?>;
+	    color: #fff;
+	    -moz-border-radius: 5px;
 	}
+	#ui_module_photoblog_albums .ui_module_content h2 {
+	    margin: 0;
+	    padding: 0;
+	    text-indent: 0;
+	    text-align: center;
+	    display: block;
+	}
+	    #ui_module_photoblog_albums h2 a {
+		color: <?php echo $contrast_color; ?>;
+		font-size: 14px;
+		font-weight: normal;
+	    }
 	#ui_module_photoblog_albums h3 {
 		margin-top: 8px;
+		font-weight: normal;
 		text-align: center;
 	}
 	#ui_module_photoblog_albums img {
