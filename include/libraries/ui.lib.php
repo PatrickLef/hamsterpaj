@@ -103,22 +103,12 @@ function ui_top($options = array())
 	
 	$output .= $options['header_extra'];
 	
+	$output .= '<script type="text/javascript" src="http://nyheter24.se/template/1-0-1/javascript/ads.js?20090605"></script>';
+	$output .= '<script type="text/javascript">Ads.init(\'http://ads.nyheter24.se/\', false);</script>';
 	$output .= '</head> ' . "\n";
 	
 	$output .= '<body' . (isset($options['body_extra']) ? ' ' . $options['body_extra'] : '') . '>' . "\n";
 	
-	$output .= '<script type="text/javascript">' . "\n";
-	$adtoma_gender = (in_array(strtolower($_SESSION['userinfo']['gender']), array('m', 'f'))) ? strtoupper($_SESSION['userinfo']['gender']) : 'xx';
-	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
-	$adtoma_birthyear = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
-	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
-	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
-	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&hp_birthyear=' . $adtoma_birthyear . '&hp_gender=' . $adtoma_gender . '"' . "\n";
-	$output .= '</script>' . "\n";
-	$output .= '<script language="JavaScript" type="text/javascript" src="http://ad.adtoma.com/adam/cm8adam_1_call.js"></script>' . "\n";
-	
-	#$output .= '<div style="margin: 10px 0 0 10px;"><script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_6ba.js"></script></div>' . "\n";
-
 	if(isset($_SESSION['user_message']))
 	{
 		$output .= jscript_alert($_SESSION['user_message'], true) . "\n";
@@ -141,15 +131,9 @@ function ui_top($options = array())
 	}
 
 	$output .= '<div>' . "\n";
-	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
+	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(250, \'\');//]]>--></script>' . "\n";
 	$output .= '</div>' . "\n";
 
-	#$output .= '<div>' . "\n";
-	if ($bigbanner = hpads_display('bigbanner')) {
-		$output .= '<div style="margin: 10px 0 0 10px;">' . "\n";
-		$output .= $bigbanner;
-		$output .= '</div>' . "\n";
-	}
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="ad_wrapper">' . "\n";
@@ -364,7 +348,6 @@ function ui_top($options = array())
 	}
 	
 	$output .= '		<div id="ui_content">' . "\n";
-	$output .= '<script type="text/javascript">CM8ShowAd("Rektangel");</script>' . "\n";
 	
 	if(isset($options['return']) && $options['return'] == true)
 	{
@@ -457,7 +440,8 @@ function ui_bottom($options = array())
 	$output .= '	</div>' . "\n";
 	
 	$output .= '<div id="skyscraper">' . "\n";
-	$output .= '<script type="text/javascript">CM8ShowAd("Skyscraper");</script>' . "\n";
+	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(251, \'\');//]]>--></script>' . "\n";
+	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(252, \'\');//]]>--></script>' . "\n";
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
