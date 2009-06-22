@@ -131,7 +131,7 @@ function ui_top($options = array())
 	}
 
 	$output .= '<div>' . "\n";
-	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(250, \'\');//]]>--></script>' . "\n";
+	$output .= '<script type=\'text/javascript\'>Ads.insert(250, \'\');</script>' . "\n";
 	$output .= '</div>' . "\n";
 
 	
@@ -440,8 +440,8 @@ function ui_bottom($options = array())
 	$output .= '	</div>' . "\n";
 	
 	$output .= '<div id="skyscraper">' . "\n";
-	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(251, \'\');//]]>--></script>' . "\n";
-	$output .= '<script type=\'text/javascript\'><!--//<![CDATA[Ads.insert(252, \'\');//]]>--></script>' . "\n";
+	$output .= '<script type=\'text/javascript\'>Ads.insert(251, \'\');</script>' . "\n";
+	$output .= '<script type=\'text/javascript\'>Ads.insert(252, \'\');</script>' . "\n";
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
