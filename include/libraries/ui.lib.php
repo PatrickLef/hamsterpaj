@@ -440,7 +440,7 @@ function ui_bottom($options = array())
 	$output .= '	</div>' . "\n";
 	
 	$output .= '<div id="skyscraper">' . "\n";
-	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 140px; height: 350px;" frameborder="0"></iframe>';
+	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 142px; height: 352px;" scrolling="no" frameborder="0"></iframe>';
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
