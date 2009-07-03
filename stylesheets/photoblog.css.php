@@ -738,3 +738,43 @@ a.report_abuse {
 	text-indent: -10000px;
 	overflow: hidden;
 }
+
+.photoblog_upload_container {
+	border: 1px solid <?php echo $detail_color; ?>;
+	background: <?php echo $main_color; ?>;
+	color: <?php echo $contrast_color; ?>;
+	padding: 2em 0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+    .photoblog_upload_container div {
+	margin: 0 auto;
+	width: 400px;
+    }
+    
+    .photoblog_upload_container select {
+	width: 100px;
+    }
+
+    .photoblog_upload_container h3 {
+	    margin: 0;
+    }
+    
+    .photoblog_upload_container p {
+	    margin-top: 5px;
+	    margin-bottom: 0;
+    }
+    
+    .photoblog_upload_or {
+	padding-right: 4px;
+    }
+    
+    .photoblog_upload_container input[maxlength="4"] {
+	width: 40px;
+    }
+    
+    .photoblog_upload_container input[maxlength="2"] {
+	width: 20px;
+    }

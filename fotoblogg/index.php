@@ -27,7 +27,7 @@
 		
 		$uri_parts = explode('/', $_SERVER['REQUEST_URI']);
 		
-		if(in_array($uri_parts[2], array('ordna','instaellningar','ladda_upp')))
+		if(in_array($uri_parts[2], array('ordna','instaellningar','ladda_upp', 'ladda_upp_enkel')))
 		{
 			$options['username'] = $_SESSION['login']['username'];
 			$photoblog_user = photoblog_fetch_active_user_data($options);
@@ -111,6 +111,10 @@
 			
 			case 'ladda_upp':		
 				require('ladda_upp.php');
+			break;
+			
+			case 'ladda_upp_enkel':
+				require('ladda_upp_enkel.php');
 			break;
 			
 			case 'ordna':
