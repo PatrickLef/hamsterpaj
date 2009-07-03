@@ -17,30 +17,44 @@
 		{
 			case 'photo_fetch':
 				if(!isset($_GET['id']) || !is_numeric($_GET['id']))
-			    {
-			    	throw new Exception('No ID or faulty ID recieved');
-			    }
+				{
+					throw new Exception('No ID or faulty ID recieved');
+				}
 				
+				$options['order-by'] = 'up.date';
 				// fetch a single image
-			    if(!isset($_GET['month']) )
-			    {
-			        $options['id'] = $_GET['id'];
+				if(!isset($_GET['month']) )
+				{
+					$options['id'] = $_GET['id'];
 					friends_notices_set_read(array('action' => 'photos', 'item_id' => $_GET['id']));
-			    }
-			    // fetch an entire month
-			    else
-			    {
-			        if(!is_numeric($_GET['month']))
-			        {
-			            throw new Exception('Month not numerical.');
-			        }
-			        
-			        $options['user'] = $_GET['id'];
+					
+					$photo = photoblog_photos_fetch($options);
+					
+					$ret['photo'] = $photo;
+					
+					// fetch comments
+					$options = array();
+					$options['photo_id'] = $_GET['id'];
+					$comments = photoblog_comments_fetch($options);
+					$options['use_container'] = false;
+					$options['my_blog'] = login_checklogin() && $_SESSION['login']['id'] === @$_GET['blog_id'];
+					$comments = photoblog_comments_list($comments, $options);
+					
+					$ret['comments'] = htmlentities($comments, ENT_QUOTES, 'UTF-8');
+				}
+				// fetch an entire month
+				else
+				{
+					if(!is_numeric($_GET['month']))
+					{
+						throw new Exception('Month not numerical.');
+					}
+				
+					$options['user'] = $_GET['id'];
 					$options['month'] = $_GET['month'];
-			    }
-			    $options['order-by'] = 'up.date';
-			    $photo = photoblog_photos_fetch($options);
-			    echo json_encode($photo);
+					$ret = photoblog_photos_fetch($options);
+				}
+				echo json_encode($ret);
 			break;
 			
 			case 'photo_edit':
