@@ -1,7 +1,8 @@
 <?php
-	$ui_options['ui_modules']['photoblog_user'] = 'User';
+	/*$ui_options['ui_modules']['photoblog_user'] = 'User';
 	$ui_options['ui_modules']['photoblog_calendar'] = 'Kalender';
-	$ui_options['ui_modules']['photoblog_albums'] = 'Album';
+	$ui_options['ui_modules']['photoblog_albums'] = 'Album';*/
+	$ui_options['ui_modules_hide'] = false;
 		
 	if(!login_checklogin())
 	{
@@ -17,66 +18,33 @@
 				break;
 			}
 			$ui_options['stylesheets'][] = 'datepicker.css';
-			/*
-				########################################################
-					Page title
-				########################################################
-			*/
+			
 			$out .= '<h1>Välkommen att ladda upp bilder i din fotoblogg</h1>' . "\n";
-
-			/*
-				########################################################
-					How to upload photos
-				########################################################
-			*/
-    	$options['type'] = 'notification';
-    	$options['title'] = '';
-    	$options['message'] = '<p>Du kan ladda upp flera bilder samtidigt genom att markera flera när du väljer bilder.<br /> Men tänk på att det tar en del tid att ladda upp bilderna, och du bör kanske inte ladda upp så många i taget.</p><p>Fungerar inte bilduppladdningen? Klicka <a href="#">här</a> för att använda en enklare version av uppladdningen</a>';
-    	$out .= ui_server_message($options);
-
-			/*
-				########################################################
-					Upload form
-				########################################################
-			*/
-				$out .= '<div id="photoblog_upload_wrapper">' . "\n";
-				$out .= '<div id="photoblog_upload_upload_flash_objectarea">&nbsp;</div>' . "\n";
-				$out .= '<script type="text/javascript">
-		   		var so = new SWFObject("/swfs/photoblog_upload.swf", "photoblog_upload_flash_upload", "635", "200", "8", "#ffffff");
-		 		  so.addParam("wmode", "transparent");
-		 		  so.addParam("flashVars", "PHPSESSID=" + document.cookie.split("PHPSESSID=")[1].split("&")[0]);
-		 		  so.write("photoblog_upload_upload_flash_objectarea");
-				</script>' . "\n";
-				$out .= '<br style="clear: both" />';
-				$out .= '</div>' . "\n";
-				/*
-				########################################################
-					Uploaded photos setting
-				########################################################
-			*/
-		$out .= '<form action="/fotoblogg/ladda_upp/sortering" method="post">' . "\n";
-			$out .= '<div id="photoblog_photo_properties_container">&nbsp;</div>' . "\n";
-			$out .= '<input type="submit" value="Vidare &raquo;" class="button_80" id="photoblog_photo_properties_save" />' . "\n";
-		$out .= '</form>' . "\n";
-	   	/*
-				########################################################
-					Rules of what to upload
-				########################################################
-			*/
-			$options['type'] = 'warning';
-			$options['id'] = 'photoblog_upload_rules';
-			$options['title'] = 'Att tänka på innan du laddar upp bilder';
-			$options['message'] = '<h3>Du förlorar kontrollen över bilder du laddar upp!</h3>' . "\n";
-			$options['message'] .= '<p>Bilder som en gång laddats upp till Internet kan kopieras och skickas vidare i all evighet. Det gäller på Hamsterpaj såväl som på alla andra webbsajter.</p>' . "\n";
-			$options['message'] .= '<h3>Är du en blond tjej med stora tuttar eller kille med brunt hår och slingor? </h3>' . "\n";
-			$options['message'] .= '<p>Den där blyge typen med fula glasögon och som luktade äckligt i din klass i mellanstadiet kommer förr eller senare stjäla din bild för att ragga på Lunarstorm, Hamsterpaj, PlayAhead och andra communities. När det händer så kontaktar du en ordningsvakt så löser vi det!</p>' . "\n";
-			$options['message'] .= '<h3>Hamsterpaj är ingen porrsajt, Goatse är äckligt och hitlerhälsningar olagliga</h3>' . "\n";
-			$options['message'] .= '<p>Snälla låt bli porr och goatse här, tänk på att barn besöker den här sajten!</p>' . "\n";
-			$options['message'] .= '<em>Brottsbalkens sextonde kapitel, paragraf åtta</em><br />' . "\n";
-			$options['message'] .= '<p>8 § Den som i uttalande eller i annat meddelande som sprids hotar eller uttrycker missaktning för folkgrupp eller annan sådan grupp av personer med anspelning på ras, hudfärg, nationellt eller etniskt ursprung, trosbekännelse eller sexuell läggning, döms för hets mot folkgrupp till fängelse i högst två år eller om brottet är ringa, till böter.</p>' . "\n";
+			
+			$options['type'] = 'notification';
+			$options['title'] = '';
+			$options['message'] = '<p>Du kan ladda upp flera bilder samtidigt genom att markera flera när du väljer bilder.<br /> Men tänk på att det tar en del tid att ladda upp bilderna, och du bör kanske inte ladda upp så många i taget.</p><p><a href="/fotoblogg/ladda_upp_enkel"><strong>Fungerar inte bilduppladdningen? Klicka här för att använda en enklare version av uppladdningen</strong></a></p>';
 			$out .= ui_server_message($options);
+			
+			
+			$content .= '<div id="photoblog_upload_wrapper">' . "\n";
+			$content .= '<div id="photoblog_upload_upload_flash_objectarea">&nbsp;</div>' . "\n";
+			$content .= '<script type="text/javascript">
+				var so = new SWFObject("/swfs/photoblog_upload.swf", "photoblog_upload_flash_upload", "635", "200", "8", "#ffffff");
+				so.addParam("wmode", "transparent");
+				so.addParam("flashVars", "PHPSESSID=" + document.cookie.split("PHPSESSID=")[1].split("&")[0]);
+				so.write("photoblog_upload_upload_flash_objectarea");
+			</script>' . "\n";
+			$content .= '<br style="clear: both" />';
+			$content .= '</div>' . "\n";
+			$content .= '<form action="/fotoblogg/ladda_upp/beskrivningar" method="post">' . "\n";
+				$content .= '<div id="photoblog_photo_properties_container">&nbsp;</div>' . "\n";
+				$content .= '<input type="submit" value="Vidare &raquo;" class="button_80" id="photoblog_photo_properties_save" />' . "\n";
+			$content .= '</form>' . "\n";
+
+			$out .= photoblog_upload_messages($content);
 		break;
-		case 'sortering':
+		case 'beskrivningar':
 			$photo_ids = array();
 			foreach($_POST as $key => $value)
 			{
@@ -100,9 +68,9 @@
 						throw new Exception('Invalid date!');
 					}
 					
-					if(isset($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id']) && is_numeric($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id']))
+					if( is_numeric($matches['photo_id']) )
 					{
-						$data['id'] = $_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_photo_id'];
+						$data['id'] = $matches['photo_id'];
 					}
 					else
 					{
@@ -117,17 +85,17 @@
 				}
 			}
 			
-			if(empty($photo_ids))
+			if(false && empty($photo_ids))
 			{
 				$out .= 'Något gick lite snett, vi hittade inga av dina foton du just laddade upp.';
 				throw new Exception('No photos found when counting uploaded ids before fetching them.');
 			}
 			else
 			{
-				$out .= '<h2>Här kan du sortera dina foton</h2>';
-				$out .= 'Att sortera sina foton är självklart frivilligt, men kan vara bra så att man kan hålla koll på dem. Klicka och dra fotona dit du vill ha dem eller spara. Annars kan du <a href="/fotoalbum">gå direkt till ditt album och se bilderna du laddade upp</a>.';
-				$photos = photoblog_photos_fetch(array('id' => $photo_ids), array('save_path' => '/fotoblogg/ladda_upp/spara_sortering'));
-				$out .= photoblog_sort_module($photos);
+				$out .= '<h2>Nu har dina foton laddats upp!</h2>';
+				$out .= '<p><a href="/fotoblogg/ordna">Ordna dina foton</a>, <a href="/fotoblogg/ladda_upp">Ladda upp fler</a> eller <a href="/fotoblogg/">Spana in dina skönheterna</a>.</p>';
+				/*$photos = photoblog_photos_fetch(array('id' => $photo_ids), array('save_path' => '/fotoblogg/ladda_upp/spara_sortering'));
+				$out .= photoblog_sort_module($photos);*/
 			}
 		break;
 	}

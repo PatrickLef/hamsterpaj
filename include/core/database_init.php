@@ -12,7 +12,7 @@
 		exit;
 	}
 	
-	if(!mysql_pconnect($db_server, $db_username, $db_password))
+	if(!mysql_connect($db_server, $db_username, $db_password))
 	{
 		$_SESSION['database_connection_retries'] = isset($_SESSION['database_connection_retries']) ? $_SESSION['database_connection_retries'] : 0;
 			

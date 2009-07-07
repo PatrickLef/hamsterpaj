@@ -17,30 +17,76 @@
 		{
 			case 'photo_fetch':
 				if(!isset($_GET['id']) || !is_numeric($_GET['id']))
-			    {
-			    	throw new Exception('No ID or faulty ID recieved');
-			    }
+				{
+					throw new Exception('No ID or faulty ID recieved');
+				}
 				
+				$options['order-by'] = 'up.date';
 				// fetch a single image
-			    if(!isset($_GET['month']) )
-			    {
-			        $options['id'] = $_GET['id'];
+				if(!isset($_GET['month']) )
+				{
+					$options['id'] = $_GET['id'];
 					friends_notices_set_read(array('action' => 'photos', 'item_id' => $_GET['id']));
-			    }
-			    // fetch an entire month
-			    else
-			    {
-			        if(!is_numeric($_GET['month']))
-			        {
-			            throw new Exception('Month not numerical.');
-			        }
-			        
-			        $options['user'] = $_GET['id'];
+					
+					$photo = photoblog_photos_fetch($options);
+					
+					$ret['photo'] = $photo;
+					
+					// fetch comments
+					$options = array();
+					$options['photo_id'] = $_GET['id'];
+					$comments = photoblog_comments_fetch($options);
+					$options['use_container'] = false;
+					$options['my_blog'] = login_checklogin() && $_SESSION['login']['id'] === @$_GET['blog_id'];
+					$comments = photoblog_comments_list($comments, $options);
+					
+					$ret['comments'] = htmlentities($comments, ENT_QUOTES, 'UTF-8');
+				}
+				// fetch an entire month
+				else
+				{
+					if(!is_numeric($_GET['month']))
+					{
+						throw new Exception('Month not numerical.');
+					}
+				
+					$options['user'] = $_GET['id'];
 					$options['month'] = $_GET['month'];
-			    }
-			    $options['order-by'] = 'up.date';
-			    $photo = photoblog_photos_fetch($options);
-			    echo json_encode($photo);
+					$ret = photoblog_photos_fetch($options);
+				}
+				echo json_encode($ret);
+			break;
+			
+			case 'photo_edit':
+				if ( ! ctype_digit($_POST['edit_id']) )
+				{
+				    throw new Exception('Felaktig edit_id');
+				}
+				
+				$options = array('id' => $_POST['edit_id']);
+				$photo_info = photoblog_photos_fetch($options);
+				$photo_info = end($photo_info);
+				
+				if ( $photo_info['user'] != $_SESSION['login']['id'] )
+				{
+				    throw new Exception('Endast medlemmar har rättighet att ändra bilder');
+				}
+				
+				if ( isset($_POST['edit_submit']) )
+				{
+				    $data = array();
+				    $data['id'] = $photo_info['id'];
+				    $data['description'] = $_POST['edit_description'];
+				    $data['date'] = $_POST['edit_date'];
+				    photoblog_photos_update($data);
+				}
+				elseif ( isset($_POST['edit_delete']) && is_privilegied('photoblog_photo_remove') )
+				{
+				    $data = array('deleted' => 1, 'id' => $photo_info['id']);
+				    photoblog_photos_update($data);
+				}
+				
+				echo 'Du har sedermera uppdaterat ditt photo.';
 			break;
 			
 			case 'photos_remove':

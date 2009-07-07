@@ -36,7 +36,7 @@
 		$menu['sex_sense']['children']['new_questions'] = array('label' => 'Admin', 'url' => '/sex_och_sinne/admin.php', 'is_privilegied' => 'sex_sense_admin');
 
 	$menu['mattan'] = array('label' => 'Under mattan', 'url' => '/mattan/');
-		$menu['mattan']['children']['alfabetet_paa_tid'] = array('label' => 'Alfabetet på tid', 'url' => '/mattan/alfabetet_paa_tid.php');
+		$menu['mattan']['children']['alfabetet_paa_tid'] = array('label' => 'Alfabetet på tid', 'url' => '/alfabetet-paa-tid');
 		$menu['mattan']['children']['ascii_art'] = array('label' => 'ASCII-art', 'url' => '/mattan/ascii_art.php');
 		$menu['mattan']['children']['bakgrundsbilder'] = array('label' => 'Bakgrundsbilder', 'url' => '/mattan/bakgrundsbilder.php');
 		$menu['mattan']['children']['ditt_namn'] = array('label' => 'Ditt namn', 'url' => '/mattan/ditt_namn.php');

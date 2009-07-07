@@ -141,6 +141,9 @@
 
 			// Fields that is not possible to edit
 			$disabled = array('id','session_id','userid');
+			
+			# Fields that should use textarea
+			$textarea = array('presentation_text');
 
 			// If some data is posted
 			if(array_key_exists($_GET['update'], $tables) && is_numeric($_GET['userid']))
@@ -183,11 +186,22 @@
 						foreach($data as $column => $column_data)
 						{
 							// If field is hidden don't show
-							echo '<label for="' . $column . '">' . $column . '</label>: ';
-							echo '<input type="text" id="' . $column . '" name="' . $column . '"';
-							echo in_array($column, $hidden) ? '' : ' value="' . $column_data . '"';
-							echo in_array($column, $disabled) ? ' disabled="disabled"' : '';
-							echo ' /><br />';
+							if (in_array($column, $textarea))
+							{
+								echo '<label for="' . $column . '">' . $column . '</label>:<br /> ';
+								echo '<textarea style="width: 600px; height: 300px" id="' . $column . '" name="' . $column . '"' 
+								. (in_array($column, $disabled) ? ' disabled="disabled"' : NULL) . '>'
+								. (in_array($column, $hidden) ? '' : $column_data)
+								. '</textarea><br />';
+							}
+							else
+							{
+								echo '<label for="' . $column . '">' . $column . '</label>: ';
+								echo '<input type="text" id="' . $column . '" name="' . $column . '"';
+								echo in_array($column, $hidden) ? '' : ' value="' . $column_data . '"';
+								echo in_array($column, $disabled) ? ' disabled="disabled"' : '';
+								echo ' /><br />';
+							}
 						}
 						echo '<input type="submit" value="save" />';
 						echo '</form>';

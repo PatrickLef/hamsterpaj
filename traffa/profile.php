@@ -255,6 +255,15 @@
 	//End of Lef
 	
 	$output .= profile_bottom($profile);
+
+	$url = 'http://www.voicly.com/partner/hamsterpaj/?profile_id=' . $user_id . '&username=' . $profile['username'];
+	if($user_id == $_SESSION['login']['id'])
+	{
+		$url .= '&auth=' . md5('Ah78Bbx_+' . $user_id) . sha1($profile['username'] . $user_id . 'q13SSdhJ');
+	}
+
+	$output .= '<iframe src="' . $url . '" style="width: 100%; border: 0px; height: 200px;"></iframe>' . "\n";
+
 	ui_top($ui_options);
 	echo $output;
 	ui_bottom();

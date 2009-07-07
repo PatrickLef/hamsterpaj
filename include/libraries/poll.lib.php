@@ -167,6 +167,11 @@
 	
 	function poll_create($poll)
 	{
+		if($poll['type'] == 'daily' && !is_privilegied('frontpage_poll_admin'))
+		{
+			die('Hackzor :(');
+		}
+		
 		$handle = url_secure_string($poll['question']);
 		if(empty($handle))
 		{

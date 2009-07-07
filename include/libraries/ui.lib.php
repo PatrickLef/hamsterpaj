@@ -103,22 +103,12 @@ function ui_top($options = array())
 	
 	$output .= $options['header_extra'];
 	
+	$output .= '<script type="text/javascript" src="http://nyheter24.se/template/1-0-1/javascript/ads.js?20090605"></script>';
+	$output .= '<script type="text/javascript">Ads.init(\'http://ads.nyheter24.se/\', false);</script>';
 	$output .= '</head> ' . "\n";
 	
 	$output .= '<body' . (isset($options['body_extra']) ? ' ' . $options['body_extra'] : '') . '>' . "\n";
 	
-	$output .= '<script type="text/javascript">' . "\n";
-	$adtoma_gender = (in_array(strtolower($_SESSION['userinfo']['gender']), array('m', 'f'))) ? strtoupper($_SESSION['userinfo']['gender']) : 'xx';
-	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
-	$adtoma_birthyear = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
-	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
-	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
-	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&hp_birthyear=' . $adtoma_birthyear . '&hp_gender=' . $adtoma_gender . '"' . "\n";
-	$output .= '</script>' . "\n";
-	$output .= '<script language="JavaScript" type="text/javascript" src="http://ad.adtoma.com/adam/cm8adam_1_call.js"></script>' . "\n";
-	
-	#$output .= '<div style="margin: 10px 0 0 10px;"><script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_6ba.js"></script></div>' . "\n";
-
 	if(isset($_SESSION['user_message']))
 	{
 		$output .= jscript_alert($_SESSION['user_message'], true) . "\n";
@@ -141,15 +131,9 @@ function ui_top($options = array())
 	}
 
 	$output .= '<div>' . "\n";
-	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
+	$output .= '<script type=\'text/javascript\'>Ads.insert(250, \'\');</script>' . "\n";
 	$output .= '</div>' . "\n";
 
-	#$output .= '<div>' . "\n";
-	if ($bigbanner = hpads_display('bigbanner')) {
-		$output .= '<div style="margin: 10px 0 0 10px;">' . "\n";
-		$output .= $bigbanner;
-		$output .= '</div>' . "\n";
-	}
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="ad_wrapper">' . "\n";
@@ -364,7 +348,6 @@ function ui_top($options = array())
 	}
 	
 	$output .= '		<div id="ui_content">' . "\n";
-	$output .= '<script type="text/javascript">CM8ShowAd("Rektangel");</script>' . "\n";
 	
 	if(isset($options['return']) && $options['return'] == true)
 	{
@@ -457,32 +440,16 @@ function ui_bottom($options = array())
 	$output .= '	</div>' . "\n";
 	
 	$output .= '<div id="skyscraper">' . "\n";
-	$output .= '<script type="text/javascript">CM8ShowAd("Skyscraper");</script>' . "\n";
+	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 142px; height: 352px;" scrolling="no" frameborder="0"></iframe>';
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
-	$output .= hpads_display('stortavla');
-	#$output .= '<script type="text/javascript" language="javascript" src="http://www.adoperator.com/image/2990_2ba.js"></script>' . "\n";
-	#$output .= '<script type="text/javascript" src="http://rotation.affiliator.com/ad_rotation.php?id=5302&w=10193"></script>' . "\n";
+	$output .= '<script type="text/javascript"><!-- google_ad_client = "pub-3110640362329253"; /* hamsterpaj 160x600, skapad 2009-06-08 */ google_ad_slot = "0695149486"; google_ad_width = 160; google_ad_height = 600; //--></script><script type="text/javascript"src=" http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>' . "\n";
 	$output .= '<br style="clear: both;" />' . "\n";
-	$output .= '<script type="text/javascript" src="http://www.adtrade.net/ad/p/?id=hamsterpaj_1&size=140x350&ad=001" charset="iso-8859-1"></script>';
 	$output .= '</div>' . "\n";
 	
 	// Close id="ad_wrapper"
 	$output .= '</div>' . "\n";
-	
-	$output .= '<!-- START Nielsen//NetRatings SiteCensus V5.2 -->' . "\n";
-	$output .= '<!-- COPYRIGHT 2006 Nielsen//NetRatings -->' . "\n";
-	$output .= '<script type="text/javascript">' . "\n";
-	$output .= '	var _rsCI="hamsterpaj-se";	 /* client ID */' . "\n";
-	$output .= '	var _rsCG="0";	 /* content group */' . "\n";
-	$output .= '	var _rsDN="//secure-dk.imrworldwide.com/";	 /* data node */' . "\n";
-	$output .= '</script>' . "\n";
-	$output .= '<script type="text/javascript" src="//secure-dk.imrworldwide.com/v52.js"></script>' . "\n";
-	$output .= '<noscript>' . "\n";
-	$output .= '	<img src="//secure-dk.imrworldwide.com/cgi-bin/m?ci=hamsterpaj-se&amp;cg=0&amp;cc=1" alt=""/>' . "\n";
-	$output .= '</noscript>' . "\n";
-	$output .= '<!-- END Nielsen//NetRatings SiteCensus V5.2 -->' . "\n";
 	
 	if(!login_checklogin())
 	{
@@ -512,6 +479,7 @@ function ui_bottom($options = array())
 			pageTracker._trackPageview();
 			} catch(err) {}
 		</script>';
+		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
 	}
 	
 	$output .= '</body>' . "\n";

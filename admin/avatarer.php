@@ -54,7 +54,7 @@ function block_user($userid)
 //Listar ut 10 ovalidera avatarer
 function list_avatars()
 {
-	$result = mysql_query('SELECT login.id, login.username, userinfo.gender, userinfo.birthday FROM login, userinfo WHERE login.id = userinfo.userid && image = "1" LIMIT 40');
+	$result = mysql_query('SELECT login.id, login.username, userinfo.gender, userinfo.birthday FROM login, userinfo WHERE login.id = userinfo.userid && image = "1" LIMIT 500');
 	if(mysql_num_rows($result) == 0)
 	{
 		echo '<br /><br />Hittade inga avatarer som inte validerats.';
@@ -69,16 +69,7 @@ function list_avatars()
 		echo '<table class="body"><tr>';
 		while($data = mysql_fetch_assoc($result))
 		{
-			if ($data['gender'] == 'F') {
-				$bgstyle='background: #F7F7F7 url(\'/images/klotterplankbgF.png\') repeat-x;';
-			}
-			elseif ($data['gender'] == 'P') {
-				$bgstyle='background: #F7F7F7 url(\'/images/klotterplankbgP.png\') repeat-x;';
-			}
-			else {
-				$bgstyle='background: #F7F7F7 url(\'/images/klotterplankbg.png\') repeat-x;';
-			}
-			echo '<td style="' . $bgstyle . ' vertical-align: top;">';
+			echo '<td style=" vertical-align: top;">';
 			echo '<a href="/traffa/profile.php?id=' . $data['id'] . '"><b>' . $data['username'] . '</b></a>';
 			if($data['gender'] != NULL) { echo ' ' . $data['gender']; }
 			if($data['birthday'] != '0000-00-00') 

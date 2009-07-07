@@ -21,7 +21,7 @@
 	$existingboxes = array_values($existingboxes); 
 	
 	//Query
-	$genderquery = $_GET['gender'] != 'all' ? (' AND u.gender = \'' . $_GET['gender'] . '\'') : '';
+	$genderquery = $_GET['gender'] != 'all' ? (' AND u.gender = "' . $_GET['gender'] . '"') : ' AND u.gender != "u"';
 	$agemarginquery = ' AND YEAR(u.birthday) >= ' . $agemax . ' AND YEAR(u.birthday) <= ' . $agemin;
 	foreach($existingboxes as $boxid)
 	{
@@ -45,7 +45,7 @@
 		array_splice($limited_flags, 5);
 		
 		//Main card
-		$o .= '<li id="' . $userid . '" class="userbox ' . ($data['gender'] == 'm' ? 'male' : ($data['gender'] == 'f' ? 'female' : 'undefined')) . ' birth' . $birthsplit[0] . ' ' . ' newbox" style="display: none;" onClick="displayuser(' . $userid . ', \'' . $data['gender'] . '\');">' . "\n";
+		$o .= '<li id="' . $userid . '" class="userbox ' . ($data['gender'] == 'm' ? 'male' : ($data['gender'] == 'f' ? 'female' : 'undefined')) . ' birth' . $birthsplit[0] . ' ' . ' newbox" style="display: none;" onClick="kottmarknad_displayuser(' . $userid . ', \'' . $data['gender'] . '\');">' . "\n";
 		$o .= '<p class="username">' . $data['username'] . ' ' . ($data['gender'] == 'm' ? 'P' : 'F') . date_get_age($data['birthday']) . '</p><br />' . "\n";
 		$o .= '<img src="' . IMAGE_URL . 'images/users/thumb/' . $userid . '.jpg" height="90" style="float: left; margin: 5px;" />';
 		$o .= '<div class="flagcontainer">';
@@ -74,7 +74,7 @@
 		$o .= '<form name="kottmarknad_card" id="kottmarknad_card" class="gb_form">' . "\n";
 		$o .= '<input type="hidden" name="recipient" value="' . $userid . '" />' . "\n";
 		$o .= '<textarea name="message" id="kottmarknad_card_message"></textarea>' . "\n";
-		$o .= '<input type="button" class="button_60" value="Skicka" onClick="sendmessage();" />' . "\n";
+		$o .= '<input type="button" class="button_60" value="Skicka" onClick="kottmarknad_sendmessage();" />' . "\n";
 		$o .= '</form>' . "\n";
 		
 		$o .= '<a style="display: block; position: absolute; bottom: 10px; right: 10px;" href="/traffa/profile.php?user_id=' . $userid . '">Besök profil &raquo;</a>';
