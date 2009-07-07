@@ -161,11 +161,16 @@
 		}
 		
 		// * Fetch privilegies...
-		$query = 'SELECT privilegie, value FROM privilegies WHERE user = "' . $_SESSION['login']['id'] . '"';
+		$query = 'SELECT GROUP_CONCAT(p.privilegie) AS privilegies, GROUP_CONCAT(p.value) AS privilegie_values FROM privilegies AS p WHERE user = "' . $_SESSION['login']['id'] . '"';
 		$result = mysql_query($query);
-		while($data = mysql_fetch_assoc($result))
+		$data = mysql_fetch_assoc($result);
+
+		// Explode privilegies and privilegie_values, add them to the session
+		$privileges = explode(',', $data['privilegies']);
+		$privilege_values = explode(',', $data['privilegie_values']);
+		for($i = 0; $i < count($privileges); $i++)
 		{
-			$_SESSION['privilegies'][$data['privilegie']][is_numeric($data['value']) ? intval($data['value']) : $data['value']] = true;
+			$_SESSION['privilegies'][$privileges[$i]][] = $privilege_values[$i];
 		}
 		
 		// * Log the logon to the database...
@@ -211,13 +216,21 @@
 		}
 	}
 	
-	function is_privilegied($privilegie, $item_id = 'ANY')
+	function is_privilegied($privilegie, $item_id = NULL)
 	{
-		if(isset($_SESSION['privilegies']['igotgodmode'][0]))
+		if(isset($_SESSION['privilegies']['igotgodmode']))
 		{
 			return true;
 		}
-		return ($item_id == 'ANY') ? isset($_SESSION['privilegies'][$privilegie]) : (isset($_SESSION['privilegies'][$privilegie][$item_id]) || isset($_SESSION['privilegies'][$privilegie][0]));
+			
+		if($value == NULL)
+		{
+			return isset($_SESSION['privilegies'][privilegie]);
+		}
+		else
+		{
+			return (isset($_SESSION['privilegies'][privilege][$value])) ? true : false;
+		}
 	}
 	
 	function userblock_check($owner, $blocked)
