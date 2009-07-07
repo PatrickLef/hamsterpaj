@@ -215,8 +215,8 @@
 			border-radius: 3px;
     }
 
-#photoblog_thumbs_scroller {
-    width: 100%;
+
+#photoblog_thumbs_scroller_outer {
     background: <?php echo $main_color; ?> url(http://images.hamsterpaj.net/photoblog/white-50-percent-opacity.png);
     height: 15px;
     -moz-border-radius: 4px;
@@ -225,7 +225,12 @@
     position: relative;
 }
 
-    #photoblog_thumbs_handle {
+    #photoblog_thumbs_scroller.ui-slider {
+	position: relative;
+	height: 15px;
+    }
+
+    #photoblog_thumbs_handle.ui-slider-handle {
         display: block;
         width: 40px;
         background: <?php echo $detail_color; ?> url(http://images.hamsterpaj.net/photoblog/scroller-overlay.png) repeat-x;
@@ -328,6 +333,7 @@
 	}
 		.photoblog_comment {
 			padding-bottom: 15px;
+			clear: both;
 		}
 			.photoblog_comment_userinfo {
 				float:left;
