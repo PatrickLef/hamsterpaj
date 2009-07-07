@@ -37,7 +37,7 @@
 					$options['photo_id'] = $_GET['id'];
 					$comments = photoblog_comments_fetch($options);
 					$options['use_container'] = false;
-					$options['my_blog'] = login_checklogin() && $_SESSION['login']['id'] === @$_GET['blog_id'];
+					$options['my_blog'] = login_checklogin() && $_SESSION['login']['id'] == $photo[0]['user'];
 					$comments = photoblog_comments_list($comments, $options);
 					
 					$ret['comments'] = htmlentities($comments, ENT_QUOTES, 'UTF-8');
