@@ -231,11 +231,11 @@ function kottmarknad_confirmadvanced()
 	var regexpattern = /^[0-9]+$/;
 	
 	//Fetch information from advanced search form
-	if($("form[@name='advanced'] input[@name='adv_gender']:checked").val() && $("form[@name='advanced'] input[@name='adv_agemin']").val() && $("form[@name='advanced'] input[@name='adv_agemax']").val() && regexpattern.test($("form[@name='advanced'] input[@name='adv_agemin']").val()) && regexpattern.test($("form[@name='advanced'] input[@name='adv_agemax']").val()))
+	if($("form[name='advanced'] input[name='adv_gender']:checked").val() && $("form[name='advanced'] input[name='adv_agemin']").val() && $("form[name='advanced'] input[name='adv_agemax']").val() && regexpattern.test($("form[name='advanced'] input[name='adv_agemin']").val()) && regexpattern.test($("form[name='advanced'] input[name='adv_agemax']").val()))
 	{
-		kottmarknad_setupgender = $("form[@name='advanced'] input[@name='adv_gender']:checked").val();
-		kottmarknad_setupagemin = parseInt($("form[@name='advanced'] input[@name='adv_agemin']").val());
-		kottmarknad_setupagemax = parseInt($("form[@name='advanced'] input[@name='adv_agemax']").val());
+		kottmarknad_setupgender = $("form[name='advanced'] input[name='adv_gender']:checked").val();
+		kottmarknad_setupagemin = parseInt($("form[name='advanced'] input[name='adv_agemin']").val());
+		kottmarknad_setupagemax = parseInt($("form[name='advanced'] input[name='adv_agemax']").val());
 		kottmarknad_loadgender(kottmarknad_setupgender, 'noquestion');
 		kottmarknad_updatequestion(1);
 	}
@@ -276,13 +276,13 @@ function kottmarknad_displayuser(uid, gender)
 function kottmarknad_getuserinfo()
 {
 	//Fetch information about the user
-	kottmarknad_userinfo.username = $("form[@name='userinfo'] input[@name='userinfo_username']").val();
-	kottmarknad_userinfo.gender = $("form[@name='userinfo'] input[@name='userinfo_gender']").val();
-	kottmarknad_userinfo.birth = parseInt($("form[@name='userinfo'] input[@name='userinfo_birth']").val());
-	kottmarknad_userinfo.avatar = parseInt($("form[@name='userinfo'] input[@name='userinfo_avatar']").val());
+	kottmarknad_userinfo.username = $("form[name='userinfo'] input[name='userinfo_username']").val();
+	kottmarknad_userinfo.gender = $("form[name='userinfo'] input[name='userinfo_gender']").val();
+	kottmarknad_userinfo.birth = parseInt($("form[name='userinfo'] input[name='userinfo_birth']").val());
+	kottmarknad_userinfo.avatar = parseInt($("form[name='userinfo'] input[name='userinfo_avatar']").val());
 	kottmarknad_userinfo.age = kottmarknad_this_year - kottmarknad_userinfo.birth;
 	kottmarknad_userinfo.checklogin = (kottmarknad_userinfo.username != '' ? true : false);
-	kottmarknad_userinfo.environment = $("form[@name='userinfo'] input[@name='userinfo_environment']").val();
+	kottmarknad_userinfo.environment = $("form[name='userinfo'] input[name='userinfo_environment']").val();
 }
 
 
@@ -290,15 +290,15 @@ function kottmarknad_getuserinfo()
 function kottmarknad_sendmessage()
 {
 	//Fetch guestbook entry information
-	$(".userinfownd form[@name='kottmarknad_card'] input[@type='button']").attr("disabled", "disabled");
-	var recipient = $(".userinfownd form[@name='kottmarknad_card'] input[@name='recipient']").val();
-	var message = $(".userinfownd form[@name='kottmarknad_card'] textarea[@name='message']").val();
+	$(".userinfownd form[name='kottmarknad_card'] input[type='button']").attr("disabled", "disabled");
+	var recipient = $(".userinfownd form[name='kottmarknad_card'] input[name='recipient']").val();
+	var message = $(".userinfownd form[name='kottmarknad_card'] textarea[name='message']").val();
 	
 	//Send away a new guestbook entry
 	$.post('/ajax_gateways/guestbook.json.php', {"action" : "insert", "recipient" : recipient, "message" : message, "private" : "1"}, function() {
-		$(".userinfownd form[@name='kottmarknad_card']").fadeOut("normal", function() {
-			$(".userinfownd form[@name='kottmarknad_card']").html('<p>Skickat.</p>');
-			$(".userinfownd form[@name='kottmarknad_card']").fadeIn("normal");
+		$(".userinfownd form[name='kottmarknad_card']").fadeOut("normal", function() {
+			$(".userinfownd form[name='kottmarknad_card']").html('<p>Skickat.</p>');
+			$(".userinfownd form[name='kottmarknad_card']").fadeIn("normal");
 		});
 	});
 	
@@ -331,15 +331,15 @@ $(document).ready(function() {
 		{
 			//Some information is missing
 			kottmarknad_changeboxcontent(kottmarknad_error.info);
-			$(".content input[@type='button']").attr("disabled", "disabled");
-			$(".content input[@type='button']").removeClass("optionbutton_hover");
+			$(".content input[type='button']").attr("disabled", "disabled");
+			$(".content input[type='button']").removeClass("optionbutton_hover");
 		}
 	}
 	else
 	{
 		//User isn't logged in
 		kottmarknad_changeboxcontent(kottmarknad_error.login);
-		$(".content input[@type='button']").attr("disabled", "disabled");
-		$(".content input[@type='button']").removeClass("optionbutton_hover");
+		$(".content input[type='button']").attr("disabled", "disabled");
+		$(".content input[type='button']").removeClass("optionbutton_hover");
 	}
 });

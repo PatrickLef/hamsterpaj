@@ -27,31 +27,6 @@ jQuery.fn.extend({
 		});
 		
 		return this;
-	},
-	
-	HPAddModules: function() {
-		var container = $(
-			'<div id="modules-add"><h2 class="main-header">L&auml;gg till moduler</h2><div id="add-spacer">&nbsp;</div><p>H&auml;r kan du dra och sl&auml;ppa moduler till din h&ouml;germodul.<div>Laddar...</div></div>'
-		).prependTo(this).hide();
-		
-		$('#modules-add-link').click(function(e) {
-		 	if ( ! $('#modules-add-container', container).length ) {
-		 	 	container.slideDown('normal', function() {
-					$('div:last-child', container).load('modules.php', {}, function() {
-					 	doCloseMin();
-					 	$('#modules-add-container', container).sortable({
-							connectWith: ['#module_bar']
-						});
-						
-						container.slideDown();
-					});					
-				});
-			} else {
-				container.slideToggle();
-			}
-			
-			return false;
-		});
 	}
 });
 
@@ -70,13 +45,13 @@ function doCloseMin() {
 }
 
 function killModule() {
-	var m = this.parentNode.parentNode;
+	var m = $(this).parents('.ui_module');
 	
-	$.get('/ajax_gateways/save_module_state.php?module=' + m.getAttribute('id').replace('ui_module_', '') + '&state=kill');
+	$.get('/ajax_gateways/save_module_state.php?module=' + m.attr('id').replace('ui_module_', '') + '&state=kill');
 	
 	$(m).css({
-			'overflow': 'hidden',
-			'width': $(m).width() - 5
+		'overflow': 'hidden',
+		'width': $(m).width() - 5
 	}).animate({ height: 0, width: 0 }, function() {
 		$(this).remove();
 	});
@@ -84,10 +59,9 @@ function killModule() {
 }
 
 function minModule() {
-	var m = this.parentNode.parentNode;
-	m = $(m);
+	var m = $(this).parents('.ui_module');
 	
-	m.children('.ui_module_content').slideToggle(null, function() {
+	m.find('.ui_module_content').slideToggle(500, function() {
 		var state = (m.hasClass('ui_module_state_min')) ? 'max' : 'min';
 		$.get('/ajax_gateways/save_module_state.php?module=' + m.attr('id').replace('ui_module_', '') + '&state=' + state);
 		m.removeClass('ui_module_state_max').removeClass('ui_module_state_min').addClass('ui_module_state_' + state);
@@ -96,5 +70,5 @@ function minModule() {
 }
 
 $(window).ready(function() {
-	$('#ui_modulebar').HPModules().HPAddModules();
+	$('#ui_modulebar').HPModules();
 });
