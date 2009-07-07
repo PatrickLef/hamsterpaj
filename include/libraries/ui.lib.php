@@ -35,6 +35,7 @@ function ui_top($options = array())
 	$output .=  '<meta name="description" content="' . $options['meta_description'] . '" />' . "\n";
 	$output .=  '<meta name="keywords" content="' . $options['meta_keywords'] . '" />' . "\n";
 	$output .=  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . "\n";
+	$output .=  '<meta http-equiv="X-UA-Compatible" content="IE=8" />' . "\n";
 	
 	$options['title'] = (isset($options['title'])) ? $options['title'] : 'Hamsterpaj.net - Onlinespel, community, forum och annat kul ;)';
 	$output .= '		<title>' . $options['title'] . '</title>' . "\n";
