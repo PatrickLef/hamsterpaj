@@ -23,12 +23,13 @@
 *************************************************************/
 function womOn()
 {
-	window.wom_old_onload = (typeof(window.onload) != 'undefined') ? window.onload : function(){  };
-  window.onload = womGoReal;
-  $(document).ready(function()
-  {
-  	womGo();
-  });
+	window.wom_old_onload = window.onload || function(){};
+	window.onload = womGoReal;
+	
+	$(document).ready(function()
+	{
+		womGo();
+	});
 }
 /*************************************************************
 * The womGo() function loops through the woms array and
@@ -46,8 +47,10 @@ function womGo()
 function womGoReal()
 {
 	for(var k = 0;k < real_onload_woms.length;k++)
-  {
-    eval(real_onload_woms[k]);
+	{
+		try {
+			eval(real_onload_woms[k]);
+		} catch (e) {}
 	}
 	window.wom_old_onload();
 }
