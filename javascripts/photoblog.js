@@ -57,7 +57,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 		position = position * this.scroller.width() - this.handle.width();
 		this.scroller.slide_slider(position);	},		set_data: function(options) {		var description = $('#photoblog_description');		var text = $('#photoblog_description_text');		
 		$('#photoblog_description_report a').attr('href', '/hamsterpaj/abuse.php?report_type=photo&reference_id=' + options.id);
-		text.html(options.description);		if ( options.description == 'Ingen beskrivning' || options.description == '' ) {			text.css('display', 'none');		} else {			text.css('display', 'block');		}
+		text.html(options.description);		if ( options.description.toLowerCase() == 'ingen beskrivning' || options.description == '' || options.description.toLowerCase() == 'namnlös' ) {			text.css('display', 'none');		} else {			text.css('display', 'block');		}
 		
 		hp.photoblog.edit.uptoDate(options);	},		set_image: function(id) {		var src = hp.photoblog.make_name(id);		var self = this;		var img = $('<img />');
 		var imgs = $('#photoblog_image p img');		self.centralize_active();
