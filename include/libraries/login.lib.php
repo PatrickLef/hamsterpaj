@@ -223,13 +223,13 @@
 			return true;
 		}
 			
-		if($value == NULL)
+		if($item_id == NULL)
 		{
-			return isset($_SESSION['privilegies'][privilegie]);
+			return isset($_SESSION['privilegies'][$privilegie]);
 		}
 		else
 		{
-			return (isset($_SESSION['privilegies'][privilege][$value])) ? true : false;
+			return (isset($_SESSION['privilegies'][$privilegie][$item_id])) ? true : false;
 		}
 	}
 	
