@@ -222,14 +222,19 @@
 		{
 			return true;
 		}
-			
+		
+		if(in_array(0, $_SESSION['privilegies'][$privilegie]))
+		{
+			return true;
+		}
+		
 		if($item_id == NULL)
 		{
 			return isset($_SESSION['privilegies'][$privilegie]);
 		}
 		else
 		{
-			return (isset($_SESSION['privilegies'][$privilegie][$item_id])) ? true : false;
+			return (in_array($item_id, $_SESSION['privilegies'][$privilegie])) ? true : false;
 		}
 	}
 	
