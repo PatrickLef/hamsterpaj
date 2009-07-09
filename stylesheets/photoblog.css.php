@@ -784,3 +784,12 @@ a.report_abuse {
     .photoblog_upload_container input[maxlength="2"] {
 	width: 20px;
     }
+
+.photoblog_ie_warning {
+    border: 1px solid red;
+    background: pink;
+    margin: 10px;
+    padding: 10px;
+}
+
+    .photoblog_ie_warning * { margin: 0; padding: 0; }
