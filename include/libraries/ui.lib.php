@@ -66,7 +66,20 @@ function ui_top($options = array())
 		$output .= '@import url(\'/stylesheets/' . $stylesheet . '?version=' . filemtime(PATHS_WEBROOT . 'stylesheets/' . $stylesheet) . '\');' . "\n";
 	}
 	$output .= '</style>' . "\n";
-
+	
+		
+	$options['adtoma_category'] = isset($options['adtoma_category']) ? $options['adtoma_category'] : 'other';
+	define('ADTOMA_CATEGORY', $options['adtoma_category']);
+	
+	$output .= '<script type="text/javascript">' . "\n";
+	$adtoma_gender = (in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
+	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
+	$adtoma_birthyear = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
+	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
+	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
+	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&amp;hp_birthyear=' . $adtoma_birthyear . '&amp;hp_gender=' . $adtoma_gender . '"' . "\n";
+	$output .= '</script>' . "\n";
+	
 	// Create HP namespace...
 	$output .= '<script type="text/javascript" language="javascript">var hp = new Object();</script>' . "\n";
 	$output .= '<script type="text/javascript" language="javascript">' . 'hp.login_checklogin = function(){ return ' . (login_checklogin() ? 'true' : 'false') . '; }' . '</script>' . "\n";
