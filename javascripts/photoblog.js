@@ -12,7 +12,17 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 		
 		// Create the image used when an image fails loading
 		this.failthumb = $('<img />').attr('src', this.failthumburl);
-		this.failimage = $('<img />').attr('src', this.failimageurl);	},		make_scroller: function() {		var self = this;				// create scroller elements				this.thumbs.append('<div id="photoblog_thumbs_scroller_outer"><div id="photoblog_thumbs_scroller" class="ui-slider">'					+ '<div class="ui-slider-handle" id="photoblog_thumbs_handle"></div>'				    +'</div></div>');		this.scroller = $('#photoblog_thumbs_scroller');		this.scroller_outer = $('#photoblog_thumbs_scroller_outer');
+		this.failimage = $('<img />').attr('src', this.failimageurl);	},		make_scroller: function() {		var self = this;		
+		this.thumbs.append('<a id="photoblog_scroller_toggle" href="#">Visa allt</a>');
+		$('#photoblog_scroller_toggle').click(function() {
+			self.thumbs.toggleClass('hide_scroller');
+			if ( self.thumbs.hasClass('hide_scroller') )
+				hp.photoblog.view.reset_scroller();
+			else
+				hp.photoblog.view.centralize_active();
+			return false;
+		});
+				// create scroller elements				this.thumbs.removeClass('hide_scroller').append('<div id="photoblog_thumbs_scroller_outer"><div id="photoblog_thumbs_scroller" class="ui-slider">'					+ '<div class="ui-slider-handle" id="photoblog_thumbs_handle"></div>'				    +'</div></div>');		this.scroller = $('#photoblog_thumbs_scroller');		this.scroller_outer = $('#photoblog_thumbs_scroller_outer');
 		this.handle = this.scroller.find('#photoblog_thumbs_handle');
 				// this has to be dynamically set because it's (probably) extremely slow		this.thumbsContainer.sWidth = this.thumbsContainer.container_width();		this.thumbsContainer.real_width = this.thumbsContainer.width();		
 		// Simple scroller

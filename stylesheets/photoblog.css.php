@@ -145,6 +145,7 @@
     -khtml-border-radius: 5px;
     padding: 5px 10px;
     color: #fff;
+    position: relative;
     margin: 0 auto;
 }
 
@@ -154,7 +155,7 @@
     }
 
 	#photoblog_thumbs_inner {
-	    width: 10000px;
+	    width: 99999px;
 	}
 
     div#photoblog_thumbs dl {
@@ -225,8 +226,31 @@
     -webkit-border-radius: 4px;
     margin-top: 7px;
     position: relative;
-    /*display: none;*/
 }
+
+#photoblog_thumbs.hide_scroller #photoblog_thumbs_scroller_outer {
+    display: none;
+}
+
+    #photoblog_thumbs.hide_scroller #photoblog_thumbs_container {
+	overflow: visible;
+    }
+    
+	#photoblog_thumbs.hide_scroller #photoblog_thumbs_inner {
+	    width: auto;
+	}
+    
+    #photoblog_scroller_toggle {
+	position: absolute;
+	top: 3px;
+	left: 10px;
+	width: 50px;
+	height: 4px;
+	background: #fff;
+	display: block;
+	overflow: hidden;
+	text-indent: -10000px;
+    }
 
     #photoblog_thumbs_scroller.ui-slider {
 	position: relative;
