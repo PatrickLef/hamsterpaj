@@ -91,22 +91,31 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			can_next = false;
 		} else if ( prevnext[3] ) {			var next_date = hp.photoblog.year_month.get_next_date();			if ( ! next_date ) can_next = false;			url = '#month-' + next_date;		}		if ( can_next && ! only_one ) {			this.next.css('visibility', 'visible');			this.next.attr('href', url);		} else {			this.next.css('visibility', 'hidden');		}				return true;	},		get_prevnext_a: function(from) {		var current_image = $(from);				if ( ! current_image.length ) return false;				var cp = current_image.parent();				// get previous image		var prev_image = cp.prev();		if ( prev_image[0].tagName == 'DT' ) prev_image = prev_image.prev();				if ( prev_image.attr('id') == 'photoblog_prevmonth' ) prev_image = current_image;		else prev_image = prev_image.children('a');			// get next image		var next_image = cp.next();		if ( next_image[0].tagName == 'DT' ) next_image = next_image.next();				if ( next_image.attr('id') == 'photoblog_nextmonth' ) prev_image = current_image;		else next_image = next_image.children('a');				// is the same image		var is_first = cp.hasClass('first-image');		var is_last = cp.hasClass('last-image');				return [prev_image, next_image, is_first, is_last];	},		create_load: function() {		var self = this;				if ( self.loader ) {			self.loader.css('top', self.image.height() / 2);			self.loader.css('visibility', 'visible');		} else {			self.loader = $('<img id="photoblog_loading" />').attr('src', 'http://images.hamsterpaj.net/photoblog/loading.gif');			self.loader.css({				zIndex: 100,				position: 'absolute',				top: self.image.height() / 2,				left: self.imageContainer.width() / 2			});						self.loader.appendTo(self.imageContainer);		}	},		remove_load: function() {		if ( this.loader ) {			this.loader.css('visibility', 'hidden');		}	},		load_image: function(id) {		var self = this;		this.current_id = id;		var load_new_month = false;				if ( false == this.set_active('a[href=#image-' + id + ']') ) {
 			load_new_month = true;		}				var json_callback = function(data) {			self.set_data(data.photo[0]);			if ( load_new_month ) {				var date = hp.photoblog.format_date(data.photo[0].date);				self.load_month(date, function() {					self.set_active('a[href=#image-' + id + ']');										self.set_prevnext(id);					self.centralize_active();				});				hp.photoblog.year_month.set_date(date);			}
-			$('#photoblog_comments_list').html($('<div />').html(data.comments).text());		};				this.set_image(id);		this.set_prevnext(id);		this.create_load();		$.getJSON('/ajax_gateways/photoblog.json.php?action=photo_fetch&id=' + id, json_callback);		//this.load_comment(id);	},		load_comment: function(id) {		$('#photoblog_comments_list').load('/ajax_gateways/photoblog.json.php?action=comments_fetch&id='+ id + '&blog_id=' + hp.photoblog.current_user.id);	},		load_from_hash: function() {		var hash = window.location.hash;		if ( hash.indexOf('#image-') != -1 ) {			var id = parseInt(hash.replace('#image-', ''), 10);			if ( isNaN(id) ) {				alert('Erronous image #ID');				return;			}			this.load_image(id);		} else if ( hash.indexOf('#month-') != -1 ) {			var date = parseInt(hash.replace('#month-', ''), 10);			if ( isNaN(date) ) {				alert('Erronous image date');				return;			}			hp.photoblog.year_month.load_date(date);		} else if ( hash.indexOf('#day-') != -1 ) {			var date = parseInt(hash.replace('#day-', ''), 10);			if ( isNaN(date) ) {				alert('Erronous image date');				return;			}			hp.photoblog.year_month.load_date(date, {useDay: true});		}		return true;	},		load_month: function(month, callback) {		var user_id = hp.photoblog.current_user.id;		var self = this;		var nextMonth = $('#photoblog_nextmonth');		this.thumbsList.css('opacity', 0.4);		$.getJSON('/ajax_gateways/photoblog.json.php?action=photo_fetch&id=' + user_id + '&month=' + month, function(data) {			self.thumbsList.children().not('#photoblog_prevmonth, #photoblog_nextmonth').remove();			var lastDay = null;			$.each(data, function(i, item) {				var date = item.date.split('-');				if ( date[2] != lastDay ) {					lastDay = date[2];					var dt = $('<dt>' + parseInt(date[1], 10) + '/' + parseInt(date[2], 10) + '</dt>')					nextMonth.before(dt);				}				var photoname = hp.photoblog.make_thumbname(item.id);								var dd = $('<dd><a href="#image-' + item.id + '"></a></dd>');								if ( i == 0 ) dd.addClass('first-image');				if ( i == data.length - 1 ) dd.addClass('last-image');								nextMonth.before(dd);				var img = $('<img alt="" />');								if ( i == data.length - 1 ) {
-					var load_callback = function() {
-						self.make_month();
-						self.reset_scroller();
-						self.thumbsContainer.sWidth = self.thumbsContainer.container_width();
-						self.set_scroller_width();
-						self.scroller.pWidth = self.scroller.width() - self.handle.width();
-						if ( typeof callback == 'function' ) {
-							callback(data);
-						}
-						self.thumbsList.css('opacity', 1);
-					};
-										img.load(load_callback).error(function() {
-						$(this).replaceWith(hp.photoblog.view.failthumb);
-						load_callback();
-					});				}				img.attr('src', photoname);				img.appendTo(dd.children('a'))			});			self.make_ajax_thumbs();		});	},		post_comment: function(image_id, text) {		var self = this;		$.post('/ajax_gateways/photoblog.json.php?action=comments_post&id=' + image_id, {'comment': text}, function(data) {			self.load_comment(image_id);			$('.photoblog_comment_text textarea').val('');			});	},		save_reply: function(reply, id) {
+			$('#photoblog_comments_list').html($('<div />').html(data.comments).text());		};				this.set_image(id);		this.set_prevnext(id);		this.create_load();		$.getJSON('/ajax_gateways/photoblog.json.php?action=photo_fetch&id=' + id, json_callback);		//this.load_comment(id);	},		load_comment: function(id) {		$('#photoblog_comments_list').load('/ajax_gateways/photoblog.json.php?action=comments_fetch&id='+ id + '&blog_id=' + hp.photoblog.current_user.id);	},		load_from_hash: function() {		var hash = window.location.hash;		if ( hash.indexOf('#image-') != -1 ) {			var id = parseInt(hash.replace('#image-', ''), 10);			if ( isNaN(id) ) {				alert('Erronous image #ID');				return;			}			this.load_image(id);		} else if ( hash.indexOf('#month-') != -1 ) {			var date = parseInt(hash.replace('#month-', ''), 10);			if ( isNaN(date) ) {				alert('Erronous image date');				return;			}			hp.photoblog.year_month.load_date(date);		} else if ( hash.indexOf('#day-') != -1 ) {			var date = parseInt(hash.replace('#day-', ''), 10);			if ( isNaN(date) ) {				alert('Erronous image date');				return;			}			hp.photoblog.year_month.load_date(date, {useDay: true});		}		return true;	},		load_month: function(month, callback) {		var user_id = hp.photoblog.current_user.id;		var self = this;		var nextMonth = $('#photoblog_nextmonth');		this.thumbsList.css('opacity', 0.4);		$.getJSON('/ajax_gateways/photoblog.json.php?action=photo_fetch&id=' + user_id + '&month=' + month, function(data) {			self.thumbsList.children().not('#photoblog_prevmonth, #photoblog_nextmonth').remove();			var lastDay = null;
+			var finished = 0, toload = data.length;			$.each(data, function(i, item) {				var date = item.date.split('-');				if ( date[2] != lastDay ) {					lastDay = date[2];					var dt = $('<dt>' + parseInt(date[1], 10) + '/' + parseInt(date[2], 10) + '</dt>')					nextMonth.before(dt);				}				var photoname = hp.photoblog.make_thumbname(item.id);								var dd = $('<dd><a href="#image-' + item.id + '"></a></dd>');								if ( i == 0 ) dd.addClass('first-image');				if ( i == data.length - 1 ) dd.addClass('last-image');								nextMonth.before(dd);				var img = $('<img alt="" />');
+				
+				var onDone = function() {
+					self.make_month();
+					self.reset_scroller();
+					self.thumbsContainer.sWidth = self.thumbsContainer.container_width();
+					self.set_scroller_width();
+					self.scroller.pWidth = self.scroller.width() - self.handle.width();
+					if ( typeof callback == 'function' ) {
+						callback(data);
+					}
+					self.thumbsList.css('opacity', 1);
+				};
+								var load_callback = function() {
+					self.set_scroller_width();
+					finished++;
+					if ( finished == toload ) {
+						onDone();
+					}
+				};
+				img.load(load_callback).error(function() {
+					$(this).replaceWith(hp.photoblog.view.failthumb);
+					load_callback();
+				});				img.attr('src', photoname);				img.appendTo(dd.children('a'))			});			self.make_ajax_thumbs();		});	},		post_comment: function(image_id, text) {		var self = this;		$.post('/ajax_gateways/photoblog.json.php?action=comments_post&id=' + image_id, {'comment': text}, function(data) {			self.load_comment(image_id);			$('.photoblog_comment_text textarea').val('');			});	},		save_reply: function(reply, id) {
 		$.post('/ajax_gateways/photoblog.json.php?action=comments_reply&id=' + id, {reply: reply}, function() {
 			hp.photoblog.view.load_comment(hp.photoblog.view.current_id);
 		});
