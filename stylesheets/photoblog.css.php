@@ -97,6 +97,7 @@
 
 #photoblog_header {
 	width: 638px;
+	margin-top: 10px;
 }
     
 	#photoblog_select {
@@ -153,7 +154,7 @@
     }
 
 	#photoblog_thumbs_inner {
-		width: 10000px;
+	    width: 10000px;
 	}
 
     div#photoblog_thumbs dl {
@@ -171,6 +172,7 @@
         #photoblog_thumbs dd {
             float: left;
             margin-right: 10px;
+	    margin-bottom: 5px;
             color: <?php echo $contrast_color; ?>;
         }
 	
@@ -223,6 +225,7 @@
     -webkit-border-radius: 4px;
     margin-top: 7px;
     position: relative;
+    /*display: none;*/
 }
 
     #photoblog_thumbs_scroller.ui-slider {

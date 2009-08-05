@@ -1,6 +1,5 @@
 <?php
 
-		$ui_options['ui_modules']['photoblog_user'] = 'User';
 		$ui_options['ui_modules']['photoblog_calendar'] = 'Kalender';
 		$ui_options['ui_modules']['photoblog_albums'] = 'Album';
 		$ui_options['javascripts'][] = 'jquery.protect-image.js';
