@@ -15,7 +15,8 @@
 		
 		$options = array(
 			'user_id' => $photoblog_user['id'],
-			'date' => $date
+			'date' => $date,
+			'active_id' => (isset($uri_parts[3]) && is_numeric($uri_parts[3]) ? $uri_parts[3] : false)
 		);
 		
 		$out .= photoblog_viewer($options);

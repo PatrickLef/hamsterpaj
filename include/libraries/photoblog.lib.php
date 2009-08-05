@@ -92,7 +92,21 @@
 			}
 						if ( count($sql_parts[$id]) )			{				$or_ids = implode(' OR id = ', $sql_parts[$id]);				$query = 'UPDATE user_photos';				$query .= ' SET category = ' . $id;				$query .= ' WHERE id = ' . $or_ids;			}						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}	}		function photoblog_viewer($options)	{		$ret = '';				$options['include_dates'] = (isset($options['include_dates'])) ? $options['include_dates'] : true;		$options['load_first'] = (isset($options['load_first']) ? $options['load_first'] : false);
 		$options['album_view'] = (bool)$options['album_view'];
-				$user_id = $options['user_id'];		$photo_options = array(			'user' => $user_id		);				if ( isset($options['date']) ) $photo_options['month'] = $options['date'];		if ( isset($options['category']) ) $photo_options['category'] = $options['category'];				$date = (isset($options['date'])) ? $options['date'] : date('Ym', time());				define('PHOTOBLOG_CURRENT_YEAR', substr($date, 0, 4));		define('PHOTOBLOG_CURRENT_MONTH', substr($date, 4, 2));		define('PHOTOBLOG_CURRENT_USER', $user_id);				$photos = (! isset($options['photos']) ) ? photoblog_photos_fetch($photo_options) : $options['photos'];		
+		
+		$active_photo = (isset($options['active_id']) && $options['active_id']) ? $options['active_id'] : false;
+		
+		$user_id = $options['user_id'];
+		if ( $active_photo )
+		{
+			$current_photo = end(photoblog_photos_fetch(array('id' => $active_photo, 'user' => $user_id)));
+			// something went wrong, photo doesn't exists, not the $user_id's, so go with plain old normal view
+			if ( ! $current_photo ) $active_photo = false;
+			else
+			{
+				$options['date'] = date('Ym', strtotime($current_photo['date']));
+			}
+		}
+				$photo_options = array(			'user' => $user_id		);				if ( isset($options['date']) ) $photo_options['month'] = $options['date'];		if ( isset($options['category']) ) $photo_options['category'] = $options['category'];				$date = (isset($options['date'])) ? $options['date'] : date('Ym', time());				define('PHOTOBLOG_CURRENT_YEAR', substr($date, 0, 4));		define('PHOTOBLOG_CURRENT_MONTH', substr($date, 4, 2));		define('PHOTOBLOG_CURRENT_USER', $user_id);				$photos = (! isset($options['photos']) ) ? photoblog_photos_fetch($photo_options) : $options['photos'];		
 		$ret .= '<!--[if lte IE 7]>';
 		$ret .= '<div class="photoblog_ie_warning">';
 		$ret .= '<p>Tjena! Som du kanske har märkt så fungerar fotobloggen inte så överdrivet bra med den versionen av Internet Explorer du kör nu! :( Det beror på att det är en dålig webbläsare för oss som gör hemsidor. Men! Du kan alltid uppgradera till en bättre webbläsare, till exempel <a href="http://www.firefox.com/">Firefox</a>, <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.google.com/chrome">Google Chrome</a>, <a href="http://www.opera.com/">Opera</a> eller så kan du <a href="http://www.microsoft.com/windows/internet-explorer/">uppgradera till senaste versionen av Internet Explorer</a>. Om du gör något av detta så vinner du en internet!</p>';
@@ -110,9 +124,25 @@
 					}
 					else
 					{						$ret .= '<dt id="photoblog_prevmonth"><a id="prevmonth" title="F&ouml;reg&aring;ende m&aring;nad" href="#prev-month">F&ouml;reg&aring;ende m&aring;nad</a></dt>';												$is_first = true;						$last_day = array('date' => null, 'formatted' => null);						if ( ! count($photos) )						{							$ret .= '<dt>Här var det tomt...</dt>';						}												$photos_last_index = count($photos) - 1;												foreach ( $photos as $key => $photo )						{							if ( $options['include_dates'] && $last_day['date'] != $photo['date'] )							{								$last_day['date'] = $photo['date'];								$last_day['formatted'] = date('j/n', strtotime($photo['date']));								$ret .= '<dt>' . $last_day['formatted'] . '</dt>';							}							$class = ' class="';							if ( $key == 0 ) $class .= 'first-image ';							if ( $key == $photos_last_index ) $class .= 'last-image ';							$class .= '"';
-							$is_current = ($options['load_first']) ? $key == 0: $key == $photos_last_index;							$ret .= '<dd' . $class . '><a title="' . $photo['date'] . '" ' . ($is_current ? 'class="photoblog_active"' : '') . ' href="#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a></dd>';						}
+							if ( $active_photo )
+								$is_current = ($active_photo == $photo['id']);
+							else
+								$is_current = ($options['load_first']) ? $key == 0 : $key == $photos_last_index;
+							$ret .= '<dd' . $class . '><a title="' . $photo['date'] . '" ' . ($is_current ? 'class="photoblog_active"' : '') . ' href="#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a></dd>';						}
 						
-						$current_photo = ($options['load_first']) ? $photos[0] : $photos[$photos_last_index];												$ret .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';					}
+						if ( ! $active_photo )
+							$current_photo = ($options['load_first']) ? $photos[0] : $photos[$photos_last_index];						else
+						{
+							foreach ( $photos as $photo )
+							{
+								if ( $photo['id'] == $active_photo )
+								{
+									$current_photo = $photo;
+									break;
+								}
+							}
+						}
+												$ret .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';					}
 					$ret .= '</dl>';				$ret .= '</div>';			$ret .= '</div>';		$ret .= '</div>';		$ret .= '<div id="photoblog_image">';		$ret .= '<p><img src="' . IMAGE_URL . 'photos/full/' . floor($current_photo['id'] / 5000) . '/' . $current_photo['id'] . '.jpg" alt="" /></p>';		$ret .= '</div>';		$ret .= '<div id="photoblog_description">';
 			if ( $current_photo )
 			{
