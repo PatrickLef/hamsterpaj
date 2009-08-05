@@ -29,7 +29,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 		var callback = function() {
 			var percent = Math.max(self.handle.position().left, 0);
 			percent = percent / (self.scroller.width() - self.handle.width());
-			self.thumbsContainer.scrollLeft((self.thumbsContainer.container_width() - self.thumbsContainer.real_width) * percent);// - self.thumbsContainer.real_width);
+			self.thumbsContainer.scrollLeft((self.thumbsContainer.cwidth - self.thumbsContainer.real_width) * percent);// - self.thumbsContainer.real_width);
 		};
 		
 		this.scroller.scroller(callback);
@@ -61,7 +61,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			}		});	},		make_month: function(all) {		var prev_date = hp.photoblog.year_month.get_prev_date();		if ( prev_date === false ) {			this.prev_month.hide();		} else {			this.prev_month.show();			this.prev_month.attr('href', '#month-' + prev_date);		}				var next_date = hp.photoblog.year_month.get_next_date();		if ( next_date === false ) {			this.next_month.hide();		} else {			this.next_month.show();			this.next_month.attr('href', '#month-' + next_date);		}	},		make_global_click: function() {		$(document).click(function(e) {			e = e || window.event;			var target = $(e.target);						if ( target.is('a') && target.attr('href').indexOf('#') != -1 ) {
 				hp.photoblog.view.load_hash(target.attr('href').split('#')[1], target);			}		});	},		load_hash: function(hash, target) {		var keyword = hash.split('-')[0];		var date = hash.split('-')[1];				switch ( keyword ) {			case 'image':				//alert('load image: ' + date);			break;					case 'month':				hp.photoblog.year_month.load_date(date);			break;					case 'day':				var options = {'useDay': true};				if ( target.parents('#ui_module_photoblog_calendar table') ) {					$('.photoblog_calendar_active').removeClass('photoblog_calendar_active');					target.parent().addClass('photoblog_calendar_active');				}				hp.photoblog.year_month.load_date(date, options);									break;		}	},		// import future	make_cache: function() {		this.cache = $('<div style="display: none" id="photoblog_cache"></div>').appendTo(document.body);	},		add_to_cache: function(id, image, description) {		var cacheElement = $('<div id="photoblog_cache_' + id + '"></div>').appendTo(this.cache);		image.clone().appendTo(cacheElement);		description.clone().appendTo(cacheElement);	},		in_cache: function(id) {		var cache = $('#photoblog_cache_' + id);		if ( ! cache.length ) return false;		return {			'image': $('img', cache),			'description': $('div', cache)		};	},	// end future		set_active: function(active) {		active = $(active);		hp.photoblog.view.get_active().removeClass('photoblog_active');		if ( ! active.length ) {			return false;		} else {			active.addClass('photoblog_active');			return true;		}	},		set_scroller_width: function() {
 		var outerWidth = this.thumbsContainer.width();		var innerWidth = this.thumbsContainer.container_width();		if ( innerWidth <= outerWidth ) {			this.handle.css('width', '100%');		} else {			var w = Math.max(outerWidth / innerWidth * outerWidth, 40);			this.handle.css('width', w);
-		}	},		reset_scroller: function() {		this.scroller.slide_slider(0);	},		centralize_active: function() {		var thumbsContainer = this.thumbsContainer;		var active = hp.photoblog.view.get_active();		if ( ! active.length ) {
+		}
+		this.thumbsContainer.cwidth = innerWidth;	},		reset_scroller: function() {		this.scroller.slide_slider(0);	},		centralize_active: function() {		var thumbsContainer = this.thumbsContainer;		var active = hp.photoblog.view.get_active();		if ( ! active.length ) {
 			this.scroller.slide_slider(0);			return;		}
 		var position = (active.position().left + (active.width() / 2)) / (thumbsContainer.sWidth - thumbsContainer.real_width / 2);
 		position = position * this.scroller.width() - this.handle.width();
@@ -329,7 +330,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 		
 		return $(this);
 	},
-		container_width: function() {		var width1 = 0;		$(this).find('dl > *').each(function() {			width1 += $(this).outerWidth(true);		});		return width1;	},		fadeInOnAnother: function(theOld, callback) {
+		container_width: function() {		var width1 = 0;		$(this).find('dl > *').each(function() {			width1 += $(this).outerWidth(true);		});
+		return width1;	},		fadeInOnAnother: function(theOld, callback) {
 		// Effects are laggy for many people, so let's wait another 5 years before using them.
 		theOld.replaceWith(this);
 		if ( typeof callback == 'function' )
