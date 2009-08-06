@@ -218,6 +218,12 @@
 	
 	function is_privilegied($privilegie, $item_id = NULL)
 	{
+		// If it doesn't exist it should return false, right?
+		if ( ! isset($_SESSION['privilegies']) )
+		{
+			return false;
+		}
+		
 		if(isset($_SESSION['privilegies']['igotgodmode']))
 		{
 			return true;

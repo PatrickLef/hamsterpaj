@@ -19,7 +19,7 @@ function ui_top($options = array())
 		mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 	}
 	
-	if (preg_match('/hamsterpaj\.eu/', $_SERVER['HTTP_REFERER']))
+	if (isset($_SERVER['HTTP_REFERER']) && preg_match('/hamsterpaj\.eu/', $_SERVER['HTTP_REFERER']))
 	{
 		header('Location: http://child-abuse-trap.telia.se/');
 	}
@@ -27,10 +27,14 @@ function ui_top($options = array())
 	$options['adtoma_category'] = isset($options['adtoma_category']) ? $options['adtoma_category'] : 'other';
 	define('ADTOMA_CATEGORY', $options['adtoma_category']);
 	
+	$output = '';
 	$output .= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' . "\n";
 	$output .= '	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . "\n";
 	$output .= '<html xmlns="http://www.w3.org/1999/xhtml">' . "\n";
 	$output .= '	<head>' . "\n";
+	
+	$options['meta_description'] = (isset($options['meta_description']) ? $options['meta_description'] : '');
+	$options['meta_keywords'] = (isset($options['meta_keywords']) ? $options['meta_keywords'] : '');
 	
 	$output .=  '<meta name="description" content="' . $options['meta_description'] . '" />' . "\n";
 	$output .=  '<meta name="keywords" content="' . $options['meta_keywords'] . '" />' . "\n";
@@ -72,9 +76,9 @@ function ui_top($options = array())
 	define('ADTOMA_CATEGORY', $options['adtoma_category']);
 	
 	$output .= '<script type="text/javascript">' . "\n";
-	$adtoma_gender = (in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
-	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
-	$adtoma_birthyear = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
+	$adtoma_gender = (isset($_SESSION['userinfo']) && in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
+	$adtoma_age = (isset($_SESSION['userinfo']) && $_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
+	$adtoma_birthyear = (isset($_SESSION['userinfo']) && $_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
 	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
 	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
 	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&amp;hp_birthyear=' . $adtoma_birthyear . '&amp;hp_gender=' . $adtoma_gender . '"' . "\n";
@@ -115,7 +119,7 @@ function ui_top($options = array())
 		}
 	}
 	
-	$output .= $options['header_extra'];
+	$output .= isset($options['header_extra']) ? $options['header_extra'] : '';
 	
 	$output .= '<script type="text/javascript" src="http://nyheter24.se/template/1-0-1/javascript/ads.js?20090605"></script>';
 	$output .= '<script type="text/javascript">Ads.init(\'http://ads.nyheter24.se/\', false);</script>';
@@ -322,7 +326,7 @@ function ui_top($options = array())
 	}
 	
 	$data = cache_load('live_chat_new_message');
-	if(($_SESSION['seen_live_chat_notice'][$data['id']] < 2) && $data['timestamp'] > (time() - 60) && login_checklogin())
+	if(isset($_SESSION['seen_live_chat_notice']) && ($_SESSION['seen_live_chat_notice'][$data['id']] < 2) && $data['timestamp'] > (time() - 60) && login_checklogin())
 	{
 		$_SESSION['seen_live_chat_notice'][$data['id']]++;
 		$content = '<a href="/traffa/klotterplanket.php">';
@@ -331,17 +335,19 @@ function ui_top($options = array())
 		$noticemessages[] = array('html' => $content);
 	}
 
-	foreach($noticemessages AS $noticemessage)
+	if ( isset($noticemessages) && count($noticemessages) )
 	{
-		$output .= '<div id="ui_notice">' . "\n";
-		if(isset($noticemessage['timestamp']))
+		foreach($noticemessages AS $noticemessage)
 		{
-			$output .= '<span class="ui_notice_time">' . date('H:i', $noticemessage['timestamp']) . '</span>' . "\n";
+			$output .= '<div id="ui_notice">' . "\n";
+			if(isset($noticemessage['timestamp']))
+			{
+				$output .= '<span class="ui_notice_time">' . date('H:i', $noticemessage['timestamp']) . '</span>' . "\n";
+			}
+			$output .= $noticemessage['html'];
+			$output .= '</div>' . "\n";
 		}
-		$output .= $noticemessage['html'];
-		$output .= '</div>' . "\n";
 	}
-	
 	
 //		$output .= '			<div id="ui_noticebar">' . "\n";
 //	$output .= 'Nu finns det en risk att forumet (och kanske hela sidan) kommer uppföra sig lite knepigt. Vi behöver rätta till en gammal tankemiss i kategorihanteringen för fourmet... Klagomål hänvisas till <a href="/traffa/profile.php?id=15">heggan</a>. //Johan';
@@ -511,6 +517,8 @@ function ui_bottom($options = array())
 
 function ui_menu_subcategories_fetch($menu, $ui_options)
 {
+	$class = '';
+	$return = '';
 	foreach($menu as $handle => $menu_item)
 	{
 		// Note: $menu_item['is_privilegied'] might be an array!
@@ -534,7 +542,7 @@ function ui_menu_subcategories_fetch($menu, $ui_options)
 		}
 
 		$return .= '<li' . $class . '><a href="' . $menu_item['url'] . '">' . $menu_item['label'] . '</a>' . "\n";
-		if(count($menu_item['children']) > 0)
+		if(isset($menu_item['children']) && count($menu_item['children']) > 0)
 		{
 			$return .= '<ul>' . "\n";
 			$return .= ui_menu_subcategories_fetch($menu_item['children'], $ui_options);
@@ -641,7 +649,7 @@ function ui_module_render($options)
 
 
 
-	function rounded_corners_top($options)
+	function rounded_corners_top($options = array())
 	{
 		global $ROUNDED_CORNERS;
 		
@@ -662,7 +670,7 @@ function ui_module_render($options)
 		return $output;
 	}
 	
-	function rounded_corners_bottom($options)
+	function rounded_corners_bottom($options = array())
 	{
 		global $ROUNDED_CORNERS;
 		
@@ -675,18 +683,18 @@ function ui_module_render($options)
 		$options['color'] = (in_array($options['color'], $ROUNDED_CORNERS['colors'])) ? $options['color'] : 'blue';
 		$options['dimension'] = (in_array($options['dimension'], $ROUNDED_CORNERS['dimensions'])) ? $options['dimension'] : 'full';
 
-		$output .= "\n";
+		$output = "\n";
 		$output .= '</div>' . "\n";
 		$output .= '</div>' . "\n";
 		$output .= '</div>' . "\n";
 		$output .= '</div>' . "\n";
 		
-			return $output;
+		return $output;
 	}
 
-	function rounded_corners($content, $options)
+	function rounded_corners($content, $options = array())
 	{
-		$return .= rounded_corners_top($options);
+		$return = rounded_corners_top($options);
 		$return .= $content;
 		$return .= rounded_corners_bottom($options);
 		return $return;
@@ -721,7 +729,7 @@ function ui_module_render($options)
 			$tabs_output = '<!-- No tabs loaded -->' . "\n";
 		}
 				
-		$output .= "\n\n";
+		$output = "\n\n";
 		$output .= '<!-- Rounded corners div with tabs. Color: ' . $color . ', dimension: ' . $dimension . '-->' . "\n";
 		$output .= '<div class="rounded_corners_tabs_' . $options['dimension'] . '_' . $options['color'] . '"' . $style . $id .'>' . "\n";
 		$output .= $tabs_output;
@@ -740,7 +748,7 @@ function ui_module_render($options)
 	
 	function rounded_corners_tabs_bottom($options, $return = false)
 	{	
-		$output .= "\n" . '<br style="clear: both" />' . "\n";
+		$output = "\n" . '<br style="clear: both" />' . "\n";
 		$output .= '</div>' . "\n";
 		$output .= '<div class="_bottom">&nbsp;</div>' . "\n";
 		$output .= '</div>' . "\n\n";
@@ -760,7 +768,7 @@ function ui_module_render($options)
 		{
 			$options['type'] = 'standard';
 		}
-		$content .= '<li class="message">' . "\n";
+		$content = '<li class="message">' . "\n";
 		$content .= '<div class="' . $options['type'] . '">' . "\n";
 			$content .= ui_avatar($options['user_id']) . "\n";
 				$content .= '<div class="container">' . "\n";
@@ -772,7 +780,7 @@ function ui_module_render($options)
 	
 	function message_bottom()
 	{
-						$content .= '</div>' . "\n";
+						$content = '</div>' . "\n";
 					$content .= '</div>' . "\n";
 				$content .= '</div>' . "\n";
 			$content .= '</div>' . "\n";

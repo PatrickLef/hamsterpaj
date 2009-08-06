@@ -5,8 +5,8 @@ require_once(PATHS_LIBRARIES . 'schedule.lib.php');
 require_once(PATHS_LIBRARIES . 'rank.lib.php');
 require_once(PATHS_LIBRARIES . 'comments.lib.php');
 
-define(ENTERTAIN_TEMP_PATH, '/storage/www/amusemaster.hamsterpaj.net/data/entertain_temp/');
-define(ENTERTAIN_TEMP_URL, 'http://amusemaster.hamsterpaj.net/entertain_temp/');
+define('ENTERTAIN_TEMP_PATH', '/storage/www/amusemaster.hamsterpaj.net/data/entertain_temp/');
+define('ENTERTAIN_TEMP_URL', 'http://amusemaster.hamsterpaj.net/entertain_temp/');
 
 function entertain_action_get($url)
 {
@@ -461,7 +461,7 @@ function entertain_thumbnail_draw($item)
 function entertain_fetch($options)
 {
 	$hash = md5(serialize($options));
-	if($options['cacheable'] == true && cache_last_update('entertain_' . $hash) > time() - 60)
+	if(isset($options['cacheable']) && $options['cacheable'] == true && cache_last_update('entertain_' . $hash) > time() - 60)
 	{
 		return cache_load('entertain_' . $hash);
 	}
@@ -601,7 +601,7 @@ function entertain_fetch($options)
 
 		$return['items'][$data['handle']]['url'] =' /' . $entertain_types[$data['entertain_type']]['url_handle'] . '/' . $data['handle'] . '.html';
 	}
-	if($options['cacheable'] == true)
+	if(isset($options['cacheable']) && $options['cacheable'] == true)
 	{
 		cache_save('entertain_' . $hash, $return);
 	}

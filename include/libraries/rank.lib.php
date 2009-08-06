@@ -1,6 +1,6 @@
 <?php
 
-function rank_draw($rank, $options)
+function rank_draw($rank, $options = array())
 {
 	$options['size'] = isset($options['size']) ? $options['size'] : 'small';
 	$output = '';

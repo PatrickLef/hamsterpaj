@@ -18,6 +18,7 @@
 
 	$fp_modules = fp_modules_fetch(array('removal_min' => time(), 'launch_max' => time()));
 
+	$out = '';
 	$out .= '<ol id="fp_module_list">' . "\n";
 
 	$puff_no = -1;
