@@ -95,7 +95,9 @@
 				$query .= ' LIMIT 1';							mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);				
 				$i++;
 			}
-						if ( count($sql_parts[$id]) )			{				$or_ids = implode(' OR id = ', $sql_parts[$id]);				$query = 'UPDATE user_photos';				$query .= ' SET category = ' . $id;				$query .= ' WHERE id = ' . $or_ids;			}						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}	}		function photoblog_viewer($options)	{		$ret = '';				$options['include_dates'] = (isset($options['include_dates'])) ? $options['include_dates'] : true;		$options['load_first'] = (isset($options['load_first']) ? $options['load_first'] : false);
+						if ( count($sql_parts[$id]) )			{				$or_ids = implode(' OR id = ', $sql_parts[$id]);				$query = 'UPDATE user_photos';				$query .= ' SET category = ' . $id;				$query .= ' WHERE id = ' . $or_ids;			}						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}	}		function photoblog_viewer($options)	{
+		global $photoblog_user;
+				$ret = '';				$options['include_dates'] = (isset($options['include_dates'])) ? $options['include_dates'] : true;		$options['load_first'] = (isset($options['load_first']) ? $options['load_first'] : false);
 		$options['album_view'] = (bool)$options['album_view'];
 		
 		$active_photo = (isset($options['active_id']) && $options['active_id']) ? $options['active_id'] : false;
