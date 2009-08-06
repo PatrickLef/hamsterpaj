@@ -33,6 +33,10 @@
 			{
 				$photos[$data['category']][] = $data;
 			}
+			else if ( isset($options['index_by_id']) && $options['index_by_id'] )
+			{
+				$photos[$data['id']] = $data;
+			}
 			else
 			{				$photos[] = $data;
 			}		}				return $photos;	}		function photoblog_photos_update($data, $options = array())	{		if(isset($data['id']))		{			$options['id'] = (isset($options['id']) && is_numeric($options['id'])) ? $options['id'] : $data['id'];			unset($data['id']);		}				if(isset($options['old_data']))		{			foreach($options['old_data'] as $key => $value)			{				if(isset($data[$key]) && $data['key'] == $value)				{					unset($data[$key]);				}			}		}				if(!isset($options['id']) || !is_numeric($options['id']))		{			throw new Exception('Could not find a numeric ID in the $options nor the $data array.');		}				if(!empty($data))		{			$update_data = array();			foreach($data as $key => $value)			{				$update_data[] = $key . ' = "' . $value . '"';				if($key = 'deleted' && $value == 1)				{					//make ghostcomments go away					$query = 'UPDATE user_photos SET unread_comments = 0 WHERE id = '. $options['id'] .' LIMIT 1';					mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);				} 			}						$query = 'UPDATE user_photos SET ' . implode(', ', $update_data);			$query .= ' WHERE id = "' . $options['id'] . '"';			$query .= ' LIMIT 1';// Note: LIMIT 1 is used!						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}				// Add more code for replacing photos etc. later...	}		function photoblog_categories_fetch($options)	{		$query = 'SELECT id, name, handle, photo_count, sorted_photos, user, (SELECT GROUP_CONCAT(id) FROM user_photos WHERE user = upc.user AND deleted = 0 AND category = upc.id LIMIT 9) AS photos';		$query .= ' FROM user_photo_categories AS upc';		$query .= ' WHERE is_removed = 0';		$query .= (isset($options['user'])) ? ' AND user = "' . $options['user'] . '"' : '';		$query .= (isset($options['name'])) ? ' AND name LIKE "' . $options['name'] . '"' : '';		$query .= (isset($options['handle'])) ? ' AND handle = "' . $options['handle'] . '"' : '';		$query .= (isset($options['id'])) ? ' AND id = "' . $options['id'] . '"' : '';		$query .= ' ORDER BY name ASC';		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		if(mysql_num_rows($result) == 0 && $options['create_if_not_found'] == true)		{			$query = 'INSERT INTO user_photo_categories (user, name) VALUES("' . $options['user'] . '", "' . $options['name'] . '")';			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);			if(mysql_insert_id() > 0)			{				$category['id'] = mysql_insert_id();				$category['name'] = stripslashes($options['name']);				$category['user'] = $options['user'];				$category['photo_count'] = 0;				$categories[] = $category;			}			else			{				return false;			}		}		else		{			while($data = mysql_fetch_assoc($result))			{				// If they have no handle, create one				if(strlen($data['handle']) < 1)				{					$query = 'UPDATE user_photo_categories';					$query .= ' SET handle = "' . photoblog_categories_handle($data['name']) . '"';					$query .= ' WHERE id = ' . $data['id'];					$query .= ' LIMIT 1';					mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);					$data['handle'] = photoblog_categories_handle($data['name']);				}								if ( isset($options['id_index']) && $options['id_index'] == true )				{					$categories[$data['id']] = $data;				}				else				{					$categories[] = $data;				}			}		}					return $categories;	}		function photoblog_photos_fetch_sorted($options)	{
@@ -270,4 +274,14 @@
 				$index++;
 			}
 		}
+	}
+	
+	function photoblog_photo_thumb_url($id)
+	{
+		return IMAGE_URL . 'photos/mini/' . floor($id / 5000) . '/' . $id . '.jpg';
+	}
+	
+	function photoblog_photo_full_url($id)
+	{
+		return IMAGE_URL . 'photos/full/' . floor($id / 5000) . '/' . $id . '.jpg';
 	}?>

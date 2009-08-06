@@ -142,6 +142,11 @@
 			default:
 				switch ($uri_parts[3])
 				{
+				
+					case 'admin':
+						require('admin.php');
+					break;
+					
 					case 'album':
 						$options['members_only'] = $photoblog_user['members_only'];
 						$options['friends_only'] = $photoblog_user['friends_only'];

@@ -820,3 +820,40 @@ a.report_abuse {
 }
 
     .photoblog_ie_warning * { margin: 0; padding: 0; }
+
+#photoblog_admin_all ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    #photoblog_admin_all li {
+	border: 1px solid #999;
+	margin: 5px;
+	padding: 5px;
+	position: relative;
+	min-height: 39px;
+    }
+    
+	#photoblog_admin_all img {
+	    position: absolute;
+	    right: 5px;
+	    top: 5px;
+	}
+	
+	#photoblog_admin_all .photoblog_info {
+	    border: 1px solid #e1e1e1;
+	    width: 90%;
+	    position: relative;
+	}
+	
+	#photoblog_admin_all .photoblog_info p {
+	    margin: 10px;
+	    padding: 0px;
+	}
+	
+	#photoblog_admin_all .remove {
+	    position: absolute;
+	    bottom: 10px;
+	    right: 10px;
+	}

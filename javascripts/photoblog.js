@@ -265,6 +265,28 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				}
 			});
 		}
+	},
+	
+	admin: {
+		init: function() {
+			$('#photoblog_admin_all li').each(function() {
+				var self = $(this), info = self.find('.photoblog_info').hide();
+				
+				// Add toggle for change of info
+				self.find('.info_toggle').append('<a href="#">Visa/Dölj ändra</a>');
+				var toggle = self.find('.info_toggle a').click(function() {
+					info.slideToggle();
+					return false;
+				});
+			});
+			
+			$('#photoblog_admin_all form').submit(function() {
+				$.post($(this).attr('action'), $(this).serialize() + '&edit_submit=1', function(data) {
+					alert(data);
+				});
+				return false;
+			});
+		}
 	},		format_date: function(date) {		var pieces = date.split('-');		return pieces[0] + pieces[1];	},		make_name: function(id) {		return 'http://images.hamsterpaj.net/photos/full/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		make_thumbname: function(id) {		return 'http://images.hamsterpaj.net/photos/mini/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		image_id: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('image-', ''), 10);	},		get_month: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('month-', ''), 10);	}};jQuery.fn.extend({	slide_slider: function(to) {
 		var slider = $(this);
 		var handle = slider.find('.ui-slider-handle');
@@ -342,4 +364,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 	
 	if ( $('#photoblog_upload_simple') ) {
 		hp.photoblog.simpleupload.init();
+	}
+	
+	if ( $('#photoblog_admin_all').length ) {
+		hp.photoblog.admin.init();
 	}});

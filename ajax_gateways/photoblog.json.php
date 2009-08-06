@@ -67,7 +67,7 @@
 				$photo_info = photoblog_photos_fetch($options);
 				$photo_info = end($photo_info);
 				
-				if ( $photo_info['user'] != $_SESSION['login']['id'] )
+				if ( $photo_info['user'] != $_SESSION['login']['id'] && ! is_privilegied('photoblog_photo_remove') )
 				{
 				    throw new Exception('Endast medlemmar har rättighet att ändra bilder');
 				}
@@ -122,6 +122,27 @@
 					$data = array('deleted' => 1, 'id' => $photo);
 					photoblog_photos_update($data);
 				}
+			break;
+			
+			case 'photo_putback':
+				if ( ! isset($_GET['photo']) )
+				{
+					throw new Exception('No input');	
+				}
+				
+				$photo = $_GET['photo'];
+				if ( ! is_numeric($photo) )
+				{
+					throw new Exception('Bad input');	
+				}
+				
+				if ( ! is_privilegied('photoblog_photo_remove') )
+				{
+					throw new Exception('Putting back photo without the right rights.');	
+				}
+				
+				$data = array('deleted' => 0, 'id' => $photo);
+				photoblog_photos_update($data);
 			break;
 			
 			case 'comments_fetch':
