@@ -143,6 +143,11 @@
 				
 				$data = array('deleted' => 0, 'id' => $photo);
 				photoblog_photos_update($data);
+				
+				if ( isset($_GET['redirect']) )
+				{
+					header('location: ' . $_SERVER['HTTP_REFERER']);
+				}
 			break;
 			
 			case 'comments_fetch':

@@ -110,12 +110,17 @@
 		$out .= '<div style="display: inline;" id="photoblog_select_months">';
 			$out .= implode('', $select_months);
 		$out .= '</div>';
-		$out .= '<a href="/fotoblogg/" id="photoblog_select_today"><img src="' . IMAGE_URL . 'famfamfam_icons/house.png" alt="Idag" title="Till dagens datum" /></a>' . "\n";
+		$out .= '&nbsp;&nbsp;&nbsp;<a href="/fotoblogg/" id="photoblog_select_today"><img src="' . IMAGE_URL . 'famfamfam_icons/house.png" alt="Idag" title="Till dagens datum" /></a>' . "\n";
 		$out .= '</div>';
 		
-			$out .= '<div id="photoblog_user_header">';
+			$is_ov = is_privilegied('photoblog_photo_remove') || is_privilegied('photoblog_upload_forbid');
+			$out .= '<div id="photoblog_user_header"' . ($is_ov ? ' class="photoblog_user_header_ov"' : '') . '>';
 					if ( login_checklogin() )
+					{
 						$out .= '<a href="/fotoblogg/">Min fotoblogg</a><a href="/fotoblogg/ladda_upp">Ladda upp</a><a href="/fotoblogg/ordna">Sortera mina foton</a><a href="/fotoblogg/instaellningar">Inställningar</a>' . "\n";
+						if ( $is_ov )
+							$out .= '<a href="/fotoblogg/' . $photoblog_user['username'] . '/admin">Administrera</a>';
+					}
 					else
 						$out .= '<a href="/register.php">Klicka här för att bli medlem så du kan ladda upp egna bilder!</a>';
 			$out .= '</div>';
@@ -142,7 +147,6 @@
 			default:
 				switch ($uri_parts[3])
 				{
-				
 					case 'admin':
 						require('admin.php');
 					break;

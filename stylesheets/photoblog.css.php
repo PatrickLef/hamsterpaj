@@ -130,6 +130,11 @@
 		width: 388px;
 		height: 21px;	
 	}
+	    
+	    #photoblog_user_header.photoblog_user_header_ov a {
+		margin: 0 5px;
+	    }
+	    
 	#photoblog_user_header a {
 		color: <?php echo $detail_color; ?>;
 		margin: 0 14px;
@@ -827,13 +832,31 @@ a.report_abuse {
     list-style: none;
 }
 
+    #photoblog_admin_all ul:after {
+	content: ".";
+	clear: both;
+	height: 0;
+	visibility: hidden;
+	display: block;
+    }
+
     #photoblog_admin_all li {
 	border: 1px solid #999;
-	margin: 5px;
+	margin: 1%;
 	padding: 5px;
 	position: relative;
 	min-height: 39px;
+	float: left;
+	width: 46%;
     }
+    
+	#photoblog_admin_all li.active {
+	    width: 96%;
+	}
+	
+	#photoblog_admin_all textarea {
+	    width: 80%;
+	}
     
 	#photoblog_admin_all img {
 	    position: absolute;
@@ -845,6 +868,7 @@ a.report_abuse {
 	    border: 1px solid #e1e1e1;
 	    width: 90%;
 	    position: relative;
+	    background: #fff;
 	}
 	
 	#photoblog_admin_all .photoblog_info p {

@@ -275,7 +275,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				// Add toggle for change of info
 				self.find('.info_toggle').append('<a href="#">Visa/Dölj ändra</a>');
 				var toggle = self.find('.info_toggle a').click(function() {
-					info.slideToggle();
+					info.toggle();
+					self.toggleClass('active');
 					return false;
 				});
 			});
@@ -285,6 +286,19 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 					alert(data);
 				});
 				return false;
+			});
+			
+			$('#photoblog_admin_all a img').hover(function(e) {
+				var self = $(this), link = self.parent();
+				this.full = $('<img />')
+					.css({
+						position: 'fixed',
+						bottom: 0,
+						right: 0
+					}).attr('src', link.attr('href'))
+					.appendTo(document.body);
+			}, function() {
+				this.full.remove();
 			});
 		}
 	},		format_date: function(date) {		var pieces = date.split('-');		return pieces[0] + pieces[1];	},		make_name: function(id) {		return 'http://images.hamsterpaj.net/photos/full/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		make_thumbname: function(id) {		return 'http://images.hamsterpaj.net/photos/mini/' + Math.floor(parseInt(id, 10) / 5000) + '/' + id + '.jpg';	},		image_id: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('image-', ''), 10);	},		get_month: function(a) {		return parseInt($(a).attr('href').split('#')[1].replace('month-', ''), 10);	}};jQuery.fn.extend({	slide_slider: function(to) {
