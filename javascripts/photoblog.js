@@ -258,12 +258,130 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 	
 	simpleupload: {
 		init: function() {
+			var today = new Date();
+			this.today = {y: today.getFullYear(), m: today.getMonth() + 1, d: today.getDate()};
+			
 			$('select.photoblog_upload_album').change(function() {
 				if ( $(this).find(':selected').hasClass('photoblog_upload_new_album') ) {
 					var name = prompt('Nya albumets namn');
 					$('<option>' + name + '</option>').attr({'value': name, 'selected': 'selected'}).appendTo(this);
 				}
 			});
+			this.initUploadify();
+		},
+		
+		initUploadify: function() {
+			var queue = $('#photoblog_queue'), submit = $('#photoblog_upload_submit').parent().hide();
+			this.queue = queue;
+			
+			$('#images').uploadify({
+				uploader: '/fotoblogg/uploadify.swf',
+				script: '/fotoblogg/ladda_upp_enkel/ladda_upp/ajax',
+				scriptData: {
+					PHPSESSID: document.cookie.split("PHPSESSID=")[1].split("&")[0]
+				},
+				fileDataName: 'image',
+				queueID: 'photoblog_queue',
+				cancelImg: 'http://images.hamsterpaj.net/common_icons/warning_sign.png',
+				multi: true,
+				
+				onSelect: function(event, id, file) {
+					file.uniqueID = id;
+					submit.show();
+					hp.photoblog.simpleupload.createForm(queue, file);
+					return false;
+				},
+				
+				onCancel: function(event, id, file, data) {
+					queue.find('#' + id).remove();
+					if ( data.fileCount == 0 )
+						submit.hide();
+					hp.photoblog.simpleupload.setSettings(hp.photoblog.simpleupload.queue.children(':first-child'));
+				},
+				
+				onClearQueue: function(event, data) {
+					queue.empty();
+				},
+				
+				onProgress: function(event, id, file, data) {
+					$('#' + id).find('.photoblog_progress').text(percentage + '% (' + speed + 'kB/s)');
+				},
+				
+				onComplete: function(event, id, file, response, data) {
+					$('#' + id).fadeOut(function() {
+						$(this).remove();
+					});
+					hp.photoblog.simpleupload.setSettings($('#' + id).next());
+					
+					if ( data.fileCount == 0 ) {
+						submit.hide();
+						
+						var c = $('<div />').html(response).insertBefore(hp.photoblog.simpleupload.queue);
+						setTimeout(function() {
+							c.slideUp();
+						}, 5000);
+					}
+				}
+ 			});
+			
+			$('#photoblog_upload_submit').click(function() {
+				hp.photoblog.simpleupload.upload();
+			});
+		},
+		
+		createForm: function(parent, info) {
+			var wrapper = $('<div id="' + info.uniqueID + '" class="photoblog_photo_info">'
+				+ '<a href="#" title="Ta bort bild" class="photoblog_upload_cancel">X</a>'
+				+ '<h3>' + info.name + ' (' + Math.round(info.size / 1024) + ' kb)</h3>'
+				+ '<p><label>Beskrivning:<br />'
+					+ '<textarea name="description" rows="2" cols="30"></textarea></label></p>'
+				+ '<p><label>Hämta datumet automagiskt: <input type="checkbox" checked="checked" value="1" name="use_exif_date" /></label> <label><span class="photoblog_upload_or">Eller...<br /></span> År: <input type="text" maxlength="4" name="year" value="' + this.today.y + '" /></label> <label>Månad: <input type="text" name="month" maxlength="2" value="' + this.today.m + '" /></label> <label>Dag: <input type="text" name="day" maxlength="2" value="' + this.today.d + '" /></label></p>'
+				+ '<p><label>Album: <select class="photoblog_upload_categories"></select></label></p>'
+				+ '<div class="photoblog_progress" />'
+			+ '</div>').appendTo(parent).attr('uploadify_name', info.name);
+			
+			wrapper.find('.photoblog_upload_cancel').click(function() {
+				$('#images').uploadifyCancel(info.uniqueID);
+				return false;
+			});
+			
+			var select = wrapper.find('.photoblog_upload_categories');
+			this.makeOptions(select);
+		},
+		
+		setProp: function(value) {
+			var d = $('images').uploadifySettings('scriptData');
+			d.prop = value;
+			$('#images').uploadifySettings('scriptData', d);
+		},
+		
+		upload: function() {
+			hp.photoblog.simpleupload.setSettings(hp.photoblog.simpleupload.queue.children(':first-child'));
+			$('#images').uploadifyUpload();
+		},
+		
+		setSettings: function(element) {
+			var id = element.attr('id'),
+				filename = element.attr('uploadify_name');
+			
+			var data = {
+				description: element.find('textarea').val(),
+				use_exif_data: element.find('input[name=use_exif_date]:checked').val(),
+				year: element.find('input[name=year]').val(),
+				month: element.find('input[name=month]').val(),
+				day: element.find('input[name=day]').val(),
+				album: element.find('select').val()
+			};
+			
+			$('#images').uploadifySettings('scriptData', data);
+		},
+		
+		makeOptions: function(select) {
+			var options = '';
+			for ( var i = 0, j = hp.photoblog.categories.length; i < j; i++ ) {
+				options += '<option>' + hp.photoblog.categories[i] + '</option>';
+			}
+			select.html(options);
 		}
 	},
 	
@@ -376,7 +494,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				theOld = $(theOld);				var parent = theOld.parent(), self = $(this);		parent.css({			'position': 'relative'		});				var pos = theOld.position();		theOld.css({			'position': 'absolute',			'top': 0,			'left': pos.left,			'top': pos.top		});				theOld.fadeOut();
 				self.css({			'display': 'none'		}).appendTo(parent).fadeIn(function() {			if ( typeof callback == 'function' )				callback.call(self);		});	}});$(window).load(function() {	if ( $('#photoblog_image').length ) {		hp.photoblog.view.init();	}		if ( $('#photoblog_sort').length ) {		hp.photoblog.sort.init();		hp.photoblog.ordna.init();	}
 	
-	if ( $('#photoblog_upload_simple') ) {
+	if ( $('#photoblog_upload_simple').length ) {
 		hp.photoblog.simpleupload.init();
 	}
 	

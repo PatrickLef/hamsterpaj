@@ -777,6 +777,7 @@ a.report_abuse {
 	overflow: hidden;
 }
 
+.photoblog_photo_info,
 .photoblog_upload_container {
 	border: 1px solid <?php echo $detail_color; ?>;
 	background: <?php echo $main_color; ?>;
@@ -809,13 +810,51 @@ a.report_abuse {
 	padding-right: 4px;
     }
     
+    .photoblog_photo_info input[maxlength="4"],
     .photoblog_upload_container input[maxlength="4"] {
 	width: 40px;
     }
     
+    .photoblog_photo_info input[maxlength="2"],
     .photoblog_upload_container input[maxlength="2"] {
 	width: 20px;
     }
+    
+    .photoblog_photo_info {
+	width: 40%;
+	margin: 1%;
+	padding: 2% 3%;
+	float: left;
+	position: relative;
+    }
+    
+	.photoblog_submit_info {
+	    text-align: center;
+	    margin: 0 auto;
+	    float: none;
+	    border: 1px solid <?php echo $main_color; ?>;
+	    background: <?php echo $detail_color; ?>;
+	}
+	    .photoblog_submit_info input {
+		width: 70%;
+	    }
+	    
+	.photoblog_photo_info h3 {
+	    text-align: center;
+	    margin: 0;
+	}
+    
+	.photoblog_upload_cancel {
+	    position: absolute;
+	    top: -10px;
+	    right: -10px;
+	    width: 20px;
+	    height: 20px;
+	    text-indent: -10000px;
+	    overflow: hidden;
+	    display: block;
+	    background: #999;
+	}
 
 .photoblog_ie_warning {
     border: 1px solid red;
