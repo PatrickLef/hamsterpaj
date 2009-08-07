@@ -75,15 +75,6 @@ function ui_top($options = array())
 	$options['adtoma_category'] = isset($options['adtoma_category']) ? $options['adtoma_category'] : 'other';
 	define('ADTOMA_CATEGORY', $options['adtoma_category']);
 	
-	$output .= '<script type="text/javascript">' . "\n";
-	$adtoma_gender = (isset($_SESSION['userinfo']) && in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
-	$adtoma_age = (isset($_SESSION['userinfo']) && $_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
-	$adtoma_birthyear = (isset($_SESSION['userinfo']) && $_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
-	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
-	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
-	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&amp;hp_birthyear=' . $adtoma_birthyear . '&amp;hp_gender=' . $adtoma_gender . '"' . "\n";
-	$output .= '</script>' . "\n";
-	
 	// Create HP namespace...
 	$output .= '<script type="text/javascript" language="javascript">var hp = new Object();</script>' . "\n";
 	$output .= '<script type="text/javascript" language="javascript">' . 'hp.login_checklogin = function(){ return ' . (login_checklogin() ? 'true' : 'false') . '; }' . '</script>' . "\n";
@@ -126,6 +117,22 @@ function ui_top($options = array())
 	$output .= '</head> ' . "\n";
 	
 	$output .= '<body' . (isset($options['body_extra']) ? ' ' . $options['body_extra'] : '') . '>' . "\n";
+
+	$output .= '<script type="text/javascript">' . "\n";
+	$adtoma_gender = (in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
+	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
+	$adtoma_birthyear = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? substr($_SESSION['userinfo']['birthday'], 0, 4) : 'xx';
+	$output .= "\t" . 'var CM8Server = "ad.adtoma.com";' . "\n";
+	$output .= "\t" . 'var CM8Cat = "hp.' . ADTOMA_CATEGORY . '";' . "\n";
+	$output .= "\t" . 'var CM8Profile = "hp_age=' . $adtoma_age . '&hp_birthyear=' . $adtoma_birthyear . '&hp_gender=' . $adtoma_gender . '"' . "\n";
+	$output .= '</script>' . "\n";
+	
+	$output .= '<script language="JavaScript" type="text/javascript" src="http://ad.adtoma.com/adam/cm8adam_1_call.js"></script>' . "\n";
+
+
+	$output .= '<div>' . "\n";
+	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
+	$output .= '</div>' . "\n";
 	
 	if(isset($_SESSION['user_message']))
 	{
@@ -460,6 +467,7 @@ function ui_bottom($options = array())
 	$output .= '	</div>' . "\n";
 	
 	$output .= '<div id="skyscraper">' . "\n";
+	$output .= '<div><script type="text/javascript">CM8ShowAd("Skyscraper");</script></div>' . "\n";
 	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 142px; height: 352px;" scrolling="no" frameborder="0"></iframe>';
 	$output .= '</div>' . "\n";
 	
