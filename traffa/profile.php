@@ -106,7 +106,7 @@
 		foreach($photos AS $photo)
 		{
 			$output .= '<li>' . "\n";
-			$output .= '<a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '" id="'.$photo['id'].'"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" /></a>';
+			$output .= '<a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '" id="'.$photo['id'].'"><img src="' . IMAGE_URL . 'photos/mini/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" /></a>';
 			$output .= '</li>' . "\n";
 		}
 		$output .= '</ul>' . "\n";

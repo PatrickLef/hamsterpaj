@@ -97,6 +97,7 @@
 
 #photoblog_header {
 	width: 638px;
+	margin-top: 10px;
 }
     
 	#photoblog_select {
@@ -129,6 +130,11 @@
 		width: 388px;
 		height: 21px;	
 	}
+	    
+	    #photoblog_user_header.photoblog_user_header_ov a {
+		margin: 0 5px;
+	    }
+	    
 	#photoblog_user_header a {
 		color: <?php echo $detail_color; ?>;
 		margin: 0 14px;
@@ -144,6 +150,7 @@
     -khtml-border-radius: 5px;
     padding: 5px 10px;
     color: #fff;
+    position: relative;
     margin: 0 auto;
 }
 
@@ -153,7 +160,7 @@
     }
 
 	#photoblog_thumbs_inner {
-		width: 10000px;
+	    width: 99999px;
 	}
 
     div#photoblog_thumbs dl {
@@ -171,6 +178,7 @@
         #photoblog_thumbs dd {
             float: left;
             margin-right: 10px;
+	    margin-bottom: 5px;
             color: <?php echo $contrast_color; ?>;
         }
 	
@@ -224,6 +232,30 @@
     margin-top: 7px;
     position: relative;
 }
+
+#photoblog_thumbs.hide_scroller #photoblog_thumbs_scroller_outer {
+    display: none;
+}
+
+    #photoblog_thumbs.hide_scroller #photoblog_thumbs_container {
+	overflow: visible;
+    }
+    
+	#photoblog_thumbs.hide_scroller #photoblog_thumbs_inner {
+	    width: auto;
+	}
+    
+    #photoblog_scroller_toggle {
+	position: absolute;
+	top: 3px;
+	left: 10px;
+	width: 50px;
+	height: 4px;
+	background: #fff;
+	display: block;
+	overflow: hidden;
+	text-indent: -10000px;
+    }
 
     #photoblog_thumbs_scroller.ui-slider {
 	position: relative;
@@ -784,3 +816,68 @@ a.report_abuse {
     .photoblog_upload_container input[maxlength="2"] {
 	width: 20px;
     }
+
+.photoblog_ie_warning {
+    border: 1px solid red;
+    background: pink;
+    margin: 10px;
+    padding: 10px;
+}
+
+    .photoblog_ie_warning * { margin: 0; padding: 0; }
+
+#photoblog_admin_all ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    #photoblog_admin_all ul:after {
+	content: ".";
+	clear: both;
+	height: 0;
+	visibility: hidden;
+	display: block;
+    }
+
+    #photoblog_admin_all li {
+	border: 1px solid #999;
+	margin: 1%;
+	padding: 5px;
+	position: relative;
+	min-height: 39px;
+	float: left;
+	width: 46%;
+    }
+    
+	#photoblog_admin_all li.active {
+	    width: 96%;
+	}
+	
+	#photoblog_admin_all textarea {
+	    width: 80%;
+	}
+    
+	#photoblog_admin_all img {
+	    position: absolute;
+	    right: 5px;
+	    top: 5px;
+	}
+	
+	#photoblog_admin_all .photoblog_info {
+	    border: 1px solid #e1e1e1;
+	    width: 90%;
+	    position: relative;
+	    background: #fff;
+	}
+	
+	#photoblog_admin_all .photoblog_info p {
+	    margin: 10px;
+	    padding: 0px;
+	}
+	
+	#photoblog_admin_all .remove {
+	    position: absolute;
+	    bottom: 10px;
+	    right: 10px;
+	}

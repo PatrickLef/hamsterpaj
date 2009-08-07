@@ -13,7 +13,7 @@
 	require_once(PATHS_LIBRARIES . 'rank.lib.php');
 	require_once(PATHS_LIBRARIES . 'comments.lib.php');
 
-	define(ENTERTAINMENT_ITEMS_PER_PAGE, 24);
+	define('ENTERTAINMENT_ITEMS_PER_PAGE', 24);
 
 	$ui_options['stylesheets'][] = 'entertain.css';
 	$ui_options['stylesheets'][] = 'rank.css';

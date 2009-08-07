@@ -40,3 +40,8 @@
 	background: #555;
 	border: 1px ridge #c44;
 }
+
+.profile_head .navigation ul li
+{
+	margin: 2px 0 0 0;
+}
