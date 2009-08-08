@@ -117,7 +117,7 @@
 			$out .= '<div id="photoblog_user_header"' . ($is_ov ? ' class="photoblog_user_header_ov"' : '') . '>';
 					if ( login_checklogin() )
 					{
-						$out .= '<a href="/fotoblogg/">Min fotoblogg</a><a href="/fotoblogg/ladda_upp_enkel">Ladda upp</a><a href="/fotoblogg/ordna">Sortera mina foton</a><a href="/fotoblogg/instaellningar">Inställningar</a>' . "\n";
+						$out .= '<a href="/fotoblogg/">Min fotoblogg</a><a href="/fotoblogg/ladda_upp">Ladda upp</a><a href="/fotoblogg/ordna">Sortera mina foton</a><a href="/fotoblogg/instaellningar">Inställningar</a>' . "\n";
 						if ( $is_ov )
 							$out .= '<a href="/fotoblogg/' . $photoblog_user['username'] . '/admin">Administrera</a>';
 					}
@@ -132,8 +132,9 @@
 				require('instaellningar.php');
 			break;
 			
-			case 'ladda_upp':		
-				require('ladda_upp.php');
+			case 'ladda_upp':
+				$uploadify = true;
+				require('ladda_upp_enkel.php');
 			break;
 			
 			case 'ladda_upp_enkel':

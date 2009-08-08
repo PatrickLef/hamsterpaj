@@ -806,6 +806,14 @@ a.report_abuse {
 	    margin-bottom: 0;
     }
     
+    .photoblog_loading { opacity: 0.5; }
+    
+    .photoblog_load {
+	position: absolute;
+	top: 48%;
+	left: 48%;
+    }
+    
     .photoblog_upload_or {
 	padding-right: 4px;
     }

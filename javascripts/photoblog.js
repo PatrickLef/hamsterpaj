@@ -274,6 +274,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			var queue = $('#photoblog_queue'), submit = $('#photoblog_upload_submit').parent().hide();
 			this.queue = queue;
 			
+			this.load = $('<img />').attr('src', "http://images.hamsterpaj.net/photoblog/loading.gif").addClass('photoblog_load');
+			
 			$('#images').uploadify({
 				uploader: '/fotoblogg/uploadify.swf',
 				script: '/fotoblogg/ladda_upp_enkel/ladda_upp/ajax',
@@ -364,6 +366,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			var id = element.attr('id'),
 				filename = element.attr('uploadify_name');
 			
+			this.addLoad(element);
+			
 			var data = {
 				description: element.find('textarea').val(),
 				use_exif_data: element.find('input[name=use_exif_date]:checked').val(),
@@ -382,6 +386,14 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				options += '<option>' + hp.photoblog.categories[i] + '</option>';
 			}
 			select.html(options);
+		},
+		
+		addLoad: function(element) {
+			if ( element.find('.photoblog_load').length )
+				return false;
+			element.addClass('photoblog_loading');
+			this.load.clone().appendTo(element);
+			return true;
 		}
 	},
 	

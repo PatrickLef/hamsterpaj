@@ -90,16 +90,23 @@
 	
 	default:
 	    
-	    $out .= <<<EOD
-		<h1>Ladda upp bilder!</h1>
+	    if ( isset($uploadify) )
+	    {
+		$out .= <<<EOD
+		    <p>Psst! Det här är den nya uppladdaren. Den fungerar, till skillnad från den förra. Du kan ladda upp flera bilder samtidigt och allt görs på den här sidan.</p>
+		    
+		    <h1 id="photoblog_upload_simple">Ladda upp bilder!</h1>
 		
-		<p><label>Välj dina bilder här (välj fler med control eller shift) <input type="file" id="images" name="images" /></label></p>
+		    <p><label>Välj dina bilder här (välj fler med control eller shift) <input type="file" id="images" name="images" /></label></p>
 
-		<div id="photoblog_queue"></div>
-		<div style="clear: both;"></div>
+		    <div id="photoblog_queue"></div>
+		    <div style="clear: both;"></div>
 		
-		<div style="display: none" class="photoblog_photo_info photoblog_submit_info"><input value="Ladda upp!" type="submit" id="photoblog_upload_submit" /></div>
+		    <div style="display: none" class="photoblog_photo_info photoblog_submit_info"><input value="Ladda upp!" type="submit" id="photoblog_upload_submit" /></div>
 EOD;
+		$out .= photoblog_upload_messages();
+	    }
+	    
 	    $content .= '<h2 id="photoblog_upload_simple">En enklare uppladdning</h2>';
 	    //$content .= '<p><a href="/fotoblogg/ladda_upp">Tillbaka till den andra, fräsigare(, buggigare) fotoblogguppladdningen.</a> Alla med en webbläsare som inte är textbaserad bör kunna använda den här uppladdaren.</p>';
 	    
@@ -130,39 +137,41 @@ EOD;
 		hp.photoblog.categories = ' . $albums_jsarray . '
 	    </script>';
 	    
-	    $options = '';
-	    foreach ( $albums as $album )
+	    if ( ! isset($uploadify) )
 	    {
-		if ( $album['name'] == 'Övriga Bilder' )
-		    $selected = 'selected="selected"';
-		else
-		    $selected = '';
+		$options = '';
+		foreach ( $albums as $album )
+		{
+		    if ( $album['name'] == 'Övriga Bilder' )
+			$selected = 'selected="selected"';
+		    else
+			$selected = '';
+		    
+		    $options .= sprintf('<option %s value="%s">%s</option>', $selected, $album['name'], $album['name']);
+		}
 		
-		$options .= sprintf('<option %s value="%s">%s</option>', $selected, $album['name'], $album['name']);
+		if ( ! strlen($options) )
+		{
+		    $options .= '<option value="">Övriga bilder</option>';
+		}
+		
+		$options .= '<option class="photoblog_upload_new_album">Nytt album</option>';
+		
+		$content .= '
+		<div class="photoblog_upload_container">
+		    <div>
+			<form action="/fotoblogg/ladda_upp_enkel/ladda_upp" method="post" enctype="multipart/form-data">
+			    <h3>Bild</h3>
+			    <p><label><strong>Fil: </strong> <input type="file" id="image" name="image" /></label> <label>Album: <select class="photoblog_upload_album" name="album">' . $options . '</select></label></p>
+			    <p><label><strong>Beskrivning: </strong><br />
+				<textarea rows="5" cols="50" name="description"></textarea></p>
+			    <p><label>Hämta datumet automagiskt: <input type="checkbox" checked="checked" name="use_exif_date" /></label> <label><span class="photoblog_upload_or">Eller...</span> År: <input type="text" maxlength="4" name="year" value="' . date('Y') . '" /></label> <label>Månad: <input type="text" name="month" maxlength="2" value="' . date('m') . '" /></label> <label>Dag: <input type="text" name="day" maxlength="2" value="' . date('d') . '" /></label></p>
+			    <p><input type="submit" value="Ladda upp skönheten!" /></p>
+			</form>
+		    </div>
+		</div>';
+		
+		$out .= photoblog_upload_messages($content);
 	    }
-	    
-	    if ( ! strlen($options) )
-	    {
-		$options .= '<option value="">Övriga bilder</option>';
-	    }
-	    
-	    $options .= '<option class="photoblog_upload_new_album">Nytt album</option>';
-	    
-	    $content .= '<div id="uploadify_queue"></div>';
-	    $content .= '
-	    <div class="photoblog_upload_container">
-		<div>
-		    <form action="/fotoblogg/ladda_upp_enkel/ladda_upp" method="post" enctype="multipart/form-data">
-			<h3>Bild</h3>
-			<p><label><strong>Fil: </strong> <input type="file" id="image" name="image" /></label> <label>Album: <select class="photoblog_upload_album" name="album">' . $options . '</select></label></p>
-			<p><label><strong>Beskrivning: </strong><br />
-			    <textarea rows="5" cols="50" name="description"></textarea></p>
-			<p><label>Hämta datumet automagiskt: <input type="checkbox" checked="checked" name="use_exif_date" /></label> <label><span class="photoblog_upload_or">Eller...</span> År: <input type="text" maxlength="4" name="year" value="' . date('Y') . '" /></label> <label>Månad: <input type="text" name="month" maxlength="2" value="' . date('m') . '" /></label> <label>Dag: <input type="text" name="day" maxlength="2" value="' . date('d') . '" /></label></p>
-			<p><input type="submit" value="Ladda upp skönheten!" /></p>
-		    </form>
-		</div>
-	    </div>';
-	    
-	    $out .= photoblog_upload_messages($content);
 	break;
     }
