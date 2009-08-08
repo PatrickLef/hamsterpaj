@@ -858,7 +858,9 @@ a.report_abuse {
 	    right: -10px;
 	    width: 20px;
 	    height: 20px;
-	    text-indent: -10000px;
+	    text-align: center;
+	    color: #fff;
+	    padding-top: 4px;
 	    overflow: hidden;
 	    display: block;
 	    background: #999;
