@@ -268,6 +268,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 				}
 			});
 			this.initUploadify();
+			this.initTools();
 		},
 		
 		initUploadify: function() {
@@ -331,6 +332,14 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			
 			$('#photoblog_upload_submit').click(function() {
 				hp.photoblog.simpleupload.upload();
+			});
+		},
+		
+		initTools: function() {
+			var textarea = $('#photoblog_text_area');
+			
+			$('#photoblog_text_add').click(function() {
+				$('.photoblog_photo_info textarea').val(textarea.val());
 			});
 		},
 		
