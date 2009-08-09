@@ -273,6 +273,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 		initUploadify: function() {
 			var queue = $('#photoblog_queue'), submit = $('#photoblog_upload_submit').parent().hide();
 			this.queue = queue;
+			this.uploading = false;
 			
 			this.load = $('<img />').attr('src', "http://images.hamsterpaj.net/photoblog/loading.gif").addClass('photoblog_load');
 			
@@ -298,7 +299,8 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 					queue.find('#' + id).remove();
 					if ( data.fileCount == 0 )
 						submit.hide();
-					hp.photoblog.simpleupload.setSettings(hp.photoblog.simpleupload.queue.children(':first-child'));
+					if ( hp.photoblog.simpleupload.uploading )
+						hp.photoblog.simpleupload.setSettings(hp.photoblog.simpleupload.queue.children(':first-child'));
 				},
 				
 				onClearQueue: function(event, data) {
@@ -318,6 +320,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 					if ( data.fileCount == 0 ) {
 						submit.hide();
 						
+						hp.photoblog.simpleupload.uploading = false;
 						var c = $('<div />').html(response).insertBefore(hp.photoblog.simpleupload.queue);
 						setTimeout(function() {
 							c.slideUp();
@@ -351,13 +354,9 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			this.makeOptions(select);
 		},
 		
-		setProp: function(value) {
-			var d = $('images').uploadifySettings('scriptData');
-			d.prop = value;
-			$('#images').uploadifySettings('scriptData', d);
-		},
-		
 		upload: function() {
+			hp.photoblog.simpleupload.uploading = true;
+			
 			hp.photoblog.simpleupload.setSettings(hp.photoblog.simpleupload.queue.children(':first-child'));
 			$('#images').uploadifyUpload();
 		},
