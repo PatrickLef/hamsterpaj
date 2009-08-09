@@ -93,11 +93,11 @@
 	    if ( isset($uploadify) )
 	    {
 		$out .= <<<EOD
-		    <p>Psst! Det här är den nya uppladdaren. Den fungerar, till skillnad från den förra. Du kan ladda upp flera bilder samtidigt och allt görs på den här sidan.</p>
+		    <p>Psst! Det här är den nya uppladdaren. Den fungerar, till skillnad från den förra. Du kan ladda upp flera bilder samtidigt och allt görs på den här sidan. Vill du till den <em>ännu</em> enklare uppladdaren? <a href="/fotoblogg/ladda_upp_enkel">Den hittar du här!</a></p>
 		    
 		    <h1 id="photoblog_upload_simple">Ladda upp bilder!</h1>
 		
-		    <p><label>Välj dina bilder här (välj fler med control eller shift) <input type="file" id="images" name="images" /></label></p>
+		    <p><label>Välj dina bilder här (välj fler med control eller shift)<br /><br /><input type="file" id="images" name="images" /></label></p>
 
 		    <div id="photoblog_queue"></div>
 		    <div style="clear: both;"></div>
@@ -108,6 +108,7 @@ EOD;
 	    }
 	    
 	    $content .= '<h2 id="photoblog_upload_simple">En enklare uppladdning</h2>';
+	    $content .= '<p>Vill du ladda upp flera bilder på samma gång? <a href="/fotoblogg/ladda_upp">Det gör du här!</a></p>';
 	    //$content .= '<p><a href="/fotoblogg/ladda_upp">Tillbaka till den andra, fräsigare(, buggigare) fotoblogguppladdningen.</a> Alla med en webbläsare som inte är textbaserad bör kunna använda den här uppladdaren.</p>';
 	    
 	    if ( isset($_SESSION['photoblog_upload_id']) )
