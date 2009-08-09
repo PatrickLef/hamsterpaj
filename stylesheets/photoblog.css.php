@@ -105,7 +105,7 @@
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-khtml-border-radius: 5px;
-		padding: 5px 10px;
+		padding: 3px 10px 5px;
 		color: #fff;
 		margin-bottom: 10px;
 		width: 200px;
@@ -128,7 +128,7 @@
 		margin-bottom: 10px;
 		margin-left: 230px;
 		width: 388px;
-		height: 21px;	
+		height: 20px;	
 	}
 	    
 	    #photoblog_user_header.photoblog_user_header_ov a {

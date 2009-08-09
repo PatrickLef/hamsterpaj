@@ -150,7 +150,11 @@
 							}
 						}
 												$ret .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';					}
-					$ret .= '</dl>';				$ret .= '</div>';			$ret .= '</div>';		$ret .= '</div>';		$ret .= '<div id="photoblog_image">';		$ret .= '<p><img src="' . IMAGE_URL . 'photos/full/' . floor($current_photo['id'] / 5000) . '/' . $current_photo['id'] . '.jpg" alt="" /></p>';		$ret .= '</div>';		$ret .= '<div id="photoblog_description">';
+					$ret .= '</dl>';				$ret .= '</div>';			$ret .= '</div>';
+			// Scroller, JS added at domready.
+			$ret .= '<div id="photoblog_thumbs_scroller_outer"><div id="photoblog_thumbs_scroller" class="ui-slider">
+					<div class="ui-slider-handle" style="width: 100%;" id="photoblog_thumbs_handle"></div>
+				    </div></div>';		$ret .= '</div>';		$ret .= '<div id="photoblog_image">';		$ret .= '<p><img src="' . IMAGE_URL . 'photos/full/' . floor($current_photo['id'] / 5000) . '/' . $current_photo['id'] . '.jpg" alt="" /></p>';		$ret .= '</div>';		$ret .= '<div id="photoblog_description">';
 			if ( $current_photo )
 			{
 				$ret .= '<div id="photoblog_description_report">';
@@ -234,7 +238,7 @@
 			$id = $photos[$album['id']][0]['id'];
 			$dir = floor($id / 5000);
 			$photo_class = ($current == 0) ? 'class="photoblog_active"' : ''; 
-			$ret .= sprintf('<dd %s><a %s href="#image-%d"><img src="%sphotos/mini/%d/%d.jpg" alt="" /></a></dd>', $class, $photo_class, $id, IMAGE_URL, $dir, $id);
+			$ret .= sprintf('<dd %s><a %s href="#image-%d"><img width="50" height="38" src="%sphotos/mini/%d/%d.jpg" alt="" /></a></dd>', $class, $photo_class, $id, IMAGE_URL, $dir, $id);
 			$current++;
 		}
 		$ret .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';
