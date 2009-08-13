@@ -512,7 +512,7 @@ hp.photoblog = {	upload:	{		flash_upload:		{			new_file: function(raw_json_
 			callback.call(theOld);
 		return this;
 				theOld = $(theOld);				var parent = theOld.parent(), self = $(this);		parent.css({			'position': 'relative'		});				var pos = theOld.position();		theOld.css({			'position': 'absolute',			'top': 0,			'left': pos.left,			'top': pos.top		});				theOld.fadeOut();
-				self.css({			'display': 'none'		}).appendTo(parent).fadeIn(function() {			if ( typeof callback == 'function' )				callback.call(self);		});	}});$(document).ready(function() {	if ( $('#photoblog_image').length ) {		hp.photoblog.view.init();	}		if ( $('#photoblog_sort').length ) {		hp.photoblog.sort.init();		hp.photoblog.ordna.init();	}
+				self.css({			'display': 'none'		}).appendTo(parent).fadeIn(function() {			if ( typeof callback == 'function' )				callback.call(self);		});	}});$(window).load(function() {	if ( $('#photoblog_image').length ) {		hp.photoblog.view.init();	}		if ( $('#photoblog_sort').length ) {		hp.photoblog.sort.init();		hp.photoblog.ordna.init();	}
 	
 	if ( $('#photoblog_upload_simple').length ) {
 		hp.photoblog.simpleupload.init();
