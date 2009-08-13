@@ -148,7 +148,7 @@
     border-radius: 5px;
     -moz-border-radius: 5px;
     -khtml-border-radius: 5px;
-    padding: 5px 10px;
+    padding: 5px 10px 10px;
     color: #fff;
     position: relative;
     margin: 0 auto;
@@ -217,10 +217,10 @@
     }
 	
     #photoblog_thumbs .photoblog_active img {
-       border: 2px solid <?php echo $detail_color; ?>;
-			-moz-border-radius: 3px;
-			-khtml-border-radius: 3px;
-			border-radius: 3px;
+        border: 2px solid <?php echo $detail_color; ?>;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
     }
 
 
@@ -247,9 +247,9 @@
     
     #photoblog_scroller_toggle {
 	position: absolute;
-	top: 3px;
-	left: 10px;
-	width: 50px;
+	bottom: 3px;
+	left: 0px;
+	width: 100%;
 	height: 4px;
 	background: #fff;
 	display: block;
