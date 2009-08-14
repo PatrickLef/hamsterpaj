@@ -1,6 +1,6 @@
 <?php
-	$ui_options['ui_modules']['photoblog_albums'] = 'Album';
-	$ui_options['ui_modules']['photoblog_calendar'] = 'Kalender';
+	$ui_options['ui_modules']['photoblog_calendar'] = 'Fotoblogg Kalender';
+	$ui_options['ui_modules']['photoblog_albums'] = $photoblog_user['username'] . 's album';
 
 		if ( isset($uri_parts[4]) && preg_match('/^[a-zA-Z0-9-_]+$/', $uri_parts[4]) )
 		{

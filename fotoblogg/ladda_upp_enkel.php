@@ -93,7 +93,7 @@
 	    if ( isset($uploadify) )
 	    {
 		$out .= <<<EOD
-		    <p>Psst! Det här är den nya uppladdaren. Den fungerar, till skillnad från den förra. Du kan ladda upp flera bilder samtidigt och allt görs på den här sidan. Vill du till den <em>ännu</em> enklare uppladdaren? <a href="/fotoblogg/ladda_upp_enkel">Den hittar du här!</a></p>
+		    <p>Psst! Här kan du kan du ladda upp flera bilder samtidigt och allt görs på den här sidan. Vill du till den enklare uppladdaren? <a href="/fotoblogg/ladda_upp_enkel">Den hittar du här!</a></p>
 		    
 		    <h1 id="photoblog_upload_simple">Ladda upp bilder!</h1>
 		

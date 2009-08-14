@@ -9,9 +9,7 @@
 		$ui_options['stylesheets'][] = 'photoblog_' . $photoblog_user['color_main'] . '_' . $photoblog_user['color_detail'] . '_.css';
 		$ui_options['javascripts'][] = 'jquery-ui-slider.js';
 		$ui_options['javascripts'][] = 'jquery-ui-datepicker.js';	
-		$ui_options['javascripts'][] = 'photoblog.js';
-		$ui_options['ui_modules_hide'] = true;
-		
+		$ui_options['javascripts'][] = 'photoblog.js';		
 		$ui_options['stylesheets'][] = 'user_profile.css';
 
 		// If this is true, it means that $uri_parts[2] isn't a valid username

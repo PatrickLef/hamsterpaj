@@ -467,15 +467,16 @@
 		-webkit-border-radius: 2px;
 	}
 	
-/* ########################################################
-		MODULER
-	 ###################################################### */
-	 
 /*
-	################################################################
-		Photoblog_user
-	################################################################
+    ######################################################
+	MODULER
+    ######################################################
+
+    ######################################################
+	Photoblog_user
+    ######################################################
 */
+
 #ui_module_photoblog_user .ui_module_header {
   display: none;
 }
@@ -513,13 +514,28 @@
 	################################################################
 */
 #ui_module_photoblog_calendar .ui_module_header {
-  display: none;
+    /*display: none;*/
+    background: <?php echo $main_color; ?>;
+    -moz-border-radius: 5px;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-radius: 5px;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
 }
+    
+    #ui_module_photoblog_calendar .ui_module_header h2 {
+	color: <?php echo $contrast_color; ?>;
+    }
+
 	#ui_module_photoblog_calendar .ui_module_content {
-	  background: <?php echo $main_color; ?>;
-	  color: #fff;
-	  -moz-border-radius: 5px;
-	  padding: 0;
+	    background: <?php echo $main_color; ?>;
+	    color: #fff;
+	    padding: 0;
+	    -moz-border-radius-bottomleft: 5px;
+	    -moz-border-radius-bottomright: 5px;
+	    -webkit-border-bottom-left-radius: 5px;
+	    -webkit-border-bottom-right-radius: 5px;
 	}
 	
 		#photoblog_calendar_month span {
@@ -599,42 +615,61 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 		Photoblog_albums
 	################################################################
 */
-#ui_module_photoblog_albums .ui_module_header {
-  display: none;
+#ui_modulebar #ui_module_photoblog_albums .ui_module_header {
+    /*display: none;*/
+    background: <?php echo $main_color; ?>;
+    -moz-border-radius: 5px;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-radius: 5px;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
 }
+
+    #ui_module_photoblog_albums .ui_module_header h2 {
+	color: <?php echo $contrast_color; ?>;
+    }
+
 	#ui_module_photoblog_albums .ui_module_content {
-	    padding: 10px;
+	    padding: 0 10px 10px;
 	    background: <?php echo $main_color; ?>;
 	    color: #fff;
-	    -moz-border-radius: 5px;
+	    -moz-border-radius-bottomleft: 5px;
+	    -moz-border-radius-bottomright: 5px;
+	    -webkit-border-bottom-left-radius: 5px;
+	    -webkit-border-bottom-right-radius: 5px;
 	}
 	#ui_module_photoblog_albums .ui_module_content h2 {
 	    margin: 0;
 	    padding: 0;
 	    text-indent: 0;
 	    text-align: center;
-	    display: block;
+	    display: none;
 	}
 	    #ui_module_photoblog_albums h2 a {
 		color: <?php echo $contrast_color; ?>;
 		font-size: 14px;
 		font-weight: normal;
 	    }
-	#ui_module_photoblog_albums h3 {
+	    
+	#ui_module_photoblog_albums a h3 {
 		margin-top: 8px;
 		font-weight: normal;
-		text-align: center;
+		float: left;
+		width: 100px;
 	}
+	#ui_module_photoblog_albums .photoblog_album_module_link {
+	    display: block;
+	    color: <?php echo $detail_color; ?>;
+	}
+	
 	#ui_module_photoblog_albums img {
-		margin: 12px 25px 0 25px;
-		-moz-border-radius: 4px;
-  	-webkit-border-radius: 4px;
-  	border: 4px solid black;
-  	width: 120px;
-  	height: 90px;
-	}
-	#ui_module_photoblog_albums a {
-		color: <?php echo $detail_color; ?>;
+	    margin: 10px 10px 0 0;
+	    -moz-border-radius: 4px;
+	    -webkit-border-radius: 4px;
+	    border: 2px solid white;
+	    width: 50px;
+	    float: left;
 	}
 
 /*
