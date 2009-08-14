@@ -30,7 +30,6 @@
 	width: 636px;
 	padding: 0px;
 	border-collapse: collapse;
-	background: url('http://images.hamsterpaj.net/discussion_forum/thread_list_background.png');
 }
 
 .forum_thread_list .headings
@@ -43,11 +42,24 @@
 	border-bottom: none;
 }
 
+.forum_thread_list tr { height: 24px; }
 .forum_thread_list td, .forum_thread_list th
 {
-	padding: 6px;
-	padding-top: 5px;
 	text-align: center;
+	height: 24px;
+	line-height: 24px;
+	border: 0;
+	padding: 0px 6px 0 6px;
+}
+
+.forum_thread_list .odd
+{
+	background: url('http://images.hamsterpaj.net/discussion_forum/thread_list_background.png');
+}
+
+.forum_thread_list .even
+{	
+	background: url('http://images.hamsterpaj.net/discussion_forum/thread_list_background.png') 0 24px;
 }
 
 .forum_thread_list .main_info
