@@ -39,7 +39,7 @@
     {
 	$out .= '<form action="/fotoblogg/' . $photoblog_user['username'] . '/admin/ban" method="post">';
 	$out .= '<ol>';
-	$out .= '<li><strong>Blockera</strong> den här personen från att <strong>ladda upp bilder</strong> <input type="text" style="width: 40px" name="days" value="7" /> dagar <input type="submit" value="Banna!" /><br />Tips: för att ta bort en ban kan du skriva in -100 eller nåt.</li>';
+	$out .= '<li><strong>Blockera</strong> den här personen från att <strong>ladda upp bilder</strong> i <input type="text" style="width: 40px" name="days" value="7" /> dagar <input type="submit" value="Banna!" /><br />Tips: för att ta bort en ban kan du skriva in -100 eller nåt.</li>';
 	$out .= '</ol>';
 	$out .= '</form>';
     }
@@ -51,7 +51,7 @@
 	$thumb_url = photoblog_photo_thumb_url($photo['id']);
 	$full_url = photoblog_photo_full_url($photo['id']);
 	
-	$info = '<div class="photoblog_info">';
+	$info = '<div class="photoblog_info" style="display: none">';
 	$info .= '<form method="post" action="/ajax_gateways/photoblog.json.php?action=photo_edit">';
 	$info .= '<input type="hidden" value="' . $photo['id'] . '" name="edit_id" />';
 	$info .= '<p><label>Beskrivning:<br /><textarea name="edit_description" rows="2" cols="50">' . $photo['description'] . '</textarea></label></p>';
@@ -62,7 +62,7 @@
 	$info .= '</form>';
 	$info .= '</div>';
 	
-	$output = sprintf('<li><a href="/fotoblogg/%s/%s">#%d</a> <span class="info_toggle"></span><br /><a href="%s"><img src="%s" alt="*bilden*" /></a>%s</li>', $photoblog_user['username'], $photo['id'], $photo['id'], $full_url, $thumb_url, $info);
+	$output = sprintf('<li><a href="/fotoblogg/%s/%s">#%d</a> <span class="info_toggle"><a href="#">Visa/Dölj ändra</a></span><br /><a href="%s"><img src="%s" alt="*bilden*" /></a>%s</li>', $photoblog_user['username'], $photo['id'], $photo['id'], $full_url, $thumb_url, $info);
 	return $output;
     }
     
