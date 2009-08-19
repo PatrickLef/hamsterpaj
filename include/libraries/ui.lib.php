@@ -407,6 +407,8 @@ function ui_bottom($options = array())
 			$modules['radio_sending'] = 'Radio';
 		}
 		$modules['multisearch'] = 'Multi-sök';
+
+		$modules['n24'] = 'Nyheter';
 		
 		if ( isset($options['ui_modules']) && is_array($options['ui_modules']) )
 		{
