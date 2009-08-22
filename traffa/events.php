@@ -31,8 +31,8 @@
 			{
 				$photo['description'] = (mb_strlen($photo['description'], 'UTF8') > 19) ? mb_substr($photo['description'], 0, 17, 'UTF8') . '...' : $photo['description'];
 				echo '<li>' . "\n";
-				echo '<a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
-				echo '<p><a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '">' . $photo['description'] . '</a>';
+				echo '<a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
+				echo '<p><a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '">' . $photo['description'] . '</a>';
 				echo ($photo['user'] == $_SESSION['login']['id'] && $photo['unread_comments'] > 0) ? '<strong>(' . $photo['unread_comments'] . ')</strong>' : '';
 				echo '</p>' . "\n";
 				echo '</li>' . "\n";
