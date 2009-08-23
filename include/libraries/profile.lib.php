@@ -164,8 +164,8 @@
 		$profile_modules['guestbook']['label'] = 'Gästbok';
 		$profile_modules['guestbook']['url'] = '/traffa/guestbook.php?view=%USERID%';
 
-		$profile_modules['photos']['label'] = 'Fotoalbum';
-		$profile_modules['photos']['url'] = '/traffa/photos.php?user_id=%USERID%';
+		//$profile_modules['photos']['label'] = 'Fotoalbum';
+		//$profile_modules['photos']['url'] = '/traffa/photos.php?user_id=%USERID%';
 	
 		$profile_modules['diary']['label'] = 'Dagbok';
 		$profile_modules['diary']['url'] = '/traffa/diary.php?user_id=%USERID%';

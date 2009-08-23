@@ -51,7 +51,6 @@
 		$ui_options['stylesheets'][] = 'photoblog_' . $photoblog_user['color_main'] . '_' . $photoblog_user['color_detail'] . '_.css';
 		
 		// Fetch profile
-		
 		$params['user_id'] = $photoblog_user['id'];
 		$params['show_removed_users'] = (isset($_GET['show_removed_users']) && is_privilegied('use_ghosting_tools'));
 		$profile = profile_fetch($params);
