@@ -106,7 +106,7 @@
 		    
 		    <h2>Verktyg</h2>
 		    
-		    <p>Vill du att alla bilder du laddar upp nu ska ha en och samma beskrivng? Skriv den här och tryck på "Lägg på!" för att fullborda när du valt dina bilder.<p>
+		    <p>Vill du att alla bilder du laddar upp nu ska ha en och samma beskrivning? Skriv den här och tryck på "Lägg på!" för att fullborda när du valt dina bilder.<p>
 		    <p><textarea id="photoblog_text_area" rows="4" cols="40"></textarea> <input type="submit" id="photoblog_text_add" value="Lägg på!" /></p>
 EOD;
 		$out .= photoblog_upload_messages();
