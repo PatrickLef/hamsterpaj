@@ -37,3 +37,9 @@ RewriteRule ^camprock.flv$ camprock.php
 
 
 #RewriteRule (.*) http://www.hamsterpaj.se/$1 [R=302,L]
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* gateway.php? [L]
+
