@@ -125,11 +125,8 @@
 					
 					if ( $is_album )
 					{
-						list($html, $last_id) = photoblog_viewer_albums_list($options);
+						list($html, $current_photo) = photoblog_viewer_albums_list($options);
 						$ret .= $html;
-						
-						$current_photo = photoblog_photos_fetch(array('id' => $last_id, 'user' => $user_id));
-						$current_photo = $current_photo[0];
 					}
 					else
 					{						$ret .= '<dt id="photoblog_prevmonth"><a id="prevmonth" title="F&ouml;reg&aring;ende m&aring;nad" href="#prev-month">F&ouml;reg&aring;ende m&aring;nad</a></dt>';												$is_first = true;						$last_day = array('date' => null, 'formatted' => null);						if ( ! count($photos) )						{							$ret .= '<dt>Här var det tomt...</dt>';						}												$photos_last_index = count($photos) - 1;												foreach ( $photos as $key => $photo )						{							if ( $options['include_dates'] && $last_day['date'] != $photo['date'] )							{								$last_day['date'] = $photo['date'];								$last_day['formatted'] = date('j/n', strtotime($photo['date']));								$ret .= '<dt>' . $last_day['formatted'] . '</dt>';							}							$class = ' class="';							if ( $key == 0 ) $class .= 'first-image ';							if ( $key == $photos_last_index ) $class .= 'last-image ';							$class .= '"';
@@ -240,12 +237,12 @@
 			$id = $photos[$album['id']][0]['id'];
 			$dir = floor($id / 5000);
 			$photo_class = ($current == 0) ? 'class="photoblog_active"' : ''; 
-			$ret .= sprintf('<dd %s><a %s href="#image-%d"><img width="50" height="38" src="%sphotos/mini/%d/%d.jpg" alt="" /></a></dd>', $class, $photo_class, $id, IMAGE_URL, $dir, $id);
+			$ret .= sprintf('<dd %s><a %s href="#image-%d" rel="/fotoblogg/' . $photoblog_user['username'] . '/album/' . $album['handle'] . '"><img width="50" height="38" src="%sphotos/mini/%d/%d.jpg" alt="" /></a></dd>', $class, $photo_class, $id, IMAGE_URL, $dir, $id);
 			$current++;
 		}
 		$ret .= '<dt style="display: none;" id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';
 		
-		return array($ret, $id);
+		return array($ret, $photos[$albums[0]['id']][0]);
 	}
 		function photoblog_forbid_upload($options)	{		if(!is_privilegied('photoblog_upload_forbid'))		{			throw new Exception('You need privilegies for this');		}				if(!isset($options['user_id']) && !is_numeric($options['user_id']))		{			throw new Exception('User id must be set');		}				if(!isset($options['days']) && !is_numeric($options['days']))		{			throw new Exception('number of days must be set');		}				$query = 'UPDATE photoblog_preferences SET upload_forbidden = ' . strtotime('+' . $options['days'] . ' day', time()) . ' WHERE userid = ' . $options['user_id'] . ' LIMIT 1';		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);				if($_SESSION['login']['id'] == $options['user_id'])		{			$_SESSION['photoblog_preferences']['upload_forbidden'] = strtotime('+' . $options['days'] . ' day', time());		}		else		{			$query = 'SELECT session_id FROM login WHERE id = ' . $options['user_id'] . ' LIMIT 1';			$result = mysql_query($query) or report_sql_error($query);			if(mysql_num_rows($result) == 1)			{				$data = mysql_fetch_assoc($result);				if(strlen($data['session_id']) > 0)				{					$remote_session = session_load($data['session_id']);					$remote_session['photoblog_preferences']['upload_forbidden'] = strtotime('+' . $options['days'] . ' day', time());					session_save($data['session_id'], $remote_session);				}			}		}		log_admin_event('photoblog_upload_forbidden', 'Antal dagar: ' . $options['days'], $_SESSION['login']['id'], $options['user_id'], 0);	}
 	function photoblog_migrate_sorting($options)

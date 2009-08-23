@@ -243,6 +243,13 @@ hp.photoblog = {
 		
 		var click_callback = function(e) {
 			var t = $(this);
+			
+			var target = $(e.target).parent('a');
+			if (target.is('a') && target.attr('rel').length && hp.photoblog.current_user.album_view) {
+				document.location.href = target.attr('rel');
+				return false;
+			}
+			
 			document.location.hash = t.attr('href').split('#')[1];
 			if ( t.attr('href').indexOf('#month-') != -1 ) {
 				var date_month = hp.photoblog.get_month(t);
