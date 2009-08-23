@@ -1123,7 +1123,7 @@ hp.photoblog = {
 			
 			this.current_delete.click(function() {
 				if ( confirm('Är du säker på att du vill ta bort bilden?') ) {
-					$.post(self.form.attr('action'), self.form.serialize() + '&edit_delete=1', function() {
+					$.post(self.form.attr('action'), self.form.serialize() + '&edit_delete=1', function(data) {
 						// remove thumb from thumblist
 						$('a[href="#image-' + hp.photoblog.view.current_id + '"]').parent().remove();
 						// this should redirect to the next image
