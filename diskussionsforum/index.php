@@ -342,8 +342,6 @@
 
 			$categories = discussion_forum_categories_fetch($options);
 			$output .= discussion_forum_categories_list($categories);
-
-			$output .= 'Gurkburk';
 			
 			break;
 			
