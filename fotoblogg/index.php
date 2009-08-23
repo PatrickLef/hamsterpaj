@@ -172,6 +172,7 @@
 						}
 						else
 						{
+							$front_access = true;
 							require('album.php');
 						}
 					break;

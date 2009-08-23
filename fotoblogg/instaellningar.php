@@ -27,7 +27,7 @@
 				<tr>
 					<th>Min fotoblogg är...</th>
 					<td>
-						<table style="width: 150px;">
+						<table style="float: right; width: 150px;">
 							<tr>
 								<td style="padding: 0; border: none"><label>En blogg<br /><input name="photoblog_preferences_type" value="blog" {$checked_blog} type="radio" /></label></td>
 								<td style="padding: 0; border: none"><label>Ett album<br /><input name="photoblog_preferences_type" value="album" {$checked_album} type="radio" /></label></td>
@@ -48,7 +48,7 @@ EOD;
 				$out .= '</td>' . "\n";
 			$out .= '</tr>' . "\n";
 			/* Copy-protection */
-			$out .= '<tr>' . "\n";
+			$out .= '<tr style="display: none">' . "\n";
 				$out .= '<th>' . "\n";
 					$out .= '<label for="photoblog_copy_protection">Kopieringskydda mina bilder</label>' . "\n";
 					$out .= '<br /><span>(Fast det finns inget sätt att kopieringskydda bilder på webben, och vi tänker inte heller låta F11 tro det. Men vi har kvar kryssrutan och hoppas på någon slags "placebo-effekt".)</span>' . "\n";
