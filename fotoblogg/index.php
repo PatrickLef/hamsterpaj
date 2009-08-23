@@ -108,7 +108,7 @@
 		$out .= '<div style="display: inline;" id="photoblog_select_months">';
 			$out .= implode('', $select_months);
 		$out .= '</div>';
-		$out .= '&nbsp;&nbsp;&nbsp;<a href="/fotoblogg/" id="photoblog_select_today"><img src="' . IMAGE_URL . 'famfamfam_icons/house.png" alt="Idag" title="Till dagens datum" /></a>' . "\n";
+		$out .= '&nbsp;&nbsp;&nbsp;<a href="/fotoblogg/' . $photoblog_user['username'] . '" id="photoblog_select_today"><img src="' . IMAGE_URL . 'famfamfam_icons/house.png" alt="Idag" title="Till dagens datum" /></a>' . "\n";
 		$out .= '</div>';
 		
 			$is_ov = is_privilegied('photoblog_photo_remove') || is_privilegied('photoblog_upload_forbid');
@@ -159,13 +159,21 @@
 						require('album.php');
 					break;
 					
+					case 'blog':
 					default:
 						$options['members_only'] = $photoblog_user['members_only'];
 						$options['friends_only'] = $photoblog_user['friends_only'];
 						$options['action'] = 'visit';
 						$options['owner_id'] = $photoblog_user['id'];
 						photoblog_access($options);
-						require('blogg.php');
+						if ( $uri_parts[3] === 'blog' || $photoblog_user['album_or_blog'] === 'blog' )
+						{
+							require('blogg.php');
+						}
+						else
+						{
+							require('album.php');
+						}
 					break;
 				}
 			break;

@@ -5,6 +5,7 @@
 		'color_detail' => 'FF00FF',
 		'members_only' => '0',
 		'friends_only' => '0',
-		'copy_protection' => '0'
+		'copy_protection' => '0',
+		'album_or_blog' => 'blog'
 	);
 ?>
