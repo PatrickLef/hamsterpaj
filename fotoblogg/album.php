@@ -31,33 +31,56 @@
 			
 			$options['user'] = $photoblog_user['id'];
 			
-			$photoblog_album = photoblog_categories_fetch($options);
-			
-			$options['category'] = $photoblog_album[0]['id'];
-			
-			unset($options['handle'], $options['id']);
-			
-			list($photos_sorted, $category) = photoblog_photos_fetch_sorted($options);
-			$category = end($category);
-		
-			$out .= '<h2>' . $category['name'] . ' <small style="font-size: 10px;"><a href="/fotoblogg/' . $photoblog_user['username'] . '">Tillbaka</a></small></h2>';
-			
-			$user_id = $photoblog_user['id'];
-			$options = array(
-				'photos' => reset($photos_sorted),
-				'user_id' => $user_id,
-				'include_dates' => false,
-				'load_first' => true,
-				'album_view' => true
-			);
-			
-			if ( isset($photo) )
+			if ( $albumname !== 'none' )
 			{
-				unset($options['load_first']);
-				$options['active_id'] = $photo['id'];
+				$photoblog_album = photoblog_categories_fetch($options);
+			}
+			else
+			{
+				$photoblog_album = array(
+					array(
+						'id' => 0,
+						'handle' => 'none',
+						'name' => 'Oalbumiserade foton'
+					)
+				);
 			}
 			
-			$out .= photoblog_viewer($options);
+			if ( ! $photoblog_album )
+			{
+				$out .= '<h2>Det här albumet finns visst inte...</h2>';
+			}
+			else
+			{
+				$options['category'] = $photoblog_album[0]['id'];
+			
+				unset($options['handle'], $options['id']);
+				
+				list($photos_sorted, $category) = photoblog_photos_fetch_sorted($options);
+				$category = end($category);
+				
+				if ( $photoblog_album[0]['id'] == 0 )
+					$category = $photoblog_album[0];
+				
+				$out .= '<h2>' . $category['name'] . ' <small style="font-size: 10px;"><a href="/fotoblogg/' . $photoblog_user['username'] . '">Tillbaka</a></small></h2>';
+				
+				$user_id = $photoblog_user['id'];
+				$options = array(
+					'photos' => reset($photos_sorted),
+					'user_id' => $user_id,
+					'include_dates' => false,
+					'load_first' => true,
+					'album_view' => true
+				);
+				
+				if ( isset($photo) )
+				{
+					unset($options['load_first']);
+					$options['active_id'] = $photo['id'];
+				}
+				
+				$out .= photoblog_viewer($options);
+			}
 		}
 		else
 		{
