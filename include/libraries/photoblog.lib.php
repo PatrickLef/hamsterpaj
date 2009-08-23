@@ -119,9 +119,11 @@
 		$ret .= '<p>Tjena! Som du kanske har märkt så fungerar fotobloggen inte så överdrivet bra med den versionen av Internet Explorer du kör nu! :( Det beror på att det är en dålig webbläsare för oss som gör hemsidor. Men! Du kan alltid uppgradera till en bättre webbläsare, till exempel <a href="http://www.firefox.com/">Firefox</a>, <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.google.com/chrome">Google Chrome</a>, <a href="http://www.opera.com/">Opera</a> eller så kan du <a href="http://www.microsoft.com/windows/internet-explorer/">uppgradera till senaste versionen av Internet Explorer</a>. Om du gör något av detta så vinner du en internet!</p>';
 		$ret .= '</div>';
 		$ret .= '<![endif]-->';
+		
+		$is_album = isset($options['is_album']) && $options['is_album'];
 				$ret .= '<div id="photoblog_thumbs">';			$ret .= '<div id="photoblog_thumbs_container">';				$ret .= '<div id="photoblog_thumbs_inner">';					$ret .= '<dl>';
 					
-					if ( isset($options['is_album']) && $options['is_album'] )
+					if ( $is_album )
 					{
 						list($html, $last_id) = photoblog_viewer_albums_list($options);
 						$ret .= $html;
@@ -220,7 +222,7 @@
 			}
 		}
 		
-		$ret = '<dt id="photoblog_prevmonth"><a id="prevmonth" title="F&ouml;reg&aring;ende m&aring;nad" href="#prev-month">F&ouml;reg&aring;ende m&aring;nad</a></dt>';
+		$ret = '<dt style="display: none" id="photoblog_prevmonth"><a id="prevmonth" title="F&ouml;reg&aring;ende m&aring;nad" href="#prev-month">F&ouml;reg&aring;ende m&aring;nad</a></dt>';
 		$last = count($albums) - 1;
 		$current = 0;
 		foreach ( $albums as $album )
@@ -241,7 +243,7 @@
 			$ret .= sprintf('<dd %s><a %s href="#image-%d"><img width="50" height="38" src="%sphotos/mini/%d/%d.jpg" alt="" /></a></dd>', $class, $photo_class, $id, IMAGE_URL, $dir, $id);
 			$current++;
 		}
-		$ret .= '<dt id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';
+		$ret .= '<dt style="display: none;" id="photoblog_nextmonth"><a id="nextmonth" title="N&auml;sta m&aring;nad" href="#next-month">N&auml;sta m&aring;nad</a></dt>';
 		
 		return array($ret, $id);
 	}
