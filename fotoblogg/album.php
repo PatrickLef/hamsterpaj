@@ -40,7 +40,7 @@
 			list($photos_sorted, $category) = photoblog_photos_fetch_sorted($options);
 			$category = end($category);
 		
-			$out .= '<h2>' . $category['name'] . '</h2>';
+			$out .= '<h2>' . $category['name'] . ' <small style="font-size: 10px;"><a href="/fotoblogg/' . $photoblog_user['username'] . '">Tillbaka</a></small></h2>';
 			
 			$user_id = $photoblog_user['id'];
 			$options = array(
