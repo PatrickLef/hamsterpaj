@@ -236,7 +236,7 @@ hp.profile.presentation.change = {
 			
 			image_upload: function()
 			{
-				if(!window.open('/traffa/photos.php'))
+				if(!window.open('/fotoblogg/ladda_upp_enkel'))
 				{
 					alert('Det nya fönstret med fotouppladdnigen blockerades av din popupfönsterblockerare.');
 				}
