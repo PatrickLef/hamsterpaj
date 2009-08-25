@@ -736,6 +736,10 @@ body #ui_module_photoblog_calendar td.photoblog_calendar_active {
 	-khtml-border-radius: 5px;
 }
 
+    #photoblog_sort a {
+	color: <?php echo $contrast_color; ?>;
+    }
+
 #photoblog_sort ul {
 	clear: both;
 	background: #fff;
