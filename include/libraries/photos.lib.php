@@ -248,8 +248,8 @@
 
 			#$photo['description'] = (strlen($photo['description']) > 19) ? substr($photo['description'], 0, 17) . '...' : $photo['description'];
 			$output .= '<li>' . "\n";
-			$output .= '<a href="/traffa/photos.php?id=' . $photo['id'] . '#photo"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
-			$output .= '<p><a href="/traffa/photos.php?id=' . $photo['id'] . '#photo">' . $photo['description'] . '</a>';
+			$output .= '<a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
+			$output .= '<p><a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '">' . $photo['description'] . '</a>';
 			$output .= ($photo['user'] == $_SESSION['login']['id'] && $photo['unread_comments'] > 0) ? '<strong>(' . $photo['unread_comments'] . ')</strong>' : '';
 			$output .= '</p>' . "\n";
 			$output .= '</li>' . "\n";

@@ -18,8 +18,8 @@
 					$photos = photos_fetch( array('user' => $_SESSION['login']['id'], 'order-by' => 'up.id', 'order-direction' => 'DESC') );
 					$onclick_handlers = array();
 					
-					$html_data .= '<h2 style="margin: 0px">Välj en bild ifrån ditt fotoalbum</h2>';
-					$html_data .= 'Klicka på en bild ifrån ditt fotoalbum för att infoga den i presentationstexten. <input type="button" class="button_120" value="Ladda upp bilder" id="select_photos_upload" /><br style="clear: both" />';
+					$html_data .= '<h2 style="margin: 0px">Välj en bild ifrån din fotoblogg</h2>';
+					$html_data .= 'Klicka på en bild ifrån din fotoblogg för att infoga den i presentationstexten. <input type="button" class="button_120" value="Ladda upp bilder" id="select_photos_upload" /><br style="clear: both" />';
 					$onclick_handlers[] = '{"id": "select_photos_upload", "call": "hp.profile.presentation.change.markup_properties.property_onevent.image_upload()"}';
 					
 					$html_data .= '<div id="profile_presentation_change_markup_properties_image">';

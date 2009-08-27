@@ -407,6 +407,13 @@ function ui_bottom($options = array())
 			$modules['radio_sending'] = 'Radio';
 		}
 		$modules['multisearch'] = 'Multi-sök';
+
+		$modules['n24'] = 'Nyheter';
+		
+		if ( isset($options['ui_modules']) && is_array($options['ui_modules']) )
+		{
+			$modules = array_merge($modules, $options['ui_modules']);
+		}
 		
 		if ( login_checklogin() )
 		{
@@ -438,9 +445,16 @@ function ui_bottom($options = array())
 	if ( is_array($_SESSION['module_order']) && $options['ui_modules_hide'] == false )
 	{
 		// Merging together all coded modules and those in the SESSION so no modules are missed
-		$show_modules = array_merge(array_flip($_SESSION['module_order']), $modules);
+		$show_modules = $_SESSION['module_order'];
+		foreach ( $modules as $handle => $module )
+		{
+			if ( ! in_array($handle, $show_modules) )
+			{
+				$show_modules[] = $handle;
+			}
+		}
 		
-		foreach ($show_modules as $handle => $order)
+		foreach ($show_modules as $order => $handle)
 		{
 			if (isset($modules[$handle]))
 			{

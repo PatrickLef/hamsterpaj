@@ -1,7 +1,7 @@
 <?php
 
-		$ui_options['ui_modules']['photoblog_calendar'] = 'Kalender';
-		$ui_options['ui_modules']['photoblog_albums'] = 'Album';
+		$ui_options['ui_modules']['photoblog_calendar'] = 'Fotoblogg Kalender';
+		$ui_options['ui_modules']['photoblog_albums'] = $photoblog_user['username'] . 's album';
 		$ui_options['javascripts'][] = 'jquery.protect-image.js';
 		
 		if ( ! isset($highest_date) || $highest_date == 0 )

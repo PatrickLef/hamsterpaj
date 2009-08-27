@@ -27,8 +27,8 @@
 		{
 			$photo['description'] = (mb_strlen($photo['description'], 'UTF8') > 19) ? mb_substr($photo['description'], 0, 17, 'UTF8') . '...' : $photo['description'];
 			$out .= '<li>' . "\n";
-			$out .= '<a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
-			$out .= '<p><a href="/fotoblogg/' . $photo['username'] . '#image-' . $photo['id'] . '">' . $photo['description'] . '</a>';
+			$out .= '<a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '"><img src="' . IMAGE_URL . 'photos/thumb/' . floor($photo['id']/5000) . '/' . $photo['id'] . '.jpg" title="' . $photo['username'] . '" /></a>';
+			$out .= '<p><a href="/fotoblogg/' . $photo['username'] . '/' . $photo['id'] . '">' . $photo['description'] . '</a>';
 			$out .= ($photo['user'] == $_SESSION['login']['id'] && $photo['unread_comments'] > 0) ? '<strong>(' . $photo['unread_comments'] . ')</strong>' : '';
 			$out .= '</p>' . "\n";
 			$out .= '</li>' . "\n";

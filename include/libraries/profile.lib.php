@@ -164,8 +164,8 @@
 		$profile_modules['guestbook']['label'] = 'Gästbok';
 		$profile_modules['guestbook']['url'] = '/traffa/guestbook.php?view=%USERID%';
 
-		$profile_modules['photos']['label'] = 'Fotoalbum';
-		$profile_modules['photos']['url'] = '/traffa/photos.php?user_id=%USERID%';
+		//$profile_modules['photos']['label'] = 'Fotoalbum';
+		//$profile_modules['photos']['url'] = '/traffa/photos.php?user_id=%USERID%';
 	
 		$profile_modules['diary']['label'] = 'Dagbok';
 		$profile_modules['diary']['url'] = '/traffa/diary.php?user_id=%USERID%';
@@ -300,7 +300,7 @@
 		$pattern = '/\[link:(photos|guestbook)\]/';
 		$options['presentation_text'] = preg_replace_callback($pattern, 'profile_presentation_link_tag_callback', $options['presentation_text']);
 		
-		$pattern = '/\[fotoalbum:([0-9]+)\]/';
+		$pattern = '/\[fotoalbum:([0-9:]+)\]/';
 		$options['presentation_text'] = str_replace('%USERID%', $options['user_id'], preg_replace_callback($pattern, 'profile_presentation_photos_callback', $options['presentation_text']) );
 
 		$output .= '<div class="profile_presentation_text">';
@@ -332,19 +332,35 @@
 	
 	function profile_presentation_photos_callback($matches)
 	{
-		if(!is_numeric($matches[1]))
+		$ids = explode(':', $matches[1]);
+		
+		foreach ( $ids as $id )
 		{
-			return 'Hacker där :(';
+			if ( ! is_numeric($id) )
+			{
+				return 'Hacker där :(';
+			}
 		}
 		
-		$photo_id = $matches[1];
-		$photo_object = photos_fetch(array('id' => $photo_id, 'limit' => 1));
+		$photo_object = photos_fetch(array('id' => $ids, 'limit' => count($ids)));
 		if(count($photo_object) < 1)
 		{
 			return '<strong>[Bilden finns inte]</strong>';
 		}
 		
-		$output .= photos_list($photo_object);
+		// If there are several of the same image
+		$photos = array();
+		foreach ($ids as $id)
+		{
+			foreach ( $photo_object as $pic )
+			{
+				if ( $pic['id'] == $id )
+					$photo = $pic;
+			}
+			$photos[] = $photo;
+		}
+		
+		$output .= photos_list($photos);
 		$output .= '<br style="clear: both;" />';
 		
 		return $output;
@@ -368,7 +384,7 @@
 		$return .= '	<button id="profile_presentation_change_bold_control" class="button_30">Fet</button>' . "\n";
 		$return .= '	<button id="profile_presentation_change_italic_control" class="button_50">Kursiv</button>' . "\n";
 		$return .= '	<button id="profile_presentation_change_header_control" class="button_80">R U B R I K</button>' . "\n";
-		$return .= '	<input type="button" id="profile_presentation_change_image_control" class="button_130" value="Bild från fotoalbumet" />' . "\n";
+		$return .= '	<input type="button" id="profile_presentation_change_image_control" class="button_130" value="Bild från fotobloggen" />' . "\n";
 		$return .= '	<button id="profile_presentation_change_poll_control" class="button_80">Omröstning</button>' . "\n";
 		//$return .= '	<button id="profile_presentation_change_friends_control" class="button_90">Vänner-ruta</button>' . "\n";
 		$return .= '	<button id="profile_presentation_change_link_control" class="button_70">Länk till...</button>' . "\n";

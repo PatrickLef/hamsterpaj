@@ -384,19 +384,16 @@ th, td {
 #ui_modulebar
 {
 	position: relative;
-	padding: 10px 10px 1px 10px;
+	padding: 10px 0 1px 10px;
 	background-color: #f0f0f0;
 	-moz-border-radius-bottomleft: 8px;
 	-moz-border-radius-topleft: 8px;
 	z-index: 0;
-	margin: 10px 0 10px 658px;
+	margin: 10px 0 10px 10px;
+	float: left;
+	width: 210px;
 }
-	/* this I would like to add for every browser, but because it might cause
-	   errors it is only applied for IE6 because it works for her. */
-	* html #ui_modulebar {
-		float: left;
-		margin-left: 18px;
-	}
+
 	#ui_modulebar .ui_module
 	{
 		width: 200px;

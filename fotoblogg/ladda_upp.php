@@ -41,59 +41,5 @@
 
 			$out .= photoblog_upload_messages($content);
 		break;
-		case 'beskrivningar':
-			$photo_ids = array();
-			foreach($_POST as $key => $value)
-			{
-				if(preg_match('/^photoblog_photo_properties_(\d+)_description$/', $key, $matches))
-				{
-					$matches['photo_id'] = $matches[1];
-					if(isset($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_autodate']))
-					{
-						$data['date'] = ('Y-m-d');
-					}
-					elseif(isset($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_date']) && strtolower($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_date']) == 'idag')
-					{
-						$data['date'] = date('Y-m-d');
-					}
-					elseif(isset($_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_date']) && preg_match('/^20(\d{2})-(\d{1,2})-(\d{1,2})$/', $_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_date']))
-					{
-						$data['date'] = $_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_date'];
-					}
-					else
-					{
-						throw new Exception('Invalid date!');
-					}
-					
-					if( is_numeric($matches['photo_id']) )
-					{
-						$data['id'] = $matches['photo_id'];
-					}
-					else
-					{
-						throw new Exception('No or invalid photo id!');
-					}
-					
-					$data['description'] = $_POST['photoblog_photo_properties_' . $matches['photo_id'] . '_description'];
-					
-					photoblog_photos_update($data);
-					
-					$photo_ids[] = $data['id'];
-				}
-			}
-			
-			if(false && empty($photo_ids))
-			{
-				$out .= 'Något gick lite snett, vi hittade inga av dina foton du just laddade upp.';
-				throw new Exception('No photos found when counting uploaded ids before fetching them.');
-			}
-			else
-			{
-				$out .= '<h2>Nu har dina foton laddats upp!</h2>';
-				$out .= '<p><a href="/fotoblogg/ordna">Ordna dina foton</a>, <a href="/fotoblogg/ladda_upp">Ladda upp fler</a> eller <a href="/fotoblogg/">Spana in dina skönheterna</a>.</p>';
-				/*$photos = photoblog_photos_fetch(array('id' => $photo_ids), array('save_path' => '/fotoblogg/ladda_upp/spara_sortering'));
-				$out .= photoblog_sort_module($photos);*/
-			}
-		break;
 	}
 ?>

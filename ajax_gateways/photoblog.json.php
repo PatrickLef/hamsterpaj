@@ -80,7 +80,7 @@
 				    $data['date'] = $_POST['edit_date'];
 				    photoblog_photos_update($data);
 				}
-				elseif ( isset($_POST['edit_delete']) && is_privilegied('photoblog_photo_remove') )
+				elseif ( isset($_POST['edit_delete']) && (is_privilegied('photoblog_photo_remove') || $photo_info['user'] == $_SESSION['login']['id']) )
 				{
 				    $data = array('deleted' => 1, 'id' => $photo_info['id']);
 				    photoblog_photos_update($data);

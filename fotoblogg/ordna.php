@@ -39,7 +39,7 @@
 		}
 		else
 		{
-			$out .= '<h2>Oalbumiserade foton</h2>';
+			$out .= '<h2>Oalbumiserade foton <small>(Dessa bilder ligger alltså inte i något album)</small></h2>';
 		}
 		$out .= '<ul id="album_' . $id . '">';
 		$out .= implode('', $album);
