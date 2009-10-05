@@ -375,7 +375,7 @@ function ui_top($options = array())
 	}
 	
 	$output .= '		<div id="ui_content">' . "\n";
-	
+	$output .= '<script type="text/javascript">CM8ShowAd("635x50");</script>';	
 	if(isset($options['return']) && $options['return'] == true)
 	{
 		return $output;
@@ -509,20 +509,23 @@ function ui_bottom($options = array())
 		$output .= '</div>' . "\n";	
 	}
 	
-	if(ENVIRONMENT == 'production')
-	{
-		$output .= '<script type="text/javascript">
-			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-			document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-			</script>
-			<script type="text/javascript">
-			try {
-			var pageTracker = _gat._getTracker("UA-7987100-1");
-			pageTracker._trackPageview();
-			} catch(err) {}
-		</script>';
+		$output .= '
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.hamsterpaj.net/piwik/" : "http://www.hamsterpaj.net/piwik/");
+document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://www.hamsterpaj.net/piwik/piwik.php?idsite=1" style="border:0" alt=""/></p></noscript>
+<!-- End Piwik Tag 
+<script type="text/javascript" src="http://www.hamsterpaj.net/clickheat/js/clickheat.js"></script><noscript><p><a href="http://www.labsmedia.com/clickheat/index.html">Web design optimisation</a></p></noscript><script type="text/javascript"><!--
+clickHeatSite = "Hamsterpaj";clickHeatGroup = "' . $_SERVER['SCRIPT_NAME']  . '";clickHeatServer = "http://www.hamsterpaj.net/clickheat/click.php";initClickHeat(); //-->
+</script>-->';
 		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
-	}
 	
 	$output .= '</body>' . "\n";
 	$output .= '</html>' . "\n";
