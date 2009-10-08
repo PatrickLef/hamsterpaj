@@ -391,10 +391,13 @@
 	      {
 	        echo '<img src="' . IMAGE_URL . 'user_no_image.png" alt="Ingen visningsbild"/>';
 	      }
-	      echo '</td><td style="vertical-align: top;">';
-	      echo fix_time($data['timestamp']) . ' <a href="javascript:void(0);" onclick="javascript:document.postform.group_message.value=document.postform.group_message.value + \''.$data['username'].': \';document.postform.group_message.focus();">[^]</a><br/>'; 
-				echo '<a href="/traffa/profile.php?id=' . $data['userid'] . '">';
-	      echo '<b>' . (($data['userid'] == 43273) ? '<span style="color: #FF60B6">GheyAtrapp</span>' : $data['username'])  . '</b></a> ';
+		echo '</td><td style="vertical-align: top;">';
+		$tstamp = fix_time($data['timestamp']);
+		echo <<<EOD
+		{$tstamp} <a href="javascript:void(0);" onclick="var gm = $('#group_message'), oldval = gm.val(); gm.val('').focus().val(oldval + '{$data['username']}: ');">[^]</a><br/> 
+EOD;
+		echo '<a href="/traffa/profile.php?id=' . $data['userid'] . '">';
+		echo '<b>' . (($data['userid'] == 43273) ? '<span style="color: #FF60B6">GheyAtrapp</span>' : $data['username'])  . '</b></a> ';
 	
 	      if ($owner == $_SESSION['login']['id'] || is_privilegied('groups_superadmin'))
 	      {
