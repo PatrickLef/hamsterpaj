@@ -1554,6 +1554,7 @@
 			'spoiler'=>  array('type' => BBCODE_TYPE_NOARG, 'open_tag' => '<div class="spoiler"><span>Spoiler: <button class="spoiler_control">Visa</button></span><span class="spoiler_content">', 'close_tag' => '</span></div>', 'childs'=>''),
 		);
 		
+		$text = str_replace('[/tillagg]', ' [/tillagg]', $text);
 		$text = clickable_links($text);
 		
 		if(isset($options['search_highlight']))
