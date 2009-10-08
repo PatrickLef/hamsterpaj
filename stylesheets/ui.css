@@ -90,14 +90,14 @@ th, td {
 	
 /*
 	################################################################
-		AD WRAPPER
+		OUTER WRAPPER
 		
 		Wraps the whole site to make sure float_right ad's doesn't
 		fall down.
 	################################################################
 */
 
-#ad_wrapper {
+#outer_wrapper {
 	width: 1180px;
 }
 	

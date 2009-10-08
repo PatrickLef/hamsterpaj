@@ -161,7 +161,7 @@ function ui_top($options = array())
 
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
-	$output .= '<div id="ad_wrapper">' . "\n";
+	$output .= '<div id="outer_wrapper">' . "\n";
 	$output .= '	<div id="ui_wrapper">' . "\n";
 	$custom_logo_style = (isset($options['custom_logo'])) ? 'style="background-image: url(\'' . $options['custom_logo'] . '\');"' : '';
 	$output .= '		<div id="ui_header">' . "\n";
