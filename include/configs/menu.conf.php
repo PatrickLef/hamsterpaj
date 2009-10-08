@@ -9,7 +9,19 @@
 		$menu['hamsterpaj']['children']['rules_and_policies'] = array('label' => 'Regler och policies', 'url' => '/hamsterpaj/rules_and_policies.php');
 		$menu['hamsterpaj']['children']['tillbakablickar'] = array('label' => 'Tillbakablickar', 'url' => '/hamsterpaj/tillbakablickar.php');
 
-	$menu['game'] = array('label' => 'game', 'url' => '');
+	$menu['games'] = array('label' => 'Spel', 'url' => '/onlinespel/', 'index_label' => 'Start');
+		$menu['games']['children']['topplista'] = array('label' => 'Topplista', 'url' => '/onlinespel/topplista/');
+		$menu['games']['children']['action'] = array('label' => 'Action', 'url' => '/onlinespel/taggar/action/');
+		$menu['games']['children']['crews_favoriter'] = array('label' => 'Crews favoriter', 'url' => '/onlinespel/taggar/crews-favoriter/');
+		$menu['games']['children']['musikspel'] = array('label' => 'Musikspel', 'url' => '/onlinespel/taggar/musikspel/');
+		$menu['games']['children']['plattformsspel'] = array('label' => 'Plattformsspel', 'url' => '/onlinespel/taggar/plattformsspel/');
+		$menu['games']['children']['skjutspel'] = array('label' => 'Skjutspel', 'url' => '/onlinespel/taggar/skjutspel/');
+		$menu['games']['children']['sportspel'] = array('label' => 'Sportspel', 'url' => '/onlinespel/taggar/sportspel/');
+		$menu['games']['children']['strategispel'] = array('label' => 'Strategispel', 'url' => '/onlinespel/taggar/strategispel/');
+		$menu['games']['children']['valgjort'] = array('label' => 'Välgjort', 'url' => '/onlinespel/taggar/valgjort/');
+	
+	
+	
 	$menu['image'] = array('label' => 'image', 'url' => '');
 	$menu['clip'] = array('label' => 'clip', 'url' => '');
 	$menu['flash'] = array('label' => 'flash', 'url' => '');
@@ -168,7 +180,7 @@
 
 require_once(PATHS_CONFIGS . 'entertain.conf.php');
 // this is just to make sure that the entertain configs are available at this point
-$handles = array('game', 'flash', 'clip', 'image');
+$handles = array('flash', 'clip', 'image');
 foreach($handles as $handle)
 {
 	$type = $entertain_types[$handle];
@@ -189,9 +201,9 @@ foreach($handles as $handle)
 	} 
 	
 	// $privilegie_handle
-		$privilegie_handle_array = array(1 => 'game', 2 => 'flash', 3 => 'clip', 4 => 'image');
+		$privilegie_handle_array = array(2 => 'flash', 3 => 'clip', 4 => 'image');
 		$privilegie_handle = array_search($handle, $privilegie_handle_array);
 		$menu[$handle]['children']['admin'] = array('label' => 'Admin', 'url' => '/' . $type['url_handle'] . '/admin/', 'is_privilegied' => 'entertain_add');
 }
-	$menu['game']['children']['nord'] = array('label' => 'Nord', 'url' => '/entertain/nordframe.php');
+
 ?>
