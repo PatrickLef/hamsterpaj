@@ -334,7 +334,7 @@ function forum_enable_controls()
 	    var thread_id = $('#thread_id').val();
 	    $.get('/ajax_gateways/discussion_forum.php?action=set_sorting_order&value=' + value + '&thread_id=' + thread_id, function() {
 		// reload page
-		document.location = document.location;
+		document.location.reload();
 	    });
 	});
 	

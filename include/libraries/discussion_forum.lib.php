@@ -917,20 +917,6 @@
 	
 	function discussion_forum_post_list($posts, $parent_post = array())
 	{
-		$thread_id = $posts[0]['parent_post'];
-		
-		$first_index = (isset($_SESSION['forum_sorting_order'][$thread_id]) && $_SESSION['forum_sorting_order'][$thread_id] == 'desc') ? count($posts) - 1 : 0;
-		$return .= discussion_forum_post_render($posts[$first_index]);
-		
-		if ( $first_index == 0 )
-		{
-			array_shift($posts);
-		}
-		else
-		{
-			array_pop($posts);
-		}
-		
 		foreach($posts AS $post)
 		{
 			$return .= discussion_forum_post_render($post, $parent_post);
