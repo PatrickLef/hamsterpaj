@@ -341,6 +341,17 @@ function ui_top($options = array())
 		$content .= '</a>';
 		$noticemessages[] = array('html' => $content);
 	}
+	
+	$data = cache_load('latest_forum_threads');
+	$data = current($data);
+	if(($_SESSION['latest_forum_threads'][$data['id']] < 2) && $data['timestamp'] > (time() - 60))
+	{
+		$_SESSION['latest_forum_threads'][$data['id']]++;
+		$content = '<a href="/traffa/profile.php?user_id=' . $data['author'] . '">' . $data['username'] . '</a>';
+		$content .= ' skapade precis tråden: ';
+		$content .= '<a href="' . $data['url'] . '">' . $data['title'] . '</a>';
+		$noticemessages[] = array('html' => $content);
+	}
 
 	if ( isset($noticemessages) && count($noticemessages) )
 	{
