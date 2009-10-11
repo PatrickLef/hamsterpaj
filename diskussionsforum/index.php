@@ -141,6 +141,11 @@
 			$post_options['mode'] = 'thread';
 			//$post_options['disable_forum_lookup'] = true;
 			$post_options['offset'] = ($request['page_num']-1) * FORUM_POSTS_PER_PAGE;
+			
+			if ( isset($_SESSION['forum_sorting_order'][$first_post[0]['id']]) && $_SESSION['forum_sorting_order'][$first_post[0]['id']] == 'desc' )
+			{
+				$post_options['order-direction'] = 'desc';
+			}
 
 			if($_SESSION['login']['id'] == 774586)
 			{

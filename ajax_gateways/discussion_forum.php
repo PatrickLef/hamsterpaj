@@ -283,4 +283,12 @@
 			header('Location: ' . $_GET['return'] . '');
 		}
 	}
-?>
+	
+	if ( $_GET['action'] == 'set_sorting_order' && in_array($_GET['value'], array('asc', 'desc')) && is_numeric($_GET['thread_id']) )
+	{
+	    if ( ! isset($_SESSION['forum_sorting_order']) || ! is_array($_SESSION['forum_sorting_order']) )
+	    {
+		$_SESSION['forum_sorting_order'] = array();
+	    }
+	    $_SESSION['forum_sorting_order'][$_GET['thread_id']] = $_GET['value'];
+	}
