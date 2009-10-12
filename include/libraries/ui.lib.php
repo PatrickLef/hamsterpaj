@@ -162,6 +162,7 @@ function ui_top($options = array())
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="outer_wrapper">' . "\n";
+	$output .= '<div id="follow_us"><a target="_blank" href="http://www.facebook.com/pages/Hamsterpajnet/139725621434" title="Följ Hamsterpaj på Facebook"><img src="http://images.hamsterpaj.net/follow_us_facebook.png" alt="Följ Hamsterpaj på Facebook"/></a></div>';
 	$output .= '	<div id="ui_wrapper">' . "\n";
 	$custom_logo_style = (isset($options['custom_logo'])) ? 'style="background-image: url(\'' . $options['custom_logo'] . '\');"' : '';
 	$output .= '		<div id="ui_header">' . "\n";
@@ -535,7 +536,7 @@ piwikTracker.enableLinkTracking();
 <!-- End Piwik Tag 
 <script type="text/javascript" src="http://www.hamsterpaj.net/clickheat/js/clickheat.js"></script><noscript><p><a href="http://www.labsmedia.com/clickheat/index.html">Web design optimisation</a></p></noscript><script type="text/javascript"><!--
 clickHeatSite = "Hamsterpaj";clickHeatGroup = "' . $_SERVER['SCRIPT_NAME']  . '";clickHeatServer = "http://www.hamsterpaj.net/clickheat/click.php";initClickHeat(); //-->
-</script>-->';
+</script>';
 		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
 	
 	$output .= '</body>' . "\n";

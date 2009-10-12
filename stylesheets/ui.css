@@ -100,6 +100,18 @@ th, td {
 #outer_wrapper {
 	width: 1180px;
 }
+
+/*
+	################################################################
+		FOLLOW US
+		
+		Shows twitter and facebook follow us links
+	################################################################
+*/
+	
+	#follow_us {
+		margin: 10px 0 0 700px;
+	}
 	
 /*
 	################################################################
@@ -115,7 +127,7 @@ th, td {
 	-webkit-border-radius: 5px;
 	background: #fff;
 	width: 880px;
-	margin: 10px;
+	margin: 0 10px 10px 10px;
 	float: left; /* Makes it possible to have ad's floating on the right side of the page */
 }
 
