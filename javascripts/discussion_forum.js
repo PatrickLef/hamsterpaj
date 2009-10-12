@@ -4,10 +4,10 @@ function forum_reply()
 	var author_username = document.getElementById('post_' + post_id + '_author_username').value;
 	//document.getElementById('forum_post_form_content').value += '\n[svar:' + author_username + ':' + post_id + ']\n\n[/svar]';
 	hp.discussion_forum.bbcode.insert({
-																			textfield: 'forum_post_form_content',
-																			start_tag: '\n[svar:' + author_username + ':' + post_id + ']\n\n',
-																			end_tag:   '\n[/svar]\n'
-																		});
+		textfield: 'forum_post_form_content',
+		start_tag: '\n[svar:' + author_username + ':' + post_id + ']\n\n',
+		end_tag:   '\n[/svar]\n'
+	});
 
 	//window.location = '#post_form';
 	window.scrollTo(0, document.getElementById('forum_post_form_content').offsetTop);
@@ -86,43 +86,43 @@ function forum_form_control_click()
 	switch(control_handle)
 	{
 		case 'bold':
-			hp.discussion_forum.bbcode.insert({
-																					textfield: 'forum_post_form_content',
-																					start_tag: '[b]',
-																					end_tag:   '[/b]'
-																				});
+		    hp.discussion_forum.bbcode.insert({
+			textfield: 'forum_post_form_content',
+			start_tag: '[b]',
+			end_tag:   '[/b]'
+		    });
 			break;
 		case 'italic':
 			hp.discussion_forum.bbcode.insert({
-																					textfield: 'forum_post_form_content',
-																					start_tag: '[i]',
-																					end_tag:   '[/i]'
-																				});
+				textfield: 'forum_post_form_content',
+				start_tag: '[i]',
+				end_tag:   '[/i]'
+			});
 			break;
 		case 'spoiler':
 			hp.discussion_forum.bbcode.insert({
-																					textfield: 'forum_post_form_content',
-																					start_tag: '[spoiler]',
-																					end_tag: '[/spoiler]'
-																				});
+				textfield: 'forum_post_form_content',
+				start_tag: '[spoiler]',
+				end_tag: '[/spoiler]'
+			});
 			break;
 		case 'code':
 			var highlight_language = prompt('Om du vill ha "syntax highlighting" på din kod måste du skriva vilket språk du använder, idag finns det stöd för: php, javascript, html, css, asp, C#\nLäs mer i hjälprutan till höger!', '');
 			if(highlight_language && highlight_language.length > 0)
 			{
 				hp.discussion_forum.bbcode.insert({
-																						textfield: 'forum_post_form_content',
-																						start_tag: '[code:' + highlight_language + ']',
-																						end_tag:   '[/code]'
-																					});			
+					textfield: 'forum_post_form_content',
+					start_tag: '[code:' + highlight_language + ']',
+					end_tag:   '[/code]'
+				});			
 			}
 			else
 			{
 				hp.discussion_forum.bbcode.insert({
-																						textfield: 'forum_post_form_content',
-																						start_tag: '[code]',
-																						end_tag:   '[/code]'
-																					});
+					textfield: 'forum_post_form_content',
+					start_tag: '[code]',
+					end_tag:   '[/code]'
+				});
 			}
 			break;
 		case 'image':
@@ -130,9 +130,9 @@ function forum_form_control_click()
 			if(image_url)
 			{
 				hp.discussion_forum.bbcode.insert({
-																						textfield: 'forum_post_form_content',
-																						start_tag: '[img]' + image_url + '[/img]'
-																					});
+					textfield: 'forum_post_form_content',
+					start_tag: '[img]' + image_url + '[/img]'
+				});
 			}
 			break;
 		case 'poll':
@@ -140,9 +140,9 @@ function forum_form_control_click()
 			if(poll_id)
 			{
 				hp.discussion_forum.bbcode.insert({
-																						textfield: 'forum_post_form_content',
-																						start_tag: '[poll:' + poll_id + ']'
-																					});
+					textfield: 'forum_post_form_content',
+					start_tag: '[poll:' + poll_id + ']'
+				});
 			}
 			break;
 		case 'preview':
@@ -328,6 +328,15 @@ function forum_enable_controls()
 	{
 		thread_subscription_control[0].onchange = toggle_thread_subscription;
 	}
+	
+	var thread_sorting_order = $('#thread_sort_desc').change(function() {
+	    var value = $(this).attr('checked') ? 'desc' : 'asc';
+	    var thread_id = $('#thread_id').val();
+	    $.get('/ajax_gateways/discussion_forum.php?action=set_sorting_order&value=' + value + '&thread_id=' + thread_id, function() {
+		// reload page
+		document.location.reload();
+	    });
+	});
 	
 	var category_subscription_controls = getElementsByClassName(document, 'input', 'category_subscribtion_control');
 	for(var i = 0; i < category_subscription_controls.length; i++)

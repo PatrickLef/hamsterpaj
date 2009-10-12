@@ -700,6 +700,10 @@
 		$output .= '<div class="view_count">Visningar: ' . $thread['views'] . '</div>' . "\n";
 		$output .= '<div class="post_count">Inlägg: ' . $thread['child_count'] . '</div>' . "\n";
 		$output .= '<input type="hidden" id="thread_id" value="' . $thread['id'] . '" />' . "\n";
+		
+		$checked = (isset($_SESSION['forum_sorting_order'][$thread['id']]) && $_SESSION['forum_sorting_order'][$thread['id']] == 'desc') ? 'checked="checked"' : '';
+		$output .= '<p><label title="Sortera svaren så att det senaste svaret kommer först. Inställningen håller i sig för den här tråden bara."><input type="checkbox" id="thread_sort_desc" ' . $checked .' value="true" /> Sortera svar senaste först</label></p>';
+		
 		$output .= '</div>' . "\n";
 		
 		if(forum_security(array('action' => 'thread_sticky')))
