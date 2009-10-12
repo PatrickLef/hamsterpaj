@@ -533,10 +533,7 @@ piwikTracker.trackPageView();
 piwikTracker.enableLinkTracking();
 } catch( err ) {}
 </script><noscript><p><img src="http://www.hamsterpaj.net/piwik/piwik.php?idsite=1" style="border:0" alt=""/></p></noscript>
-<!-- End Piwik Tag 
-<script type="text/javascript" src="http://www.hamsterpaj.net/clickheat/js/clickheat.js"></script><noscript><p><a href="http://www.labsmedia.com/clickheat/index.html">Web design optimisation</a></p></noscript><script type="text/javascript"><!--
-clickHeatSite = "Hamsterpaj";clickHeatGroup = "' . $_SERVER['SCRIPT_NAME']  . '";clickHeatServer = "http://www.hamsterpaj.net/clickheat/click.php";initClickHeat(); //-->
-</script>';
+';
 		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
 	
 	$output .= '</body>' . "\n";
