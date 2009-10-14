@@ -12,11 +12,8 @@
 	$ui_options['stylesheets'][] = 'fp_common_modules.css';
 	
 	// N24 ad for a while
-	$ui_options['xxl'] = '<a target="_blank" href="http://nyheter24.se/nyheter/fraga-svar/357137-lar-dig-msn-a-eller-jobba-med-doda" title="Nyheter24 video - Lär dig msn:a eller jobba med döda?">
-												<img style="margin: 10px 2px 10px 10px;" src="http://images.hamsterpaj.net/n24_video1.png" alt="Nyheter24 video - Lär dig msn:a eller jobba med döda?" />
-												</a>
-												<a target="_blank" href="http://nyheter24.se/nyheter/fraga-svar/351880-kronprinsessan-vs-tobbe-trollkarl" title="Nyheter24 video - Kronprinsessan vs Tobbe Trollkarl">
-												<img style="margin: 10px 10px 10px 3px;" src="http://images.hamsterpaj.net/n24_video2.png" alt="Nyheter24 video - Kronprinsessan vs Tobbe Trollkarl" />
+	$ui_options['xxl'] = '<a target="_blank" href="http://nyheter24.se/noje/film_tv/353997-tavla-och-vinn-exklusiva-priser" title="Tävla och vinn Hugh Jackmans exklusiva Logan-dogtag från filmen X-men Origins: Wolverine">
+												<img style="margin: 10px 0px;" src="http://images.hamsterpaj.net/x-men.png" alt="Tävla och vinn Hugh Jackmans exklusiva Logan-dogtag från filmen X-men Origins: Wolverine" />
 												</a>
 												';
 
