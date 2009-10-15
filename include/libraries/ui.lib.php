@@ -153,6 +153,16 @@ function ui_top($options = array())
 	$output .= '<div>' . "\n";
 	$output .= '<script type=\'text/javascript\'>Ads.insert(250, \'\');</script>' . "\n";
 	$output .= '</div>' . "\n";
+	
+	$output .= '<div>' . "\n";
+	$output .= '<script type="text/javascript">
+							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55632)\' + new
+							String (Math.random()).substring (2, 11);
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
+							charset="UTF-8"></sc\'+\'ript>\');
+							</script>' . "\n";
+	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
+	$output .= '</div>' . "\n";
 
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
@@ -490,6 +500,13 @@ function ui_bottom($options = array())
 	$output .= '<div id="skyscraper">' . "\n";
 	$output .= '<div><script type="text/javascript">CM8ShowAd("Skyscraper");</script></div>' . "\n";
 	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 142px; height: 352px;" scrolling="no" frameborder="0"></iframe>';
+	$output .= '</div>' . "\n";
+	$output .= '<script type="text/javascript">
+							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55633)\' + new
+							String (Math.random()).substring (2, 11);
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
+							charset="UTF-8"></sc\'+\'ript>\');
+							</script>' . "\n";
 	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
