@@ -10,12 +10,6 @@
 	$ui_options['stylesheets'][] = 'photos.css';
 	$ui_options['stylesheets'][] = 'fp_modules.css';
 	$ui_options['stylesheets'][] = 'fp_common_modules.css';
-	
-	// N24 ad for a while
-	$ui_options['xxl'] = '<a target="_blank" href="http://nyheter24.se/noje/film_tv/353997-tavla-och-vinn-exklusiva-priser" title="Tävla och vinn Hugh Jackmans exklusiva Logan-dogtag från filmen X-men Origins: Wolverine">
-												<img style="margin: 10px 0px;" src="http://images.hamsterpaj.net/x-men.png" alt="Tävla och vinn Hugh Jackmans exklusiva Logan-dogtag från filmen X-men Origins: Wolverine" />
-												</a>
-												';
 
 	$ui_options['title'] = 'Startsidan på Hamsterpaj - Community - Underhållning - Onlinespel';
 	$ui_options['menu_path'] = array('hamsterpaj');
