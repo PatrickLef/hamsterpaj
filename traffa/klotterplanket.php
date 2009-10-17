@@ -3,7 +3,7 @@
 	require(PATHS_LIBRARIES . 'live_chat.lib.php');
 	$_GET['channel'] = (isset($_GET['channel'])) ? $_GET['channel'] : 'klotter';
 
-	$ui_options['menu_path'] = array('traeffa', 'klotterplank', $_GET['channel']);
+	$ui_options['menu_active'] = 'community_klotterplanket';
 
 	$ui_options['title'] = 'Klotterplank på Hamsterpaj!';
 	$ui_options['stylesheets'][] = 'live_chat.css';

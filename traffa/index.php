@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('traeffa');
+	$ui_options['menu_active'] = 'community_start';
 	$ui_options['stylesheets'][] = 'traffa_index.css';
 	ui_top($ui_options);
 

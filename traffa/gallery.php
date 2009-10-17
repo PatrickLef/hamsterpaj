@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('traeffa', 'galleriet');
+	$ui_options['menu_active'] = 'community_galleriet';
 	ui_top($ui_options);
 
 	echo '<h1>Galleri</h1>';

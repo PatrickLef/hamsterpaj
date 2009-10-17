@@ -3,7 +3,7 @@
 	require_once(PATHS_LIBRARIES . 'photoblog.lib.php');
 
 	$ui_options['stylesheets'][] = 'photos.css';
-	$ui_options['menu_path'] = array('traeffa', 'new_photos');
+	$ui_options['menu_active'] = 'community_nya_foton';
 	$ui_options['title'] = 'Nya foton - Hamsterpaj.net';
 
 	$out .= '<h1>Nya foton</h1>';

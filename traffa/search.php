@@ -1,7 +1,7 @@
 <?php
 
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('traeffa', 'soek');
+	$ui_options['menu_active'] = 'community_sok';
 	$ui_options['dom_tt_lib'] = true;
 	$ui_options['stylesheets'][] = 'domTT.css';
 	$faq_category = 'traffa_search';

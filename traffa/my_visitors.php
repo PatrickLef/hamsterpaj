@@ -37,7 +37,7 @@
 	}
 
 	$ui_options['title'] = $show_user_username . ' besökare på Hamsterpaj';
-	$ui_options['menu_path'] = array('traeffa', 'besoeksloggen');
+	$ui_options['menu_active'] = 'community_besoksloggen';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
 	$ui_options['stylesheets'][] = 'my_visitors_joel.css';
 	$ui_options['stylesheets'][] = 'user_profile.css';

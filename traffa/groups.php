@@ -8,7 +8,7 @@
 	require_once(PATHS_LIBRARIES . 'discussion_forum.lib.php');
 	require_once(PATHS_LIBRARIES . 'groups_active.lib.php');
 
-	$ui_options['menu_path'] = array('traeffa', 'grupper');
+	$ui_options['menu_active'] = 'community_grupper';
 	$ui_options['admtoma_category'] = 'groups';
 	$ui_options['javascripts'] = array('scripts.js');
 	$ui_options['javascripts'][] = 'discussion_forum.js';	
