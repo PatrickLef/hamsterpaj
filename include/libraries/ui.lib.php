@@ -1,6 +1,13 @@
 <?php
 function ui_top($options = array())
 {
+	if ( defined('IS_HP4') )
+	{
+		global $ui_options, $js_compress_important_files;
+		$ui_options['stylesheets'] = $options['stylesheets'];
+		$ui_options['javascripts'] = array_merge($js_compress_important_files, $options['javascripts']);
+		return '';
+	}
 	/* Den här raden skapades när nya ui_top skapades. Låt den vara kvar, så kommer man ha något att le åt av nostalgiska syften. 2008-08-15, Joel.
 	*/
 	if(rand(0, 73) == 50)
@@ -399,6 +406,11 @@ function ui_top($options = array())
 
 function ui_bottom($options = array())
 {
+	if ( defined('IS_HP4') )
+	{
+		return '';
+	}
+	
 	$output .= '<br style="clear: both;" />' . "\n";
 	$output .= '</div>' . "\n";
 	$output .= '<div id="ui_modulebar">' . "\n";
