@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	$ui_options = array();
 	$ui_options['title'] = 'Vi som gör Hamsterpaj';
-	$ui_options['menu_path'] = array('hamsterpaj', 'crew');
+	$ui_options['menu_active'] = 'hamsterpaj_crew';
 	
 	ui_top($ui_options);
 	

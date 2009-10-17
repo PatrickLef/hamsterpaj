@@ -8,7 +8,7 @@
 	$ui_options['stylesheets'][] = 'comments.css';
 	$ui_options['stylesheets'][] = 'groups.css';
 	$ui_options['title'] = 'Hamsterpajs ledning skriver för brinnande livet! - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('hamsterpaj', 'hamsterblogg');
+	$ui_options['menu_active'] = 'hamsterpaj_hamsterblogg';
 	
 	switch($_GET['action'])
 	{

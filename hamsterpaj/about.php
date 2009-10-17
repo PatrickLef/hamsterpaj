@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('hamsterpaj', 'om_hamsterpaj');
+	$ui_options['menu_active'] = 'hamsterpaj_om_hamsterpaj';
 	
 	require(PATHS_LIBRARIES . 'articles.lib.php');
 	$ui_options['stylesheets'][] = 'articles.css';

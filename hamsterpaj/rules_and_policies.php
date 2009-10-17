@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('hamsterpaj', 'rules_and_policies');
+	$ui_options['menu_active'] = 'hamsterpaj_regler';
 	$ui_options['javascripts'][] = 'settings.js';
 	
 	require(PATHS_LIBRARIES . 'articles.lib.php');

@@ -3,6 +3,7 @@
 	require_once(PATHS_LIBRARIES . 'articles.lib.php');
 	
 	$ui_options['menu_path'] = array('hamsterpaj', 'annonsera');
+	$ui_options['menu_active'] = 'hamsterpaj_annonsera';
 	$ui_options['title'] = 'Annonsera på Hamsterpaj.net';	
 	$ui_options['stylesheets'][] = 'articles.css';
 	

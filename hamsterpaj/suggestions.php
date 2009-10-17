@@ -3,7 +3,7 @@
 	require(PATHS_LIBRARIES . 'suggestions.lib.php');
 	require_once(PATHS_LIBRARIES . 'guestbook.lib.php');
 	
-	$ui_options['menu_path'] = array('hamsterpaj', 'foerslag');
+	$ui_options['menu_active'] = 'hamsterpaj_forslag';
 	$ui_options['stylesheets'][] = 'suggestions.css';
 	$ui_options['javascripts'][] = 'suggestions.js';
 		
