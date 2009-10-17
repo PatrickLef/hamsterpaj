@@ -3,7 +3,7 @@
 	include_once(PATHS_LIBRARIES . 'sex_sense.lib.php');
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['title'] = 'Ändra ett svar - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('sex_sense');
+	$ui_options['menu_active'] = 'sex_och_sinne';
 	
 	if (!is_privilegied('sex_sense_admin'))
 	{

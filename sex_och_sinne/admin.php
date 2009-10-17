@@ -6,7 +6,7 @@
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['javascripts'][] = 'sex_sense.js';
 	$ui_options['title'] = 'Besvara frågor - Sex och Sinne - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('sex_sense', 'new_questions');
+	$ui_options['menu_active'] = 'sex_och_sinne_admin';
 	
 	if (!is_privilegied('sex_sense_admin'))
 	{

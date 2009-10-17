@@ -3,7 +3,7 @@
 	include_once(PATHS_LIBRARIES . 'sex_sense.lib.php');
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['javascripts'][] = 'sex_sense.js';
-	$ui_options['menu_path'] = array('sex_sense', 'search');
+	$ui_options['menu_active'] = 'sex_och_sinne_sok';
 	$ui_options['title'] = 'Sök - Sex och sinne - Hamsterpaj.net';
 	
 	$out .= '<img id="sex_and_sense_top" src="http://images.hamsterpaj.net/sex_and_sense/sex_and_sense_top.png" alt="Sex och sinne" />' . "\n";

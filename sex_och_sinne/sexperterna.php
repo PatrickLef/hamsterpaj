@@ -4,7 +4,7 @@
 	include_once(PATHS_LIBRARIES . 'articles.lib.php');
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['title'] = 'Sex och Sinne - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('sex_sense', 'sexpretterna');
+	$ui_options['menu_active'] = 'sex_och_sinne_sexperterna';
 	
 	$out .= '<img id="sex_and_sense_top" src="http://images.hamsterpaj.net/sex_and_sense/sex_and_sense_top.png" alt="Sex och sinne" />' . "\n";
 	$article = articles_fetch(array('id' => '82'));

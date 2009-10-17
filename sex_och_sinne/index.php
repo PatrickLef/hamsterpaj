@@ -3,6 +3,7 @@
 	include_once(PATHS_LIBRARIES . 'sex_sense.lib.php');
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['javascripts'][] = 'sex_sense.js';
+	$ui_options['menu_active'] = 'sex_och_sinne';
 	$ui_options['title'] = 'Sex och Sinne - Hamsterpaj.net';
 	
 	$out .= '<img id="sex_and_sense_top" src="http://images.hamsterpaj.net/sex_and_sense/sex_and_sense_top.png" alt="Sex och sinne" />' . "\n";
@@ -20,7 +21,7 @@
 			break;
 			
 			case 'view_category':
-				$ui_options['menu_path'] = array('sex_sense', 'view_category');
+				$ui_options['menu_active'] = 'sex_och_sinne_kategorier';
 				
 				$category = array_pop(sex_sense_fetch_categories(array('parent_category' => 0)));
 				$out .= sex_sense_render_category($category);
@@ -51,7 +52,7 @@
 			break;
 				
 			case 'list_categories':
-				$ui_options['menu_path'] = array('sex_sense', 'view_category');
+				$ui_options['menu_active'] = 'sex_och_sinne_kategorier';
 				
 				$category = array_pop(sex_sense_fetch_categories(array('parent_category' => 0)));
 				$out .= sex_sense_render_category($category);
@@ -59,7 +60,7 @@
 			
 			default:
 			case 'index':
-				$ui_options['menu_path'] = array('sex_sense');
+				$ui_options['menu_active'] = 'sex_och_sinne_start';
 		
 				$out .= sex_sense_bright_container_top();
 					$out .= '<p>Entrero och SheDevil svarar på dina funderingar om sex, kärlek, kroppen 
@@ -84,11 +85,15 @@
 			break;
 			
 			case 'new_question':
-				$ui_options['menu_path'] = array('sex_sense', 'question');
+				$ui_options['menu_active'] = 'sex_och_sinne_fraga';
 	
 				if(login_checklogin())
 				{
 					$out .= sex_sense_new_question_form();
+				}
+				else
+				{
+					$out .= '<h2>Du måste vara inloggad för att kunna ställa en fråga</h2>';
 				}
 			break;
 			
@@ -111,7 +116,7 @@
 			break;
 			
 			case 'latest':
-				$ui_options['menu_path'] = array('sex_sense', 'latest');
+				$ui_options['menu_active'] = 'sex_och_sinne_senaste_fragorna';
 			
 				$category = array_pop(sex_sense_fetch_categories(array('parent_category' => 0)));
 				$out .= sex_sense_render_category($category);
