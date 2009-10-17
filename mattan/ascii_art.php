@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	
 	$ui_options['title'] = 'ASCII-art på Hamsterpaj';
-	$ui_options['menu_path'] = array('mattan', 'ascii_art');
+	$ui_options['menu_active'] = 'under_mattan_ascii_art';
 	$ui_options['stylesheets'][] = 'ascii_art.css';
 	$ui_options['javascripts'][] = 'ascii_art.js';
 	

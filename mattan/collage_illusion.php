@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('mattan', 'ditt_namn');
+	$ui_options['menu_active'] = 'under_mattan_kollageapparaten';
 	$ui_options['stylesheets'][] = 'collage_illusion.css';
 	$templates = array('wood_standing', 'wood_laying', 'brick_standing', 'brick_laying', 'cork_standing', 'cork_laying', 'whiteboard_standing', 'whiteboard_laying');
 

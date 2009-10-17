@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	require(PATHS_LIBRARIES . 'drivers_license.php');
 			
-	$ui_options['menu_path'] = array('mattan', 'koerkort');
+	$ui_options['menu_active'] = 'under_mattan_korkort';
 	$ui_options['title'] = 'Körkortsfrågor på Hamsterpaj';
 	$ui_options['stylesheets'][] = 'drivers-license.css';
 	

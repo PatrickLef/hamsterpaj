@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('mattan', 'pornalizer');
+	$ui_options['menu_active'] = 'under_mattan_pornalizer';
 	$ui_options['title'] = 'Pornalizer';
 	ui_top($ui_options);
 

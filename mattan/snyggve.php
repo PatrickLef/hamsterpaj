@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	
 	
-	$ui_options['menu_path'] = array('mattan', 'snyggve');
+	$ui_options['menu_active'] = 'under_mattan_snyggve';
 	$ui_options['title'] = 'Snyggve, hur snygg kan du bli?';
 	$ui_options['stylesheets'][] = 'snyggve.css';
 

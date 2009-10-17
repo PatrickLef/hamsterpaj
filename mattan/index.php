@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('mattan');
+	$ui_options['menu_active'] = 'under_mattan_start';
 	$ui_options['stylesheets'][] = 'under_mattan.css';
 	ui_top($ui_options);
 

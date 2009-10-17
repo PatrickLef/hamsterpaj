@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('mattan', 'personnummer');
+	$ui_options['menu_active'] = 'under_mattan_falskt_personnummer';
 	$ui_options['javascripts'] = array('scripts.js');
 	$ui_options['admtoma_category'] = 'other.false_ssn';
 	ui_top($ui_options);

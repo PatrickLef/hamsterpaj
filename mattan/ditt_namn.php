@@ -1,6 +1,6 @@
 <?php
 require('../include/core/common.php');
-$ui_options['menu_path'] = array('mattan', 'ditt_namn');
+$ui_options['menu_active'] = 'under_mattan_ditt_namn';
 ui_top($ui_options);
 
 	function makeBinary($inputString, $byteLength=8)
