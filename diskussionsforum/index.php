@@ -2,7 +2,7 @@
 	/* OPEN_SOURCE */
 
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('forum');
+	$ui_options['menu_active'] = 'forum';
 	$ui_options['title'] = 'Hamsterpajs diskussionsforum';
 	$ui_options['stylesheets'][] = 'discussion_forum.css';
 	$ui_options['stylesheets'][] = 'abuse.css';
@@ -91,6 +91,7 @@
 			break;
 		
 		case 'latest_threads':
+			$ui_options['menu_active'] = 'forum_nya_tradar';
 			$output .= '<h2>De 50 senaste trådarna i forumet</h2>' . "\n";
 			$post_options['threads_only'] = true;
 			$post_options['order-by'] = 'p.id';
@@ -207,6 +208,7 @@
 		break;
 		
 		case 'search':
+			$ui_options['menu_active'] = 'forum_sok';
 			$output .= discussion_forum_search_form();
 			
 			if(strlen($request['freetext']) > 0)
@@ -313,7 +315,7 @@
 			break;
 
 		case 'threads_by_user':
-			$ui_options['menu_path'][] = 'user_threads';
+			$ui_options['menu_active'] = 'forum_dina_tradar';
 			$output .= '<h2>Dina 50 senaste trådar</h2>' . "\n";
 			$post_options['threads_only'] = true;
 			$post_options['order-by'] = 'p.id';
@@ -326,6 +328,7 @@
 			break;
 
 		case 'index':
+			$ui_options['menu_active'] = 'forum_kategorier';
 			$output = '<h1>Hej, det här är Hamsterpajs diskussionsforum!</h1>' . "\n";
 			if(login_checklogin())
 			{
@@ -352,7 +355,7 @@
 			
 		case 'view_new_notices':
 			discussion_forum_reload_all();
-			$ui_options['menu_path'][] = 'notices';
+			$ui_options['menu_active'] = 'forum_dina_notiser';
 			$ui_options['title'] = 'Bevakade trådar - Hamsterpaj.net';
 			$output .= discussion_forum_locator(array('page' => 'notices'));
 			$output .= discussion_forum_list_notices();
@@ -380,7 +383,7 @@
 			break;
 			case 'view_notices':
 			discussion_forum_reload_all();
-			$ui_options['menu_path'][] = 'notices';
+			$ui_options['menu_active'] = 'forum_dina_notiser';
 			$ui_options['title'] = 'Bevakade trådar - Hamsterpaj.net';
 			$output .= discussion_forum_locator(array('page' => 'notices'));
 			$output .= discussion_forum_list_notices();
