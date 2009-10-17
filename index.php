@@ -10,9 +10,8 @@
 	$ui_options['stylesheets'][] = 'photos.css';
 	$ui_options['stylesheets'][] = 'fp_modules.css';
 	$ui_options['stylesheets'][] = 'fp_common_modules.css';
-	
 
-	$ui_options['title'] = 'Startsidan på Hamsterpaj';
+	$ui_options['title'] = 'Startsidan på Hamsterpaj - Community - Underhållning - Onlinespel';
 	$ui_options['menu_path'] = array('hamsterpaj');
 	$ui_options['adtoma_category'] = 'start';
 
@@ -52,7 +51,7 @@
 		}
 		
 		
-		$regexp = '#(href="?)([a-zA-Z0-9\:\.\-\_������&\(\)~\/=?]{4,})"#eis';
+		$regexp = '#(href="?)([a-zA-Z0-9\:\.\-\_åäöÅÄÖ&\(\)~\/=?]{4,})"#eis';
 		$o = preg_replace($regexp, "'href=\"/fp_module_click.php?id=" . $module['id'] . "&url=' . base64_encode(stripcslashes('$2')) . '\"'", $o);
 		$out .= $o;
 
@@ -78,7 +77,7 @@
 					{
 						$thread_options['forum_id'] = 114;
 						$thread_options['title'] = $module['name'];
-						$thread_options['content'] = 'Det här är en kommenteringstråd för modulen \\"' . $module['name'] . '\\" på förstasidan. Egentligen skall själva modulen visas här i forumet, typ ovanför tråden. Men det är vi inte klara med än, så tillsvidare får man kommentera utan att se modulen :)';
+						$thread_options['content'] = 'Det hÃ¤r Ã¤r en kommenteringstrÃ¥d fÃ¶r modulen \\"' . $module['name'] . '\\" pÃ¥ fÃ¶rstasidan. Egentligen skall sjÃ¤lva modulen visas hÃ¤r i forumet, typ ovanfÃ¶r trÃ¥den. Men det Ã¤r vi inte klara med Ã¤n, sÃ¥ tillsvidare fÃ¥r man kommentera utan att se modulen :)';
 						$thread_options['mode'] = 'new_thread';
 						$thread_options['author'] = 57100;
 						$thread_options['fp_module_id'] = $module['id'];

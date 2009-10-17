@@ -124,7 +124,7 @@ function ui_top($options = array())
 	$output .= '</head> ' . "\n";
 	
 	$output .= '<body' . (isset($options['body_extra']) ? ' ' . $options['body_extra'] : '') . '>' . "\n";
-
+	$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
 	$output .= '<script type="text/javascript">' . "\n";
 	$adtoma_gender = (in_array($_SESSION['userinfo']['gender'], array('P', 'F'))) ? $_SESSION['userinfo']['gender'] : 'xx';
 	$adtoma_age = ($_SESSION['userinfo']['birthday'] != '0000-00-00') ? date_get_age($_SESSION['userinfo']['birthday']) : 'xx';
@@ -136,11 +136,6 @@ function ui_top($options = array())
 	
 	$output .= '<script language="JavaScript" type="text/javascript" src="http://ad.adtoma.com/adam/cm8adam_1_call.js"></script>' . "\n";
 
-
-	$output .= '<div>' . "\n";
-	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
-	$output .= '</div>' . "\n";
-	
 	if(isset($_SESSION['user_message']))
 	{
 		$output .= jscript_alert($_SESSION['user_message'], true) . "\n";
@@ -165,10 +160,21 @@ function ui_top($options = array())
 	$output .= '<div>' . "\n";
 	$output .= '<script type=\'text/javascript\'>Ads.insert(250, \'\');</script>' . "\n";
 	$output .= '</div>' . "\n";
+	
+	$output .= '<div>' . "\n";
+	$output .= '<script type="text/javascript">
+							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55632)\' + new
+							String (Math.random()).substring (2, 11);
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
+							charset="UTF-8"></sc\'+\'ript>\');
+							</script>' . "\n";
+	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
+	$output .= '</div>' . "\n";
 
 	
 	//The ad-wrapper is there to make sure right side ad's doesn't fall down
 	$output .= '<div id="outer_wrapper">' . "\n";
+	$output .= '<div id="follow_us"><a target="_blank" href="http://www.facebook.com/pages/Hamsterpajnet/139725621434" title="Följ Hamsterpaj på Facebook"><img src="http://images.hamsterpaj.net/follow_us_facebook.png" alt="Följ Hamsterpaj på Facebook"/></a></div>';
 	$output .= '	<div id="ui_wrapper">' . "\n";
 	$custom_logo_style = (isset($options['custom_logo'])) ? 'style="background-image: url(\'' . $options['custom_logo'] . '\');"' : '';
 	$output .= '		<div id="ui_header">' . "\n";
@@ -507,6 +513,13 @@ function ui_bottom($options = array())
 	$output .= '<div><script type="text/javascript">CM8ShowAd("Skyscraper");</script></div>' . "\n";
 	$output .= '<iframe src="http://nyheter24.se/special/hamsterpaj-ads.html" style="border: 0; overflow: hidden; width: 142px; height: 352px;" scrolling="no" frameborder="0"></iframe>';
 	$output .= '</div>' . "\n";
+	$output .= '<script type="text/javascript">
+							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55633)\' + new
+							String (Math.random()).substring (2, 11);
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
+							charset="UTF-8"></sc\'+\'ript>\');
+							</script>' . "\n";
+	$output .= '</div>' . "\n";
 	
 	$output .= '<div id="fiskpinne" style="background: none;">' . "\n";
 	$output .= '<script type="text/javascript"><!-- google_ad_client = "pub-3110640362329253"; /* hamsterpaj 160x600, skapad 2009-06-08 */ google_ad_slot = "0695149486"; google_ad_width = 160; google_ad_height = 600; //--></script><script type="text/javascript"src=" http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>' . "\n";
@@ -532,23 +545,19 @@ function ui_bottom($options = array())
 		$output .= '</div>' . "\n";	
 	}
 	
+		// Google analytics
 		$output .= '
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.hamsterpaj.net/piwik/" : "http://www.hamsterpaj.net/piwik/");
-document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="http://www.hamsterpaj.net/piwik/piwik.php?idsite=1" style="border:0" alt=""/></p></noscript>
-<!-- End Piwik Tag 
-<script type="text/javascript" src="http://www.hamsterpaj.net/clickheat/js/clickheat.js"></script><noscript><p><a href="http://www.labsmedia.com/clickheat/index.html">Web design optimisation</a></p></noscript><script type="text/javascript"><!--
-clickHeatSite = "Hamsterpaj";clickHeatGroup = "' . $_SERVER['SCRIPT_NAME']  . '";clickHeatServer = "http://www.hamsterpaj.net/clickheat/click.php";initClickHeat(); //-->
-</script>-->';
-		$output .= '<img src="http://sifomedia.nyheter24.se/RealMedia/ads/adstream_nx.ads/nyheter24/123645@TopRight?XE&Sajt=hamsterpaj&Grupp1=nyheter24natverket&XE" border="0" alt="" />';
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		try {
+		var pageTracker = _gat._getTracker("UA-10835550-1");
+		pageTracker._trackPageview();
+		} catch(err) {}</script>
+		';
+		
 	
 	$output .= '</body>' . "\n";
 	$output .= '</html>' . "\n";
@@ -928,4 +937,3 @@ function ui_module_render($options)
 			return '<img src="' . IMAGE_URL . 'common_icons/cake.png" style="width: 30px; height: 20px; alt="Personen fyller år idag" />';
 		}
 	}
-?>
