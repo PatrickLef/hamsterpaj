@@ -8,7 +8,7 @@
 	
 	$query  = 'SELECT l.id AS userid, u.image AS image, u.birthday AS birthday, c.real_name AS real_name, c.task AS task, c.info_text AS info_text';
 	$query .= ' FROM login AS l, userinfo AS u, crew_members AS c';
-	$query .= ' WHERE c.userid = l.id AND u.userid = l.id AND c.removed = 0';
+	$query .= ' WHERE c.userid = l.id AND u.userid = l.id AND c.removed = 0 ORDER BY c.priority DESC';
 	$result = mysql_query($query) or report_sql_error($query);
 	
 	echo '<h1 style="font-size: 24px; font-family: georgia, serif;">Vi som gör Hamsterpaj</h1>' . "\n";

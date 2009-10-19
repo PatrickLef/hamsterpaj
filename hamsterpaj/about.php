@@ -5,7 +5,7 @@
 	require(PATHS_LIBRARIES . 'articles.lib.php');
 	$ui_options['stylesheets'][] = 'articles.css';
 	
-	$article = articles_fetch(array('id' => '63'));
+	$article = articles_fetch(array('id' => '150'));
 	$out .= render_full_article($article);
 	
 	ui_top($ui_options);
