@@ -165,8 +165,7 @@ function ui_top($options = array())
 	$output .= '<script type="text/javascript">
 							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55632)\' + new
 							String (Math.random()).substring (2, 11);
-							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
-							charset="UTF-8"></sc\'+\'ript>\');
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'" charset="UTF-8"></sc\'+\'ript>\');
 							</script>' . "\n";
 	$output .= '	<script type="text/javascript">CM8ShowAd("Bigbanner");</script>' . "\n";
 	$output .= '</div>' . "\n";
@@ -516,8 +515,7 @@ function ui_bottom($options = array())
 	$output .= '<script type="text/javascript">
 							var uri = \'http://anet.tradedoubler.com/anet?type(js)loc(55633)\' + new
 							String (Math.random()).substring (2, 11);
-							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'"
-							charset="UTF-8"></sc\'+\'ript>\');
+							document.write(\'<sc\'+\'ript type="text/javascript" src="\'+uri+\'" charset="UTF-8"></sc\'+\'ript>\');
 							</script>' . "\n";
 	$output .= '</div>' . "\n";
 	
