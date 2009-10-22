@@ -12,7 +12,7 @@
 	$ui_options['stylesheets'][] = 'fp_common_modules.css';
 
 	$ui_options['title'] = 'Startsidan på Hamsterpaj - Community - Underhållning - Onlinespel';
-	$ui_options['menu_path'] = array('hamsterpaj');
+	$ui_options['menu_active'] = 'hamsterpaj';
 	$ui_options['adtoma_category'] = 'start';
 
 	$fp_modules = fp_modules_fetch(array('removal_min' => time(), 'launch_max' => time()));
