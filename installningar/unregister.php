@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('installningar', 'avregistrera');
+	$ui_options['menu_active'] = 'settings_unregister';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
 	
 	if(login_checklogin() != 1)

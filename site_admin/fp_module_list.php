@@ -6,7 +6,7 @@
 	$ui_options['stylesheets'][] = 'fp_modules.css';
 
 	$ui_options['title'] = 'Arrangera om startsidemoduler';
-	$ui_options['menu_path'] = array('hamsterpaj');
+	$ui_options['menu_active'] = 'site_admin_frontpage';
 	
 	if (!is_privilegied('fp_module_rearrange'))
 	{

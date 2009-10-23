@@ -1,7 +1,7 @@
 <?php
 	require('../include/core/common.php');
 	require(PATHS_LIBRARIES . 'profile.lib.php');
-	$ui_options['menu_path'] = array('installningar','forum_installningar');
+	$ui_options['menu_active'] = 'settings_forum_settings';
 
 	$ui_options['stylesheets'][] = 'settings.css';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';

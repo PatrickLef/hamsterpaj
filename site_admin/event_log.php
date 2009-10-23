@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	require(PATHS_LIBRARIES . 't67Graph.lib.php');
 	require(PATHS_LIBRARIES . 't67Core.lib.php');
-	$ui_options['menu_path'] = array('admin', 'statistik');
+	$ui_options['menu_active'] = 'site_admin_statistics';
 	$ui_options['title'] = 'Statistik för Hamsterpaj.net';
 	$ui_options['stylesheets'][] = 't67Graph.css';
 

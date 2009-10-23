@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	require(PATHS_LIBRARIES . 'profile.lib.php');
 	$ui_options['title'] = 'Guestbook-hack - Hamsterpaj.net';
-	$ui_options['menu_path'] = array('fra', 'guestbook_hack');
+	$ui_options['menu_active'] = 'admin_guestbook_hack';
 	
 	try 
 	{

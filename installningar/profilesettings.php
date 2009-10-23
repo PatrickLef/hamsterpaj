@@ -3,7 +3,7 @@
 	require(PATHS_LIBRARIES . 'profile.lib.php');
 	
 	//----------------------
-	$ui_options['menu_path'] = array('installningar', 'profil');
+	$ui_options['menu_active'] = 'settings_profile_settings';
 
 	//$ui_options['javascripts'][] = 'zip_codes.js';
 	$ui_options['javascripts'][] = 'settings.js';

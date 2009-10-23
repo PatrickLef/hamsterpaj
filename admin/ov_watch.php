@@ -1,7 +1,7 @@
 <?php
 	require('../include/core/common.php');
 
-	$ui_options['menu_path'] = array('admin', 'ov_watch');
+	$ui_options['menu_active'] = 'admin_ov_statistics';
 	$ui_options['stylesheets'][] = 'forms.css';
 	$ui_options['stylesheets'][] = 'ov_watch.css';
 

@@ -3,7 +3,7 @@
 	require('../include/core/common.php');
 	$ui_options['current_menu'] = 'admin';
 	$ui_options['stylesheets'][] = 'admin_log.css';
-	$ui_options['menu_path'] = array('admin', 'log_view');
+	$ui_options['menu_active'] = 'admin_admin_log';
 	require_once(PATHS_LIBRARIES . 'admin.lib.php');
 	
 	if(!is_privilegied('ov_log'))
