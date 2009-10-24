@@ -1,7 +1,7 @@
 <?php
 	require('../include/core/common.php');
 	require(PATHS_LIBRARIES . 'movie_compability.lib.php');
-	$ui_options['menu_path'] = array('dev', 'visa_sessionsdata');
+	$ui_options['menu_active'] = 'site_admin_view_session';
 	ui_top($ui_options);
 
 	if(is_privilegied('use_debug_tools'))

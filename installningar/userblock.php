@@ -18,7 +18,7 @@
 	}
 	
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
-	$ui_options['menu_path'] = array('installningar', 'blockera');
+	$ui_options['menu_active'] = 'settings_userblock';
 	ui_top($ui_options);
 	
 

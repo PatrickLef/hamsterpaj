@@ -1,6 +1,6 @@
 <?php
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('admin', 'ban');
+	$ui_options['menu_active'] = 'admin_ip_ban';
 	
 	if(!is_privilegied('ip_ban_admin'))
 	{

@@ -1,7 +1,7 @@
 <?php
 	
 	require('../include/core/common.php');
-	$ui_options['menu_path'] = array('installningar', 'byt_visningsbild');
+	$ui_options['menu_active'] = 'settings_avatar_settings';
 	
 	if($_SESSION['login']['id'] == 804445)
 	{

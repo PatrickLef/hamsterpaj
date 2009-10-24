@@ -6,7 +6,7 @@
 	
 	
 	//----------------------
-	$ui_options['menu_path'] = array('admin', 'warnings');
+	$ui_options['menu_active'] = 'admin_warnings';
 	$ui_options['stylesheets'][] = 'user_profile.css';
 	$ui_options['stylesheets'][] = 'warnings_dot_php.css';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';

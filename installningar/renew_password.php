@@ -1,7 +1,7 @@
 <?php
 	require('../include/core/common.php');
-	
-	ui_top();
+	$ui_options['menu_active'] = 'settings_change_password';
+	ui_top($ui_options);
 	
 	if(isset($_POST['username']) && strtolower($_POST['username']) == 'borttagen')
 	{

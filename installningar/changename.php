@@ -1,7 +1,7 @@
 <?php
 
 require('../include/core/common.php');
-$ui_options['menu_path'] = array('installningar', 'byt_namn');
+$ui_options['menu_active'] = 'settings_change_username';
 $ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
 
   if(login_checklogin() != 1)

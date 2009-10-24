@@ -5,6 +5,7 @@ try
 	$ui_options['title'] = 'Hamsterpajs diskussionsforum administration';
 	$ui_options['stylesheets'][] = 'forms.css';
 	$ui_options['stylesheets'][] = 'rounded_corners_tabs.css';
+	$ui_options['menu_active'] = 'site_admin_forum_admin';
 
 	if(!is_privilegied('forum_admin'))
 	{

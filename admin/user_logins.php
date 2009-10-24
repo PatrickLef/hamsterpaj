@@ -2,7 +2,7 @@
 	require('../include/core/common.php');
 	
 	//$ui_options['current_menu'] = 'annat';
-	$ui_options['menu_path'] = array('fra', 'user_logins');
+	$ui_options['menu_active'] = 'admin_user_logins';
 	$ui_options['title'] = 'Visar inloggningar från en användare';
 	$ui_options['stylesheets'][] = 'forms.css';
 

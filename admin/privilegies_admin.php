@@ -370,7 +370,7 @@ skickas med till is_privilegied() så kommer man alltså få tillbaka true om an
 		break;
 	}
 	
-	$ui_options['menu_path'] = array('admin', 'privilegies_admin');
+	$ui_options['menu_active'] = 'admin_priveleges';
 	$ui_options['title'] = 'Privilegier på Hamsterpaj.net';
 	ui_top($ui_options);
 		echo $out_on_top . $output;
