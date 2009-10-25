@@ -7,6 +7,7 @@ function ui_top($options = array())
 		$ui_options['stylesheets'] = $options['stylesheets'];
 		$ui_options['javascripts'] = array_merge($js_compress_important_files, $options['javascripts']);
 		$ui_options['ui_top_called'] = true;
+		$ui_options['title'] = isset($options['title']) ? $options['title'] : false;
 		return '';
 	}
 	/* Den här raden skapades när nya ui_top skapades. Låt den vara kvar, så kommer man ha något att le åt av nostalgiska syften. 2008-08-15, Joel.
