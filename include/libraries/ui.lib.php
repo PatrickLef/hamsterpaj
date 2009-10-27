@@ -4,7 +4,7 @@ function ui_top($options = array())
 	if ( defined('IS_HP4') )
 	{
 		global $ui_options, $js_compress_important_files;
-		$ui_options['stylesheets'] = $options['stylesheets'];
+		$ui_options['stylesheets'] = Tools::pick($options['stylesheets'], array());
 		$ui_options['javascripts'] = array_merge($js_compress_important_files, Tools::pick($options['javascripts'], array()));
 		$ui_options['ui_top_called'] = true;
 		$ui_options['title'] = isset($options['title']) ? $options['title'] : false;
