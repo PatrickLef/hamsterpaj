@@ -5,7 +5,7 @@ function ui_top($options = array())
 	{
 		global $ui_options, $js_compress_important_files;
 		$ui_options['stylesheets'] = $options['stylesheets'];
-		$ui_options['javascripts'] = array_merge($js_compress_important_files, $options['javascripts']);
+		$ui_options['javascripts'] = array_merge($js_compress_important_files, Tools::pick($options['javascripts'], array()));
 		$ui_options['ui_top_called'] = true;
 		$ui_options['title'] = isset($options['title']) ? $options['title'] : false;
 		return '';
