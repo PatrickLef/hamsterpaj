@@ -26,8 +26,7 @@ function womOn()
 	window.wom_old_onload = window.onload || function(){};
 	window.onload = womGoReal;
 	
-	$(document).ready(function()
-	{
+	$(document).ready(function() {
 		womGo();
 	});
 }
