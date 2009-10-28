@@ -1,7 +1,7 @@
 <?php    
 	require('../include/core/common.php');
 	$ui_options['admtoma_category'] = 'chat';
-	$ui_options['menu_path'] = array('chatt');
+	$ui_options['menu_active'] = 'community_chatt';
 	$ui_options['stylesheets'][] = 'chat.css';
 	ui_top($ui_options);
 

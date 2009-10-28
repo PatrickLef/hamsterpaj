@@ -153,6 +153,7 @@
 		{
 			$query = 'UPDATE forum_posts SET child_count = child_count + 1, last_post = "' . $post_id . '", last_post_timestamp = "' . time() . '" WHERE id = "' . $post['parent_post'] . '" LIMIT 1';
 			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+			event_log_log('forum_post');
 			
 		}
 		if($post['mode'] == 'new_thread')
@@ -161,12 +162,14 @@
 			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);			
 
 			$query = 'UPDATE forum_posts SET last_post = "' . $post_id . '", parent_post = "' . $post_id . '", last_post_timestamp = "' . time() . '" WHERE id = "' . $post_id . '" LIMIT 1';
-			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);			
+			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		
+			event_log_log('forum_thread');	
 		}
 		else
 		{
 			$query = 'UPDATE public_forums SET post_count = post_count + 1, last_post = "' . $post_id . '" WHERE id = "' . $post['forum_id'] . '"';
 			mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+			event_log_log('forum_post');
 		}
 		
 		discussion_forum_parse_input(array('text' => $post['content'], 'post_id' => $post_id, 'author' => $post['author'], 'title' => $post['title']));
