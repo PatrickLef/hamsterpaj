@@ -270,7 +270,7 @@
 	}
 	
 	/* Category read */
-	if($_GET['action'] == 'set_category_read')
+	if($_GET['action'] == 'set_category_read' && is_numeric($_GET['category']))
 	{
 		$category = discussion_forum_categories_fetch(array('id' => $_GET['category']));
 		$options['show_new_threads'] = true;
@@ -278,9 +278,15 @@
 		$threads = discussion_forum_post_fetch($options);
 		forum_update_category_session(array('category' => $category[0], 'threads' => $threads));
 		discussion_forum_reload_category_subscriptions();
-		if(!empty($_GET['return']))
+		
+		if(!empty($_GET['return']) && $_GET['return'][0] === '/')
 		{
 			header('Location: ' . $_GET['return'] . '');
+			exit;
+		}
+		else
+		{
+			exit;
 		}
 	}
 	

@@ -72,66 +72,67 @@
 		<br style="clear: both;" />
 <?php
 	ui_bottom();
-	exit;
-	}
-	
-	unset($options);
-	if(isset($_POST['question']))
-	{
-		$answer = dl_question_answer($_POST['question'], $_POST['answer']);
-		if(login_checklogin() && $_GET['action'] == 'test')
-		{
-			$_SESSION['drivers-license']['answered_questions'][] = $_POST['question'];
-		}
-	}
-	
-	if($_GET['action'] == 'test' && login_checklogin())
-	{
-		$options['mode'] = 'test';
-		$return = dl_question_fetch($options);
-		dl_question_echo($return['question'], $return['alternatives']);
-	}
-	elseif($_GET['action'] == 'practice')
-	{
-		$options['mode'] = 'practice';
-		if(isset($_GET['category']))
-		{
-			$options['category'] = $_GET['category'];
-		}
-		$return = dl_question_fetch($options);
-		if($return == false)
-		{
-			jscript_alert('Trace');
-			jscript_alert('Du har klarat av alla frågor i denna kategori. Om du vill börja om rensar du dina poäng genom att trycka på det röda krysset i kategorilistan.');
-			jscript_location($_SERVER['PHP_SELF']);
-		}
-		else
-		{
-			dl_question_echo($return['question'], $return['alternatives']);
-			/*if($return['question']['id'] == 168)
-			{
-				treasure_item(4);
-			}*/
-		}
-	}
-	elseif($_GET['action'] == 'clear_all')
-	{
-		dl_clear_all();
-		jscript_location($_SERVER['PHP_SELF']);
-	}
-	elseif($_GET['action'] == 'clear_category')
-	{
-		dl_clear_category();
-		jscript_location($_SERVER['PHP_SELF']);
 	}
 	else
 	{
-		dl_index();
+	    unset($options);
+	    if(isset($_POST['question']))
+	    {
+		    $answer = dl_question_answer($_POST['question'], $_POST['answer']);
+		    if(login_checklogin() && $_GET['action'] == 'test')
+		    {
+			    $_SESSION['drivers-license']['answered_questions'][] = $_POST['question'];
+		    }
+	    }
+	    
+	    if($_GET['action'] == 'test' && login_checklogin())
+	    {
+		    $options['mode'] = 'test';
+		    $return = dl_question_fetch($options);
+		    dl_question_echo($return['question'], $return['alternatives']);
+	    }
+	    elseif($_GET['action'] == 'practice')
+	    {
+		    $options['mode'] = 'practice';
+		    if(isset($_GET['category']))
+		    {
+			    $options['category'] = $_GET['category'];
+		    }
+		    $return = dl_question_fetch($options);
+		    if($return == false)
+		    {
+			    jscript_alert('Trace');
+			    jscript_alert('Du har klarat av alla frågor i denna kategori. Om du vill börja om rensar du dina poäng genom att trycka på det röda krysset i kategorilistan.');
+			    jscript_location($_SERVER['PHP_SELF']);
+		    }
+		    else
+		    {
+			    dl_question_echo($return['question'], $return['alternatives']);
+			    /*if($return['question']['id'] == 168)
+			    {
+				    treasure_item(4);
+			    }*/
+		    }
+	    }
+	    elseif($_GET['action'] == 'clear_all')
+	    {
+		    dl_clear_all();
+		    jscript_location($_SERVER['PHP_SELF']);
+	    }
+	    elseif($_GET['action'] == 'clear_category')
+	    {
+		    dl_clear_category();
+		    jscript_location($_SERVER['PHP_SELF']);
+	    }
+	    else
+	    {
+		    dl_index();
+	    }
+	    
+	    echo '<div class="how_it_works">' . "\n";
+	    echo 'Teoriprogrammet döljer automatiskt frågor som du svarat rätt på två gånger i rad. Ibland kan det hända att du får samma fråga två gånger i rad, det är inget konstigt utan hänger ihop med hur slumpningen fungerar.';
+	    echo '</div>' . "\n";
+	    
+	    ui_bottom();
 	}
-	
-	echo '<div class="how_it_works">' . "\n";
-	echo 'Teoriprogrammet döljer automatiskt frågor som du svarat rätt på två gånger i rad. Ibland kan det hända att du får samma fråga två gånger i rad, det är inget konstigt utan hänger ihop med hur slumpningen fungerar.';
-	echo '</div>' . "\n";
-	
-	ui_bottom();
 ?>

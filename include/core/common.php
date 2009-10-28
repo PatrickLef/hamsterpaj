@@ -4,29 +4,32 @@
 	ob_start();
 	
 	// Sanitize POST and GET data
-	$new_post = array();
-	$new_get = array();
-	
-	foreach($_POST AS $key => $value)
+	if ( ! defined('IS_HP4') )
 	{
-		if(!is_array($value))
+		$new_post = array();
+		$new_get = array();
+		
+		foreach($_POST AS $key => $value)
 		{
-			$new_post[htmlspecialchars($key)] = htmlspecialchars($value);
+			if(!is_array($value))
+			{
+				$new_post[htmlspecialchars($key)] = htmlspecialchars($value);
+			}
 		}
-	}
-	
-	foreach($_GET AS $key => $value)
-	{
-		if(!is_array($value))
+		
+		foreach($_GET AS $key => $value)
 		{
-			$new_get[htmlspecialchars($key)] = htmlspecialchars($value);
+			if(!is_array($value))
+			{
+				$new_get[htmlspecialchars($key)] = htmlspecialchars($value);
+			}
 		}
+		
+		$_OLD_POST = $_POST;
+		$_POST = $new_post;
+		$_GET = $new_get;
+		unset($new_post, $new_get);
 	}
-	
-	$_OLD_POST = $_POST;
-	$_POST = $new_post;
-	$_GET = $new_get;
-	unset($new_post, $new_get);
 
 	define('CORE_PATH', substr(__FILE__, 0, strrpos(__FILE__, '/')+1));
 

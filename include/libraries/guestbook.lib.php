@@ -100,14 +100,14 @@
 			$data = mysql_fetch_assoc($result);
 			if(strlen($data['session_id']) > 5)
 			{
-				$remote_session = session_load($data['session_id']);
+				/*$remote_session = session_load($data['session_id']);
 				$remote_session['notices']['unread_gb_entries'] += 1;
 				$entry['image'] = $_SESSION['userinfo']['image'];
 				$entry['timestamp'] = time();
 				$entry['message'] = stripslashes($entry['message']);
 				$entry['username'] = $_SESSION['login']['username'];
 				$remote_session['unread_gb_entries'][] = $entry;
-				session_save($data['session_id'], $remote_session);
+				session_save($data['session_id'], $remote_session);*/
 			}
 		}
 

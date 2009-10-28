@@ -1,7 +1,4 @@
-﻿// If hp, "The Hamsterpaj Namespace", wasn't defined before then define it!
-if(typeof(hp) == 'undefined'){ var hp=new Object(); }
-
-/* Very handy little function... */
+﻿/* Very handy little function... */
 hp.give_me_an_AJAX = function(){
 	try{
 		return new XMLHttpRequest();
@@ -17,7 +14,6 @@ hp.give_me_an_AJAX = function(){
 		}
 	}
 }
-
 
 hp.mouse = {
 	x: 0,
