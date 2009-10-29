@@ -1,6 +1,7 @@
 <?php
 	require('../include/core/common.php');
 	$ui_options['menu_active'] = 'hamsterpaj_tillbakablickar';
+	$ui_options['title'] = 'Gamla versioner av Hamsterpaj.net';
 	ui_top($ui_options);
 	
 	echo '<h1>En god portion nostalgi</h1>' . "\n";
