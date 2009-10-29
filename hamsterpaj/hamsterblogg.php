@@ -8,7 +8,7 @@
 	$ui_options['stylesheets'][] = 'comments.css';
 	$ui_options['stylesheets'][] = 'groups.css';
 	$ui_options['title'] = 'Hamsterpajs ledning skriver för brinnande livet! - Hamsterpaj.net';
-	$ui_options['menu_active'] = 'hamsterpaj_hamsterblogg';
+	$ui_options['menu_active'] = 'hamsterpaj_Hamsternytt';
 	
 	switch($_GET['action'])
 	{
@@ -19,7 +19,7 @@
 			jscript_location('/');
 			die('Den här sidan kräver privilegiet: hamsterblog_admin');
 		}
-			$out .= '<h2>Skriv nytt inlägg i Hamsterbloggen :)</h2>';
+			$out .= '<h2>Skriv nytt inlägg i Hamsternytten :)</h2>';
 			$out .= rounded_corners_top();
 			$out .= '<form action="' . $_SERVER['PHP_SELF'] . '?action=insert" method="post">' . "\n";
 			$out .= '<label for="header">Rubrik</label><br />' . "\n";
@@ -48,7 +48,7 @@
 			$result = mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 			$data = mysql_fetch_assoc($result);
 			
-			$blogpost_url = '/hamsterpaj/hamsterblogg.php?action=show&id=' . $data['id'];
+			$blogpost_url = '/hamsterpaj/Hamsternytt.php?action=show&id=' . $data['id'];
 			$query = 'INSERT INTO recent_updates (type, timestamp, url, label) VALUES ("blog_post", "' . time() . '", "' . $blogpost_url . '", "' . $_POST['header'] . '")';
 			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 			
@@ -60,7 +60,7 @@
 			{
 				die('Sluta hacka, Joel kan ju pissa på sig av upphetsning');
 			}
-			$out .= '<h1>Hamsterblogg</h1>' . "\n";
+			$out .= '<h1>Hamsternytt</h1>' . "\n";
 			$sql = 'SELECT d.*, d.author AS user_id, l.username';
 			$sql .= ' FROM hamsterblog AS d, login AS l';
 			$sql .= ' WHERE l.id = d.author AND d.id = ' . $_GET['id'] . '';
@@ -76,7 +76,7 @@
 		
 		default:
 			
-			$out .= '<h1>Hamsterblogg</h1>' . "\n";
+			$out .= '<h1>Hamsternytt</h1>' . "\n";
 			$sql = 'SELECT d.*, d.author AS user_id, l.username';
 			$sql .= ' FROM hamsterblog AS d, login AS l';
 			$sql .= ' WHERE l.id = d.author';
