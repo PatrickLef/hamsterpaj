@@ -1,5 +1,4 @@
-<?php
-	
+<?php	
 	require('../include/core/common.php');
 	$ui_options['menu_active'] = 'settings_avatar_settings';
 	
@@ -12,7 +11,8 @@
 		exit;
 	}
 	
-	include(PATHS_INCLUDE . 'md5image-functions.php');
+
+//	include(PATHS_INCLUDE . 'md5image-functions.php');
 	include(PATHS_VENDORS . 'copy_protection/exif.php');
 	
 	if(!isset($_SESSION['login']['id']))
@@ -36,7 +36,7 @@
 	GLOBALA VARIABLER
 	- - - - - - - - - - - - - - 
 	*/		
-	$avatar_tmp_path = PATHS_SCRIPTROOT . 'tmp/avatars/'; 	// Temporär sökväg till avatars
+	$avatar_tmp_path = '/mnt/static/tmp/avatars/'; 	// Temporär sökväg till avatars
 	$avatar_path_thumb =  PATHS_IMAGES . 'users/thumb/';		// Avatarsökvägen
 	$avatar_path_full =  PATHS_IMAGES . 'users/full/';
 	
@@ -45,9 +45,9 @@
 	$avatar_tmp_full_filename = $avatar_tmp_path . $_SESSION['login']['id'] . '_full.jpg';
 	$avatar_tmp_thumb_filename = $avatar_tmp_path . $_SESSION['login']['id'] . '_thumb.jpg';
 	
-	$avatar_tmp_orginal_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_orginal.jpg?' . rand();
-	$avatar_tmp_full_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_full.jpg?' . rand();
-	$avatar_tmp_thumb_url = '/tmp/avatars/' . $_SESSION['login']['id'] . '_thumb.jpg?' . rand();
+	$avatar_tmp_orginal_url = 'http://static.hamsterpaj.net/tmp/avatars/' . $_SESSION['login']['id'] . '_orginal.jpg?' . rand();
+	$avatar_tmp_full_url = 'http://static.hamsterpaj.net/tmp/avatars/' . $_SESSION['login']['id'] . '_full.jpg?' . rand();
+	$avatar_tmp_thumb_url = 'http://static.hamsterpaj.net/tmp/avatars/' . $_SESSION['login']['id'] . '_thumb.jpg?' . rand();
 	
 	$avatar_orginal_width = 442; 	// Efter en bild laddas upp så skalas dom om till en angiven width.
 	$avatar_full_width = 320; 		// Fullstorleksbildens bredd
@@ -106,7 +106,6 @@
 			($_FILES['userimage']['type'] == 'image/bmp' && substr($filnamn, -4) == '.bmp'))
 		{
 			$tempfile = $_FILES['userimage']['tmp_name'];
-						
 			if(makeorginaljpg($tempfile, $avatar_tmp_orginal_filename) == TRUE ) 
 			{
 				header('Location:' . $_SERVER['PHP_SELF'] . '?step=2' . (isset($_POST['registerproccess']) ? '&registerproccess=1' : ''));
