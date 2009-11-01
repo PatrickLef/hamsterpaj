@@ -26,7 +26,7 @@
 				$output .= $forum_security;
 				break;
 			}
-
+			$ui_options['title'] = $category['title'] . ' - Hamsterpajs forum';
 			$path_to_category = discussion_forum_path_to_category(array('id' => $category['id']));
 			$locator_options['categories'] = $path_to_category;
 			$output .= discussion_forum_locator($locator_options);
@@ -91,6 +91,7 @@
 			break;
 		
 		case 'latest_threads':
+			$ui_options['title'] = 'Senaste trådarna i Hamsterpajs forum';
 			$ui_options['menu_active'] = 'forum_nya_tradar';
 			$output .= '<h2>De 50 senaste trådarna i forumet</h2>' . "\n";
 			$post_options['threads_only'] = true;
@@ -208,6 +209,7 @@
 		break;
 		
 		case 'search':
+			$ui_options['title'] = 'Sök i Hamsterpajs forum';
 			$ui_options['menu_active'] = 'forum_sok';
 			$output .= discussion_forum_search_form();
 			

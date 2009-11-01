@@ -4,7 +4,7 @@
 	$ui_options['stylesheets'][] = 'sex_sense.css';
 	$ui_options['javascripts'][] = 'sex_sense.js';
 	$ui_options['menu_active'] = 'sex_och_sinne';
-	$ui_options['title'] = 'Sex och Sinne - Hamsterpaj.net';
+	$ui_options['title'] = 'Sex & Sinne - Hamsterpaj.net';
 	
 	$out .= '<img id="sex_and_sense_top" src="http://images.hamsterpaj.net/sex_and_sense/sex_and_sense_top.png" alt="Sex och sinne" />' . "\n";
 	
@@ -17,6 +17,7 @@
 				$options['limit'] = 1;
 				$options['handle'] = $request['question_handle'];
 				$question = sex_sense_fetch_posts($options);
+				$ui_options['title'] = $question[0]['title'] . ' | Sex & Sinne - Hamsterpaj.net';
 				$out .= sex_sense_render_posts($question, array('unhide_content' => true));
 			break;
 			
@@ -27,7 +28,7 @@
 				$out .= sex_sense_render_category($category);
 				
 				$data = array_pop(array_pop(sex_sense_fetch_categories(array('category_handle' => $request['category_handle']))));
-
+				$ui_options['title'] = $data['category_title'] . ' | Sex & Sinne - Hamsterpaj.net';
 				$out .= '<h1>Senaste frågorna i kategorin ' . $data['category_title'] . '</h1>';
 
 				$options['category_id'] = $data['category_id'];

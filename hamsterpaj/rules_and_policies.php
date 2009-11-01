@@ -2,6 +2,7 @@
 	require('../include/core/common.php');
 	$ui_options['menu_active'] = 'hamsterpaj_regler';
 	$ui_options['javascripts'][] = 'settings.js';
+	$ui_options['title'] = 'Regler på Hamsterpaj.net';
 	
 	require(PATHS_LIBRARIES . 'articles.lib.php');
 	$ui_options['stylesheets'][] = 'articles.css';
