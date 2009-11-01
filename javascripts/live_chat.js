@@ -233,7 +233,7 @@ function live_chat_render_entry(chatroom, entry)
 	if(entry.user_photo)
 	{
 		user_photo.src = 'http://images.hamsterpaj.net/images/users/thumb/' + entry.user_photo + '.jpg';
-		hp.ui.avatar.enable_new();
+		//hp.ui.avatar.enable_new();
 	}
 	else
 	{
