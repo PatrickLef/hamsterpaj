@@ -72,6 +72,8 @@
 			}
 			$out .= render_entries($entries, array("enable_comments" => true));
 			
+			$sql = 'UPDATE hamsterblog SET views = views+1 WHERE id = ' . $_GET['id'] . ' LIMIT 1';
+			mysql_query($sql) or die(mysql_error());			
 		break;
 		
 		default:
