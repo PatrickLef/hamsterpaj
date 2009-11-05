@@ -155,7 +155,7 @@
 <br style="clear: both;" />
 
 <h1>Chatta med mIRC</h1>
-<p>Om du vill chatta med mIRC så kan du titta bland <a href="/annat/nedladdningar.php">Ladda ner program</a>, där finns en länk till mIRC. För att komma igång med programmet, läs vår <a href="/artiklar/?action=show&id=48">mIRC-guide</a></p>
+<p>Om du vill chatta med mIRC så kan du titta bland <a href="/mattan/ladda_ner_program.php">Ladda ner program</a>, där finns en länk till mIRC. För att komma igång med programmet, läs vår <a href="/artiklar/?action=show&id=48">mIRC-guide</a></p>
 
 <dl>
 	<dt>Server</dt>
