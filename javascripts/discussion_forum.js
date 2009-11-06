@@ -456,9 +456,6 @@ function forum_enable_post_thumbnails()
 
 /* BBCode, textformatting and such things: */
 
-// If hp, "The Hamsterpaj Namespace", wasn't defined before then define it!
-if(typeof(hp) == 'undefined'){ var hp=new Object(); }
-
 hp.discussion_forum = {
 	bbcode: {
 		insert: function(params){

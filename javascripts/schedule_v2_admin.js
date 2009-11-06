@@ -1,6 +1,3 @@
-// If hp, "The Hamsterpaj Namespace", wasn't defined before then define it!
-if(typeof(hp) == 'undefined'){ var hp=new Object(); }
-
 hp.schedule_v2 = {
 	admin: {
 		fetch_slot_data_path:  '/admin/schemalagt_v2.php?page=ajax_fetch_slot&id=' + '$1',
