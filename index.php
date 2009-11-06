@@ -93,8 +93,6 @@
 			{
 				$out .= '<p style="margin-top: 2px;"><a style="color: #565656; text-decoration: underline;" href="/piraja/prylar.php">Flera prylar</a></p>' . "\n";
 			}
-
-		$out .= '<br style="font-size: 0px; height: 0px; clear: both; line-height: 0px;" />' . "\n";
 		
 		if($module['commenting'] == 'true' || $module['published'] == 'true' || $module['grading'] == 'true')
 		{
