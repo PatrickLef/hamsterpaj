@@ -27,11 +27,13 @@
 		exit;
 	}
 	
+	$_GET['user_id'] = $user_id;
+	
 	
 	if (userblock_checkblock($user_id))
 	{
 		ui_top();
-		echo '<p class="error">IXΘYΣ! Du har blivit blockad, var snel hest så slipper du sånt ;)<br /><em>Visste du förresten att IXΘYΣ betyder Fisk på grekiska?</em></p>';
+		echo '<p class="error">IXΘYΣ! Du har blivit blockad, var snel hest så slipper du sånt!<br /><em>Visste du förresten att IXΘYΣ betyder Fisk på grekiska?</em></p>';
 		ui_bottom();
 		exit;
 	}
@@ -82,12 +84,17 @@
 		$query .= ' VALUES("' . time() . '", "' . $_SESSION['login']['id'] . '", "friendship", "/traffa/profile.php?id=' . $_GET['id'] . '", "' . $user['username'] . '")';
 		mysql_query($query);
 		
-		$output .= '<form action="/traffa/guestbook.php?action=send_new_message&userid=' . $_GET['user_id'] . '" method="post">' . "\n";
+		/*$output .= '<form action="/traffa/guestbook.php?action=send_new_message&userid=' . $_GET['user_id'] . '" method="post">' . "\n";
 		$output .= '<p>Vi tänkte att du kanske vill tala om för ' . $user['username'] . ' att du lagt till henne/honom som vän. Här har du ett gästboksformulär</p>' . "\n";
 		$output .= '<textarea name="message" class="textbox" rows="3" cols="75">Hej, jag har lagt till dig som vän nu :)</textarea>' . "\n";
 		$output .= '<input name="recipient" type="hidden" value="' . $_GET['id'] . '" />' . "\n";
 		$output .= '<input type="submit" value="Skicka" class="button_60" />' . "\n";
-		$output .= '</form>' . "\n";
+		$output .= '</form>' . "\n";*/
+		$options = array(
+		    'recipient' => $_GET['user_id'],
+		    'message' => 'Hej, jag har lagt till dig som vän nu :)'
+		);
+		$output .= guestbook_form($options);
 	}
 	if(login_checklogin() && $_GET['action'] == 'removefriend' && $_GET['user_id'] != $_SESSION['login']['id'])
 	{
@@ -128,7 +135,7 @@
 		if(!isset($friends[$_SESSION['login']['id']]) && !isset($fans[$_SESSION['login']['id']]))
 		{
 			$output .= rounded_corners_top(array('color' => 'blue_deluxe'));
-			$output .= $user['username'] . ' ligger inte på din vännerlista, <a href="?id=' . $_GET['user_id'] . '&action=addfriend">lägg till</a>';
+			$output .= $user['username'] . ' ligger inte på din vännerlista, <a href="?id=' . $_GET['user_id'] . '&action=addfriend&user_id=' . $_GET['user_id'] . '">lägg till</a>';
 			$output .= rounded_corners_bottom(array('color' => 'blue_deluxe'), tru);
 		}
 		if(isset($friends[$_SESSION['login']['id']]) || isset($fans[$_SESSION['login']['id']]))
