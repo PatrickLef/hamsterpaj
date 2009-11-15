@@ -128,7 +128,7 @@ hp.photoblog = {
 	make_scroller: function() {
 		var self = this;
 		
-		this.thumbs.append('<a id="photoblog_scroller_toggle" href="#">Visa allt</a>');
+		/*this.thumbs.append('<a id="photoblog_scroller_toggle" href="#">Visa allt</a>');
 		$('#photoblog_scroller_toggle').click(function() {
 			self.thumbs.toggleClass('hide_scroller');
 			if ( self.thumbs.hasClass('hide_scroller') )
@@ -136,7 +136,7 @@ hp.photoblog = {
 			else
 				hp.photoblog.view.centralize_active();
 			return false;
-		});
+		});*/
 		
 		// create scroller elements		
 		this.thumbs.removeClass('hide_scroller');
@@ -656,6 +656,11 @@ hp.photoblog = {
 	},
 	
 	load_image: function(id) {
+		if ( jQuery.browser.msie && jQuery.browser.version <= 7 ) {
+			document.location.href = '/fotoblogg/' + hp.photoblog.current_user.name + '/' + id + '#photoblog_thumbs'; 
+			return false;
+		}
+		
 		var self = this;
 		this.current_id = id;
 		var load_new_month = false;
