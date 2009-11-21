@@ -32,7 +32,7 @@
 	@import url('/stylesheets/shared.css');
 </style>
 
-<script type="text/javascript" language="javascript" src="/javascripts/avatar.js"></script>
+<script type="text/javascript" language="javascript" src="http://iphone2.hamsterpaj.net/javascripts/avatar.js"></script>
 </head>
 <body>
 <?php

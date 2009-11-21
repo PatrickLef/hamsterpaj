@@ -91,9 +91,7 @@
 				$query .= ' LIMIT 1';							mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);				
 				$i++;
 			}
-						if ( count($sql_parts[$id]) )			{				$or_ids = implode(' OR id = ', $sql_parts[$id]);				$query = 'UPDATE user_photos';				$query .= ' SET category = ' . $id;				$query .= ' WHERE id = ' . $or_ids;			}						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}	}		function photoblog_viewer($options)	{
-		global $photoblog_user;
-				$ret = '';				$options['include_dates'] = (isset($options['include_dates'])) ? $options['include_dates'] : true;		$options['load_first'] = (isset($options['load_first']) ? $options['load_first'] : false);
+						if ( count($sql_parts[$id]) )			{				$or_ids = implode(' OR id = ', $sql_parts[$id]);				$query = 'UPDATE user_photos';				$query .= ' SET category = ' . $id;				$query .= ' WHERE id = ' . $or_ids;			}						mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);		}	}		function photoblog_viewer($options)	{		global $photoblog_user;		$ret = '';				$options['include_dates'] = (isset($options['include_dates'])) ? $options['include_dates'] : true;		$options['load_first'] = (isset($options['load_first']) ? $options['load_first'] : false);
 		$options['album_view'] = (bool)$options['album_view'];
 		
 		$active_photo = (isset($options['active_id']) && $options['active_id']) ? $options['active_id'] : false;
@@ -110,7 +108,7 @@
 			}
 		}
 				$photo_options = array(			'user' => $user_id		);				if ( isset($options['date']) ) $photo_options['month'] = $options['date'];		if ( isset($options['category']) ) $photo_options['category'] = $options['category'];				$date = (isset($options['date'])) ? $options['date'] : date('Ym', time());				define('PHOTOBLOG_CURRENT_YEAR', substr($date, 0, 4));		define('PHOTOBLOG_CURRENT_MONTH', substr($date, 4, 2));		define('PHOTOBLOG_CURRENT_USER', $user_id);				$photos = (! isset($options['photos']) ) ? photoblog_photos_fetch($photo_options) : $options['photos'];		
-		$ret .= '<!--[if lte IE 7]>';
+		$ret .= '<!--[if lt IE 7]>';
 		$ret .= '<div class="photoblog_ie_warning">';
 		$ret .= '<p>Tjena! Som du kanske har märkt så fungerar fotobloggen inte så överdrivet bra med den versionen av Internet Explorer du kör nu! :( Det beror på att det är en dålig webbläsare för oss som gör hemsidor. Men! Du kan alltid uppgradera till en bättre webbläsare, till exempel <a href="http://www.firefox.com/">Firefox</a>, <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.google.com/chrome">Google Chrome</a>, <a href="http://www.opera.com/">Opera</a> eller så kan du <a href="http://www.microsoft.com/windows/internet-explorer/">uppgradera till senaste versionen av Internet Explorer</a>. Om du gör något av detta så vinner du en internet!</p>';
 		$ret .= '</div>';
@@ -170,8 +168,7 @@
 					$ret .= '</div>';
 				$ret .= '</form>';
 				$ret .= '</div>';
-			}		$ret .= '</div>';				$ret .= '<script type="text/javascript">';			$ret .= 'hp.photoblog.current_user = {';				$ret .= 'id: ' . $user_id;				$ret .= ', date: ' . $date;
-				$ret .= ', album_view: ' . (int)($options['album_view'] || $options['is_album']);			$ret .= '};';			$ret .= 'hp.photoblog.view.current_id = ' . ($current_photo['id'] ? $current_photo['id'] : '0') . ';';		$ret .= '</script>';		
+			}		$ret .= '</div>';				$ret .= '<script type="text/javascript">';			$ret .= 'hp.photoblog.current_user = {';				$ret .= 'id: ' . $user_id;				$ret .= ', date: ' . $date;				$ret .= ', name: "' . $photoblog_user['username'] . '"';				$ret .= ', album_view: ' . (int)($options['album_view'] || $options['is_album']);			$ret .= '};';			$ret .= 'hp.photoblog.view.current_id = ' . ($current_photo['id'] ? $current_photo['id'] : '0') . ';';		$ret .= '</script>';		
 		if ( $current_photo )
 		{
 			$comments = photoblog_comments_fetch(array('photo_id' => $current_photo['id']));						$comment_options = array(				'my_blog' => $_SESSION['login']['id'] == $photoblog_user['id'],			);						$ret .= photoblog_comments_form($photo_options);			$ret .= photoblog_comments_list($comments, $comment_options);		}

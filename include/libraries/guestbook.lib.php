@@ -229,7 +229,7 @@
 		$out .= '<form class="gb_form" method="post" action="/ajax_gateways/guestbook.json.php" id="' . $options['form_id'] . '">' . "\n";
 		$out .= '<input type="hidden" name="action" value="insert" />' . "\n";
 		$out .= '<input type="hidden" name="recipient" value="' . $options['recipient'] . '" />' . "\n";
-		$out .= '<textarea name="message" id="' . $options['form_id'] . '_message"></textarea>' . "\n";
+		$out .= '<textarea name="message" id="' . $options['form_id'] . '_message">' . (isset($options['message']) ? $options['message'] : '') . '</textarea>' . "\n";
 		$out .= '<input type="checkbox" name="private" value="1" id="' . $options['form_id'] . '_private_check" />' . "\n";
 		$out .= '<label for="' . $options['form_id'] . '_private_check">Privat inlägg</label>' . "\n";
 		$out .= '<input type="submit" class="button_60" value="Skicka" />' . "\n";

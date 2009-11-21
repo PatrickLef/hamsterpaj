@@ -1,5 +1,3 @@
-// If hp, "The Hamsterpaj Namespace", wasn't defined before then define it!
-if(typeof(hp) == 'undefined'){ var hp = new Object(); }
 
 hp.tests = {
 	create: {

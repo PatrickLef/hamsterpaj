@@ -1,7 +1,4 @@
-﻿// If hp, "The Hamsterpaj Namespace", wasn't defined before then define it!
-if(typeof(hp) == "undefined"){ var hp=new Object(); }
-
-hp.my_visitors = {
+﻿hp.my_visitors = {
 	scrollstate: 0,
 	picholder_offsetLeft: 0,
 	picholder_offsetTop: 0,
