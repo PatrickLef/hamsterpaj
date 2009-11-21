@@ -44,13 +44,15 @@
 			$query = 'INSERT INTO hamsterblog (timestamp, author, header, content) VALUES (' . time() . ', ' . $_SESSION['login']['id'] . ', "' . $_POST['header'] . '", "' . $_POST['content'] . '")';
 			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 			
-			$query = 'SELECT id FROM hamsterblog ORDER BY timestamp DESC LIMIT 1';
+			$query = 'SELECT * FROM hamsterblog ORDER BY timestamp DESC LIMIT 1';
 			$result = mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
 			$data = mysql_fetch_assoc($result);
 			
 			$blogpost_url = '/hamsterpaj/Hamsternytt.php?action=show&id=' . $data['id'];
 			$query = 'INSERT INTO recent_updates (type, timestamp, url, label) VALUES ("blog_post", "' . time() . '", "' . $blogpost_url . '", "' . $_POST['header'] . '")';
 			mysql_query($query) or die(report_sql_error($query, __FILE__, __LINE__));
+			
+			new FeedPostHamsternytt($data);
 			
 			header('Location: ' . $blogpost_url);
 		break;
