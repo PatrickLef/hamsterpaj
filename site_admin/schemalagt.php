@@ -2,7 +2,7 @@
 
 require('../include/core/common.php');
 require_once(PATHS_LIBRARIES . 'schedule.lib.php');
-$ui_options['menu_path'] = array('admin', 'schemalagt');
+$ui_options['menu_active'] = 'site_admin_schemalagt';
 $ui_options['stylesheets'][] = 'schedule_list.css';
 if(!is_privilegied('schedule_admin'))
 {
@@ -31,13 +31,13 @@ foreach($scheduled AS $event)
 	$options['events'][] = $event;
 }
 
-$item_types['new_game'] = '<a href="/onlinespel/admin/">Spel</a>';
-$item_types['new_flash'] = '<a href="/flashfilmer/admin/">Flashfilmer</a>';
-$item_types['new_clip'] = '<a href="/filmklipp/admin/">Filmklipp</a>';
-$item_types['new_image'] = '<a href="/roliga_bilder/admin/">Roliga bilder</a>';
-$item_types['poll'] = '<a href="/poll/">Undersökningar</a>';
+//$item_types['new_game'] = '<a href="/onlinespel/admin/">Spel</a>';
+//$item_types['new_flash'] = '<a href="/flashfilmer/admin/">Flashfilmer</a>';
+//$item_types['new_clip'] = '<a href="/filmklipp/admin/">Filmklipp</a>';
+//$item_types['new_image'] = '<a href="/roliga_bilder/admin/">Roliga bilder</a>';
+//$item_types['poll'] = '<a href="/poll/">Undersökningar</a>';
 $item_types['sex_sense'] = 'Sex och sinne';
-$item_types['music_guess'] = 'Gissa låten';
+//$item_types['music_guess'] = 'Gissa låten';
 
 $warning_levels[100] = array('text' => 'Gott om objekt', 'class' => 'schedule_buffer_5');
 $warning_levels[65] = array('text' => 'Fyll gärna på mer', 'class' => 'schedule_buffer_4');

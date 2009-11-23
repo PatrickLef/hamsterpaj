@@ -388,6 +388,8 @@
 				$message .= '<a href="' . $direct_link . '">http://hamsterpaj.net' . $direct_link . '</a>' . "\n";
 				$entry['message'] = mysql_real_escape_string($message);
 				guestbook_insert($entry);
+				
+				new FeedPostSexSense($post);
 			}
 		}
 	}
