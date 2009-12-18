@@ -177,10 +177,12 @@
 		if($post['mode'] == 'new_thread')
 		{
 			forum_thread_cache_latest_threads();
+			forum_thread_cache_latest_threads($post['forum_id']);
 		}
 		else
 		{
 			forum_latest_posts_cache();
+			forum_latest_posts_cache($post['forum_id']);
 		}
 		if($post['mode'] == 'new_thread' && $post['forum_id'] == 82)
 		{
@@ -970,13 +972,21 @@
 		}
 	}
 	
-	function forum_thread_cache_latest_threads()
+	function forum_thread_cache_latest_threads($id = null)
 	{
-		$threads = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'min_quality_level' => 2, 'max_userlevel_read' => 1));
-		cache_save('latest_forum_threads', $threads);
-
-		$spam = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'max_quality_level' => 1));
-		cache_save('latest_forum_spam', $spam);
+		if(isset($id))
+		{
+			$threads = discussion_forum_post_fetch(array('forum_id' => $id,'threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'max_userlevel_read' => 1));
+			cache_save('latest_forum_threads_' . $id, $threads);
+		}
+		else
+		{
+			$threads = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'min_quality_level' => 2, 'max_userlevel_read' => 1));
+			cache_save('latest_forum_threads', $threads);
+	
+			$spam = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'max_quality_level' => 1));
+			cache_save('latest_forum_spam', $spam);
+		}
 	}
 	
 	function forum_thread_cache_latest_open_source_threads()
@@ -985,10 +995,19 @@
 		cache_save('latest_forum_open_source_threads', $threads);
 	}
 	
-	function forum_latest_posts_cache($options = array())
+	function forum_latest_posts_cache($id)
 	{
-		$posts = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 10, 'url_lookup' => true, 'order-by' => 'p.last_post', 'order-direction' => 'DESC',  'min_quality_level' => 2, 'max_userlevel_read' => 1));
-		cache_save('latest_forum_posts', $posts);		
+			
+		if(isset($id))
+		{
+			$posts = discussion_forum_post_fetch(array('forum_id' => $id,'threads_only' => 'true', 'limit' => 8, 'url_lookup' => true, 'order-by' => 'p.id', 'order-direction' => 'DESC', 'max_userlevel_read' => 1));
+			cache_save('latest_forum_posts_' . $id, $posts);
+		}
+		else
+		{
+			$posts = discussion_forum_post_fetch(array('threads_only' => 'true', 'limit' => 10, 'url_lookup' => true, 'order-by' => 'p.last_post', 'order-direction' => 'DESC',  'min_quality_level' => 2, 'max_userlevel_read' => 1));
+			cache_save('latest_forum_posts', $posts);		
+		}
 	}
 	
 	function discussion_forum_count_views($thread)
