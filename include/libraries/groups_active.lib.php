@@ -496,7 +496,7 @@ EOD;
 	
 		if ($data['valid'] == 0) 
 		{
-			$query = 'SELECT COUNT(*) AS valid FROM groups_members WHERE groupid = ' . $groupid . ' AND userid = ' . $userid . ' AND approved = ' . $approved;
+			$query = 'SELECT COUNT(*) AS valid FROM groups_members WHERE groupid = ' . intval($groupid) . ' AND userid = ' . intval($userid) . ' AND approved = ' . $approved;
 			$result = mysql_query($query) or die(report_sql_error($query));
 			$data = mysql_fetch_assoc($result);
 		}	

@@ -41,6 +41,7 @@
 						$user_session['login']['quality_level'] = $_POST['quality_level'];
 						$user_session['login']['quality_level_expire'] = $_POST['expire'];
 						echo '<p>User quality level updated</p>' . "\n";
+						echo '<p><strong>&Auml;ndringarna hos anv&auml;ndaren m&auml;rks inte f&ouml;rr&auml;n personen loggat ut.</strong> <a href="/admin/logout_user.php?action=logout&username=' . $user['username'] . '">Kirra det h&auml;r</a></p>';
 						preint_r($_POST);
 					}
 					else
