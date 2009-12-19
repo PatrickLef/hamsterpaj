@@ -185,6 +185,14 @@
 		{
 			$_SESSION['forum']['categories'][$data['category_id']] = $data;
 		}
+		
+		// * ´Get user module settings
+		$query = 'SELECT * FROM side_modules WHERE user_id = "' . $user_id . '"';
+		$result = mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
+		while($data = mysql_fetch_assoc($result))
+		{
+			$_SESSION['module_' . $data['handle'] . '_settings'] = $data['settings'];
+		}
 	}
 	
 	function login_validate_password($userid, $password_hash, $password, $password_version)
