@@ -77,6 +77,21 @@
 		mysql_query($query) or report_sql_error($query, __FILE__, __LINE__);
 		$entry['id'] = mysql_insert_id();
 
+		// Add to recievers session
+    $query = 'SELECT session_id FROM login WHERE id = "' . $entry['recipient'] . '" LIMIT 1';
+    $result = mysql_query($query) or report_sql_error($query);
+    if(mysql_num_rows($result) == 1)
+    {
+      $data = mysql_fetch_assoc($result);
+      if(strlen($data['session_id']) > 0)
+      {
+       	$remote_session = session_load($data['session_id']);
+       	$remote_session['notices']['unread_gb_entries'] = $remote_session['notices']['unread_gb_entries'] + 1;
+      	session_save($data['session_id'], $remote_session);
+      }
+    }
+
+
 		$query = 'UPDATE userinfo SET gb_entries = gb_entries + 1 WHERE userid = "' . $entry['recipient']. '" LIMIT 1';
 		if (!mysql_query($query))
 		{
