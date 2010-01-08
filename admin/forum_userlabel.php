@@ -2,12 +2,6 @@
 	require('../include/core/common.php');
 	$ui_options['menu_path'] = array('admin', 'forumstatus');
 	
-	if(!is_privilegied('forum_userlabel_admin'))
-	{
-		header('location: /');
-		die();
-	}
-	
 	$out .= '<h1>Ändra forumsstatus</h1> <br style="clear: both;" />';
 	$out .= rounded_corners_top();
 	$out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?action=view">' . "\n";
